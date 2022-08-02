@@ -1,6 +1,6 @@
 import time
 
-from pages.elements_page import TextBoxPage
+from pages.elements_page import TextBoxPage, CheckBoxPage
 
 
 class TestElements:
@@ -14,4 +14,16 @@ class TestElements:
             assert  input_email == output_email, 'error email'
             assert  input_curr_addr == output_curr_addrr, 'error cur addrr'
             assert  input_per_address == output_per_addrr, 'error per addrr'
-            time.sleep(2)
+
+
+
+    class TestCheckBox:
+        def test_check_box(self, driver):
+            check_box_page = CheckBoxPage(driver, 'https://demoqa.com/checkbox')
+            check_box_page.open()
+            check_box_page.open_full_list()
+            check_box_page.click_random_checkbox()
+            check = check_box_page.check_cheked_box()
+            check_output = check_box_page.get_check_cheked_box()
+            print(check)
+            print(check_output)
