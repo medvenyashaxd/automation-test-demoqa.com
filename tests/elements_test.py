@@ -1,6 +1,6 @@
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
 
 
 class TestElements:
@@ -16,7 +16,6 @@ class TestElements:
             assert  input_per_address == output_per_addrr, 'error per addrr'
 
 
-
     class TestCheckBox:
         def test_check_box(self, driver):
             check_box_page = CheckBoxPage(driver, 'https://demoqa.com/checkbox')
@@ -27,3 +26,17 @@ class TestElements:
             check_output = check_box_page.get_check_cheked_box()
             print(check)
             print(check_output)
+
+    class TestRadioButton:
+        def test_radio_button(self, driver):
+            radiio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
+            radiio_button_page.open()
+            radiio_button_page.click_radio_button('yes')
+            output_yes = radiio_button_page.output_text_button()
+            radiio_button_page.click_radio_button('impressive')
+            output_impressive = radiio_button_page.output_text_button()
+            assert output_yes == 'Yes', 'error yes'
+            assert output_impressive == 'Impressive', 'error impressive'
+
+
+
