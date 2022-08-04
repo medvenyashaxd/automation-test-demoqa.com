@@ -28,3 +28,17 @@ class RadioButtonLocators:
     RADIO_BUTTON_IMPRESSIVE = (By.CSS_SELECTOR, 'label[class="custom-control-label"][for="impressiveRadio"]')
 
     CHECK_RADIO_BUTTON = (By.CSS_SELECTOR, 'p span[class="text-success"]')
+
+
+class WebTablesLocators:
+    BUTTON_ADD = (By.CSS_SELECTOR, 'button[id="addNewRecordButton"]')
+    FIRST_NAME = (By.CSS_SELECTOR, 'input[id="firstName"]')
+    LAST_NAME = (By.CSS_SELECTOR, 'input[id="lastName"]')
+    EMAIL = (By.CSS_SELECTOR, 'input[id="userEmail"]')
+    AGE = (By.CSS_SELECTOR, 'input[id="age"]')
+    SALARY = (By.CSS_SELECTOR, 'input[id="salary"]')
+    DEPARTMENT = (By.CSS_SELECTOR, 'input[id="department"]')
+    BUTTON_SUBMIT = (By.CSS_SELECTOR, 'button[id="submit"]')
+    SCROLL_TO_ELEMENTS = (By.CSS_SELECTOR, 'div[class="mt-2 row"]')
+
+    TABLE_PERSON = (By.CSS_SELECTOR, 'div[class="rt-tr-group"]')

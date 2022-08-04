@@ -5,6 +5,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 @pytest.fixture(scope='function')
 def driver():
     driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.set_window_size(800, 600)
+    driver.maximize_window()
     yield driver
     driver.close()

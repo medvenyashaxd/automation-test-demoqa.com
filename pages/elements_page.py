@@ -1,7 +1,8 @@
 import random
 
-from generator.generator import generator_peson
-from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonLocators
+from generator.person_generator import generator_person
+from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonLocators, \
+    WebTablesLocators
 from pages.base_page import BasePage
 
 
@@ -9,7 +10,7 @@ class TextBoxPage(BasePage):
     locators = TextBoxPageLocators()
 
     def fill_all_fields(self):
-        person_info = next(generator_peson())
+        person_info = next(generator_person())
         full_name = person_info.full_name
         email = person_info.email
         current_address = person_info.current_address
@@ -80,5 +81,41 @@ class RadioButtonPage(BasePage):
 
 
 
+class WebTablesPage(BasePage):
+    locators = WebTablesLocators()
+
+    def click_add_and_fill_form(self, count):
+        person_info = next(generator_person())
+        first = person_info.first_name
+        last = person_info.last_name
+        email = person_info.email
+        age = person_info.age
+        salary = person_info.salary
+        department = person_info.department
+
+        while count != 0:
+            if count > 0:
+                self.element_is_visible(self.locators.BUTTON_ADD).click()
+                self.element_is_visible(self.locators.FIRST_NAME).send_keys(first)
+                self.element_is_visible(self.locators.LAST_NAME).send_keys(last)
+                self.element_is_visible(self.locators.EMAIL).send_keys(email)
+                self.element_is_visible(self.locators.AGE).send_keys(age)
+                self.element_is_visible(self.locators.SALARY).send_keys(salary)
+                self.element_is_visible(self.locators.DEPARTMENT).send_keys(department)
+                elements = self.elements_are_visible(self.locators.SCROLL_TO_ELEMENTS)
+                for element in elements:
+                    self.go_to_element(element)
+                self.element_is_visible(self.locators.BUTTON_SUBMIT).click()
+                count -= 1
+            else:
+                break
+
+        return [first, last, str(age), email, str(salary), department]
 
 
+    def check_web_table(self):
+        persons = self.elements_are_present(self.locators.TABLE_PERSON)
+        persons_info = []
+        for person in persons:
+            persons_info.append(person.text.splitlines())
+        return persons_info

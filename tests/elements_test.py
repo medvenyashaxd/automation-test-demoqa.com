@@ -1,6 +1,6 @@
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage
 
 
 class TestElements:
@@ -29,14 +29,24 @@ class TestElements:
 
     class TestRadioButton:
         def test_radio_button(self, driver):
-            radiio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
-            radiio_button_page.open()
-            radiio_button_page.click_radio_button('yes')
-            output_yes = radiio_button_page.output_text_button()
-            radiio_button_page.click_radio_button('impressive')
-            output_impressive = radiio_button_page.output_text_button()
+            radio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
+            radio_button_page.open()
+            radio_button_page.click_radio_button('yes')
+            output_yes = radio_button_page.output_text_button()
+            radio_button_page.click_radio_button('impressive')
+            output_impressive = radio_button_page.output_text_button()
             assert output_yes == 'Yes', 'error yes'
             assert output_impressive == 'Impressive', 'error impressive'
 
+
+    class TestWebTables:
+        def test_web_tables(self, driver):
+            web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
+            web_tables_page.open()
+            input_table = web_tables_page.click_add_and_fill_form(1)
+            output_table = web_tables_page.check_web_table()
+            assert input_table in output_table
+            print(input_table)
+            print(output_table)
 
 
