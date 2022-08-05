@@ -46,7 +46,5 @@ class TestElements:
             input_table = web_tables_page.click_add_and_fill_form(1)
             output_table = web_tables_page.check_web_table()
             assert input_table in output_table
-            print(input_table)
-            print(output_table)
 
 
