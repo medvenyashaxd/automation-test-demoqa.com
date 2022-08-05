@@ -45,8 +45,15 @@ class TestElements:
             web_tables_page.open()
             input_table = web_tables_page.click_add_and_fill_form(1)
             output_table = web_tables_page.check_web_table()
-            assert input_table in output_table
-            print(input_table)
-            print(output_table)
+            assert input_table in output_table, 'the person was not found in the table'
 
+
+
+        def test_search_table(self, driver):
+            web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
+            web_tables_page.open()
+            person_info = web_tables_page.click_add_and_fill_form(1)[1]
+            web_tables_page.filling_search(person_info)
+            table_info = web_tables_page.check_filling_search()
+            assert person_info in table_info, 'the person was not found in the search'
 
