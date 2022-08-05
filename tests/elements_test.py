@@ -57,3 +57,4 @@ class TestElements:
             table_info = web_tables_page.check_filling_search()
             assert person_info in table_info, 'the person was not found in the search'
 
+1

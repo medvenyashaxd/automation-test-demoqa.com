@@ -124,3 +124,4 @@ class WebTablesPage(BasePage):
         delete_button = self.element_is_visible(self.locators.BUTTON_DELETE)
         row = delete_button.find_element('xpath', self.locators.ROW)
         return row.text.splitlines()
+1

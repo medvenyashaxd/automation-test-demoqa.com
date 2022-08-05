@@ -49,3 +49,4 @@ class WebTablesLocators:
     SEARCH_FIELD = (By.CSS_SELECTOR, ' input[id="searchBox"]')
 
     BUTTON_DELETE = (By.CSS_SELECTOR, 'span[title="Delete"]')
+1
