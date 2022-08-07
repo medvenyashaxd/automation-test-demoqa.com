@@ -17,7 +17,7 @@ class TestElements:
 
 
     class TestCheckBox:
-        def test_check_box(self, driver):
+        def test_check_box(self, driver): #bug! Wrong output filename when output check
             check_box_page = CheckBoxPage(driver, 'https://demoqa.com/checkbox')
             check_box_page.open()
             check_box_page.open_full_list()
@@ -56,3 +56,31 @@ class TestElements:
             web_tables_page.filling_search(person_info)
             table_info = web_tables_page.check_filling_search()
             assert person_info in table_info, 'the person was not found in the search'
+
+
+        def test_edit_info(self, driver):
+            web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
+            web_tables_page.open()
+            input_info = web_tables_page.click_add_and_fill_form(1)
+            web_tables_page.filling_search(input_info[1])
+            edit_info = web_tables_page.check_edit_info()
+            info_in_row = web_tables_page.check_filling_search()
+            assert edit_info in info_in_row
+
+
+        def test_delete_info(self, driver):
+            web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
+            web_tables_page.open()
+            person_info = web_tables_page.click_add_and_fill_form(1)
+            web_tables_page.filling_search(person_info[1])
+            #web_tables_page.filling_search('Cierra')
+            delete_info = web_tables_page.delete_info_and_check()
+            print(delete_info)
+            assert 'No rows found' in delete_info
+
+
+        def test_edit_rows(self, driver): #bug! 25 lines can be selected in full screen.
+            web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
+            web_tables_page.open()
+            web_tables_page.page_rows_edit()
+            time.sleep(5)

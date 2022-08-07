@@ -49,3 +49,16 @@ class WebTablesLocators:
     SEARCH_FIELD = (By.CSS_SELECTOR, ' input[id="searchBox"]')
 
     BUTTON_DELETE = (By.CSS_SELECTOR, 'span[title="Delete"]')
+
+    EDIT_BUTTON = (By.CSS_SELECTOR, 'span[title="Edit"]')
+    INPUT_AGE = (By.CSS_SELECTOR, 'input[id="age"]')
+
+    NO_ROWS_FOUND = (By.CSS_SELECTOR, 'div[class="rt-noData"]')
+
+    SELECT_ROWS = (By.CSS_SELECTOR, 'span[class="select-wrap -pageSizeOptions"]')
+
+    #edit amount rows
+    ROWS5 = (By.CSS_SELECTOR, 'option[value="5"]')
+    ROWS10 = (By.CSS_SELECTOR, 'option[value="10"]')
+    ROWS20 = (By.CSS_SELECTOR, 'option[value="20"]')
+    ROWS25 = (By.CSS_SELECTOR, 'option[value="25"]')
