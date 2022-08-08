@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 
+
 class TextBoxPageLocators:
     FULL_MAME = (By.CSS_SELECTOR, 'input[id="userName"')
     EMAIL = (By.CSS_SELECTOR, 'input[id="userEmail"')
@@ -22,7 +23,6 @@ class CheckBoxPageLocators:
     OUTPUT_CHECK_LIST = (By.CSS_SELECTOR, 'span[class="text-success"]')
 
 
-
 class RadioButtonLocators:
     RADIO_BUTTON_YES = (By.CSS_SELECTOR, 'label[class="custom-control-label"][for="yesRadio"]')
     RADIO_BUTTON_IMPRESSIVE = (By.CSS_SELECTOR, 'label[class="custom-control-label"][for="impressiveRadio"]')
@@ -41,9 +41,9 @@ class WebTablesLocators:
     BUTTON_SUBMIT = (By.CSS_SELECTOR, 'button[id="submit"]')
     SCROLL_TO_ELEMENTS = (By.CSS_SELECTOR, 'div[class="mt-2 row"]')
 
-    #for table
+    # for table
     TABLE_PERSON = (By.CSS_SELECTOR, 'div[class="rt-tr-group"]')
-    #xpath
+    # xpath
     ROW = ".//ancestor::div[@class='rt-tr-group']"
 
     SEARCH_FIELD = (By.CSS_SELECTOR, ' input[id="searchBox"]')
@@ -57,8 +57,19 @@ class WebTablesLocators:
 
     SELECT_ROWS = (By.CSS_SELECTOR, 'span[class="select-wrap -pageSizeOptions"]')
 
-    #edit amount rows
+    # edit amount rows
     ROWS5 = (By.CSS_SELECTOR, 'option[value="5"]')
     ROWS10 = (By.CSS_SELECTOR, 'option[value="10"]')
     ROWS20 = (By.CSS_SELECTOR, 'option[value="20"]')
     ROWS25 = (By.CSS_SELECTOR, 'option[value="25"]')
+
+
+class ButtonsLocators:
+    DOUBLE_CLICK_ME = (By.CSS_SELECTOR, 'button[id="doubleClickBtn"]')
+    RIGHT_CLICK_ME = (By.CSS_SELECTOR, 'button[id="rightClickBtn"]')
+    CLICK_ME = (By.XPATH, '//div[3]/button')
+
+    #for output
+    DONE_A_DOUBLE_CLICK = (By.CSS_SELECTOR, 'p[id="doubleClickMessage"]')
+    DONE_A_RIGHT_CLICK = (By.CSS_SELECTOR, 'p[id="rightClickMessage"')
+    DONE_A_DYNAMIC_CLICK = (By.CSS_SELECTOR, 'p[id="dynamicClickMessage"]')

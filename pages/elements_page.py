@@ -2,7 +2,7 @@ import random
 
 from generator.person_generator import generator_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonLocators, \
-    WebTablesLocators
+    WebTablesLocators, ButtonsLocators
 from pages.base_page import BasePage
 
 
@@ -59,7 +59,6 @@ class CheckBoxPage(BasePage):
             list_check.append(element.text)
         return list_check
 
-
     def get_check_cheked_box(self):
         output_elements = self.elements_are_present(self.locators.OUTPUT_CHECK_LIST)
         list_check = []
@@ -72,13 +71,12 @@ class RadioButtonPage(BasePage):
     locators = RadioButtonLocators()
 
     def click_radio_button(self, element):
-        elements = {'yes' : self.locators.RADIO_BUTTON_YES,
-                    'impressive' : self.locators.RADIO_BUTTON_IMPRESSIVE}
+        elements = {'yes': self.locators.RADIO_BUTTON_YES,
+                    'impressive': self.locators.RADIO_BUTTON_IMPRESSIVE}
         self.element_is_visible(elements[element]).click()
 
     def output_text_button(self):
         return self.element_is_present(self.locators.CHECK_RADIO_BUTTON).text
-
 
 
 class WebTablesPage(BasePage):
@@ -107,7 +105,6 @@ class WebTablesPage(BasePage):
                 break
             return [first, last, str(age), email, str(salary), department]
 
-
     def check_web_table(self):
         persons = self.elements_are_present(self.locators.TABLE_PERSON)
         persons_info = []
@@ -115,16 +112,13 @@ class WebTablesPage(BasePage):
             persons_info.append(person.text.splitlines())
         return persons_info
 
-
     def filling_search(self, type_to_search):
         return self.element_is_visible(self.locators.SEARCH_FIELD).send_keys(type_to_search)
-
 
     def check_filling_search(self):
         delete_button = self.element_is_visible(self.locators.BUTTON_DELETE)
         row = delete_button.find_element('xpath', self.locators.ROW)
         return row.text.splitlines()
-
 
     def check_edit_info(self):
         person_info = next(generator_person())
@@ -135,11 +129,9 @@ class WebTablesPage(BasePage):
         self.element_is_visible(self.locators.BUTTON_SUBMIT).click()
         return str(new_age)
 
-
     def delete_info_and_check(self):
         self.element_is_visible(self.locators.BUTTON_DELETE).click()
         return self.element_is_present(self.locators.NO_ROWS_FOUND).text
-
 
     def page_rows_edit(self):
         self.element_is_present(self.locators.SELECT_ROWS).click()
@@ -155,4 +147,23 @@ class WebTablesPage(BasePage):
         self.element_is_visible(self.locators.ROWS25).click()
 
 
+class ButtonsPage(BasePage):
+    locators = ButtonsLocators()
+
+    def click_button(self, click):
+        if click == 'double':
+            self.double_click(self.element_is_visible(self.locators.DOUBLE_CLICK_ME))
+            return self.check_click(self.locators.DONE_A_DOUBLE_CLICK)
+
+        elif click == 'right':
+            self.right_click(self.element_is_visible(self.locators.RIGHT_CLICK_ME))
+            return self.check_click(self.locators.DONE_A_RIGHT_CLICK)
+
+        elif click == 'click':
+            self.element_is_visible(self.locators.CLICK_ME).click()
+            return self.check_click(self.locators.DONE_A_DYNAMIC_CLICK)
+
+
+    def check_click(self, element):
+        return self.element_is_present(element).text
 
