@@ -91,8 +91,32 @@ class TestElements:
             assert click == 'You have done a dynamic click', 'click error'
 
     class TestLinks:
-        def test_link(self, driver):
-            links_page = LinksPage(driver , 'https://demoqa.com/links')
+        def test_link_in_window_handles(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
-            href, current_url = links_page.check_link_in_handles()
-            assert href == current_url
+            href_link, current_url = links_page.check_link_in_handles()
+            assert href_link == current_url
+
+        def test_dynamic_link_in_window_handles(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            href_link, current_url = links_page.check_dynamic_link()
+            assert href_link == current_url
+
+        def test_created_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            response = links_page.check_created_link('https://demoqa.com/created')
+            assert response == 201
+
+        def test_no_content_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            response = links_page.check_no_content('https://demoqa.com/no-content')
+            assert response == 204
+
+        def test_moved_link(self, driver):
+            link_page = LinksPage(driver, 'https://demoqa.com/links')
+            link_page.open()
+            response = link_page.check_moved_link('https://demoqa.com/moved')
+            assert response == 301

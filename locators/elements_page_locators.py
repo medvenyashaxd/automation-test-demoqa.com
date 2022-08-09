@@ -76,4 +76,8 @@ class ButtonsLocators:
 
 
 class LinksLocators:
-    SIMPLE_LINKS = (By.CSS_SELECTOR, 'a[id="simpleLink"]')
+    SIMPLE_LINK = (By.CSS_SELECTOR, 'a[id="simpleLink"]')
+    DYNAMIC_LINK = (By.XPATH, '//p[2]/a')
+    CREATED_LINK = (By.CSS_SELECTOR, 'a[id="created"]')
+    CONTENT_LINK = (By.CSS_SELECTOR, 'a[id="no-content"]')
+    MOVED_LINK = (By.CSS_SELECTOR, 'a[id="moved"]')

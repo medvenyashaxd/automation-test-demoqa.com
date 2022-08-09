@@ -173,15 +173,46 @@ class LinksPage(BasePage):
     locators = LinksLocators()
 
     def check_link_in_handles(self):
-        simple_link = self.element_is_visible(self.locators.SIMPLE_LINKS)
+        simple_link = self.element_is_visible(self.locators.SIMPLE_LINK)
         href_link = simple_link.get_attribute('href')
         request = requests.get(href_link)
         if request.status_code == 200:
-            try:
-                simple_link.click()
-                self.driver.switch_to.window(self.driver.window_handles[1])
-                current_url_url = self.driver.current_url
-                return href_link, current_url_url
-            except:
-                print('error')
-                return href_link, request.status_code
+            simple_link.click()
+            self.driver.switch_to.window(self.driver.window_handles[1])
+            url = self.driver.current_url
+            return href_link, url
+        else:
+            return href_link, request.status_code
+
+    def check_dynamic_link(self):
+        dynamic_link = self.element_is_visible(self.locators.DYNAMIC_LINK)
+        href_link = dynamic_link.get_attribute('href')
+        request = requests.get(href_link)
+        if request.status_code == 200:
+            dynamic_link.click()
+            self.driver.switch_to.window(self.driver.window_handles[1])
+            url = self.driver.current_url
+            return href_link, url
+        else:
+            return href_link, request.status_code
+
+    def check_created_link(self, url):
+        request = requests.get(url)
+        if request.status_code == 200:
+            self.element_is_visible(self.locators.CREATED_LINK).click()
+        else:
+            return request.status_code
+
+    def check_no_content(self, url):
+        request = requests.get(url)
+        if request.status_code == 200:
+            self.element_is_visible(self.locators.CONTENT_LINK)
+        else:
+            return request.status_code
+
+    def check_moved_link(self, url):
+        request = requests.get(url)
+        if request.status_code == 200:
+            self.element_is_visible(self.locators.MOVED_LINK)
+        else:
+            return request.status_code
