@@ -1,6 +1,6 @@
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage, ButtonsPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage, ButtonsPage, LinksPage
 
 
 class TestElements:
@@ -22,8 +22,8 @@ class TestElements:
             check_box_page.open()
             check_box_page.open_full_list()
             check_box_page.click_random_checkbox()
-            check = check_box_page.check_cheked_box()
-            check_output = check_box_page.get_check_cheked_box()
+            check = check_box_page.check_checked_box()
+            check_output = check_box_page.get_check_checked_box()
             print(check)
             print(check_output)
 
@@ -79,7 +79,6 @@ class TestElements:
             web_tables_page.page_rows_edit()
             time.sleep(5)
 
-
     class TestButtons:
         def test_buttons(self, driver):
             buttons_page = ButtonsPage(driver, 'https://demoqa.com/buttons')
@@ -90,3 +89,10 @@ class TestElements:
             assert double == 'You have done a double click', 'double click error'
             assert right == 'You have done a right click', 'right click error'
             assert click == 'You have done a dynamic click', 'click error'
+
+    class TestLinks:
+        def test_link(self, driver):
+            links_page = LinksPage(driver , 'https://demoqa.com/links')
+            links_page.open()
+            href, current_url = links_page.check_link_in_handles()
+            assert href == current_url

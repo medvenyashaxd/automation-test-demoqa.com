@@ -69,7 +69,11 @@ class ButtonsLocators:
     RIGHT_CLICK_ME = (By.CSS_SELECTOR, 'button[id="rightClickBtn"]')
     CLICK_ME = (By.XPATH, '//div[3]/button')
 
-    #for output
+    # for output
     DONE_A_DOUBLE_CLICK = (By.CSS_SELECTOR, 'p[id="doubleClickMessage"]')
     DONE_A_RIGHT_CLICK = (By.CSS_SELECTOR, 'p[id="rightClickMessage"')
     DONE_A_DYNAMIC_CLICK = (By.CSS_SELECTOR, 'p[id="dynamicClickMessage"]')
+
+
+class LinksLocators:
+    SIMPLE_LINKS = (By.CSS_SELECTOR, 'a[id="simpleLink"]')

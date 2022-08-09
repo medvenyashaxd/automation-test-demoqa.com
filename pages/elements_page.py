@@ -1,8 +1,10 @@
 import random
 
+import requests
+
 from generator.person_generator import generator_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonLocators, \
-    WebTablesLocators, ButtonsLocators
+    WebTablesLocators, ButtonsLocators, LinksLocators
 from pages.base_page import BasePage
 
 
@@ -51,7 +53,7 @@ class CheckBoxPage(BasePage):
             else:
                 break
 
-    def check_cheked_box(self):
+    def check_checked_box(self):
         check_elements = self.elements_are_present(self.locators.CHECK_LIST)
         list_check = []
         for check in check_elements:
@@ -59,7 +61,7 @@ class CheckBoxPage(BasePage):
             list_check.append(element.text)
         return list_check
 
-    def get_check_cheked_box(self):
+    def get_check_checked_box(self):
         output_elements = self.elements_are_present(self.locators.OUTPUT_CHECK_LIST)
         list_check = []
         for check in output_elements:
@@ -163,7 +165,23 @@ class ButtonsPage(BasePage):
             self.element_is_visible(self.locators.CLICK_ME).click()
             return self.check_click(self.locators.DONE_A_DYNAMIC_CLICK)
 
-
     def check_click(self, element):
         return self.element_is_present(element).text
 
+
+class LinksPage(BasePage):
+    locators = LinksLocators()
+
+    def check_link_in_handles(self):
+        simple_link = self.element_is_visible(self.locators.SIMPLE_LINKS)
+        href_link = simple_link.get_attribute('href')
+        request = requests.get(href_link)
+        if request.status_code == 200:
+            try:
+                simple_link.click()
+                self.driver.switch_to.window(self.driver.window_handles[1])
+                current_url_url = self.driver.current_url
+                return href_link, current_url_url
+            except:
+                print('error')
+                return href_link, request.status_code
