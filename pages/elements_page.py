@@ -1,10 +1,8 @@
 import random
-
 import requests
-
 from generator.person_generator import generator_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonLocators, \
-    WebTablesLocators, ButtonsLocators, LinksLocators
+    WebTablesLocators, ButtonsLocators, LinksLocators, BrokenLinksImages
 from pages.base_page import BasePage
 
 
@@ -206,13 +204,55 @@ class LinksPage(BasePage):
     def check_no_content(self, url):
         request = requests.get(url)
         if request.status_code == 200:
-            self.element_is_visible(self.locators.CONTENT_LINK)
+            self.element_is_visible(self.locators.CONTENT_LINK).click()
         else:
             return request.status_code
 
     def check_moved_link(self, url):
         request = requests.get(url)
         if request.status_code == 200:
-            self.element_is_visible(self.locators.MOVED_LINK)
+            self.element_is_visible(self.locators.MOVED_LINK).click()
         else:
             return request.status_code
+
+    def check_bad_request(self, url):
+        request = requests.get(url)
+        if request.status_code == 200:
+            self.element_is_visible(self.locators.BAD_REQUEST).click()
+        else:
+            return request.status_code
+
+    def check_not_found_link(self, url):
+        request = requests.get(url)
+        if request.status_code == 200:
+            self.element_is_visible(self.locators.NOT_FOUND).click()
+        else:
+            return request.status_code
+
+
+class BrokenLinksImagesPage(BasePage):
+    locators = BrokenLinksImages()
+
+    def check_valid_link(self, url):
+        request = requests.get(url)
+        if request.status_code == 200:
+            elements = self.elements_are_present(self.locators.ELEMENTS)
+            for element in elements:
+                self.go_to_element(element)
+            self.element_is_visible(self.locators.VALID_LINK).click()
+            url = self.driver.current_url
+            return url, request.status_code
+        else:
+            return url, request.status_code
+
+    def check_broken_link(self, url):
+        request = requests.get(url)
+        if request.status_code == 200:
+            elements = self.elements_are_present(self.locators.ELEMENTS)
+            for element in elements:
+                self.go_to_element(element)
+            self.element_is_visible(self.locators.BROKEN_LINK).click()
+            url = self.driver.current_url
+            return url, request.status_code
+        else:
+            return url, request.status_code

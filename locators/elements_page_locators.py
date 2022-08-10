@@ -81,3 +81,11 @@ class LinksLocators:
     CREATED_LINK = (By.CSS_SELECTOR, 'a[id="created"]')
     CONTENT_LINK = (By.CSS_SELECTOR, 'a[id="no-content"]')
     MOVED_LINK = (By.CSS_SELECTOR, 'a[id="moved"]')
+    BAD_REQUEST = (By.CSS_SELECTOR, 'a[id="bad-request"]')
+    NOT_FOUND = (By.CSS_SELECTOR, 'a[id="invalid-url"]')
+
+
+class BrokenLinksImages:
+    VALID_LINK = (By.XPATH, '//div[2]/a[1]')
+    BROKEN_LINK = (By.XPATH, '//div[2]/a[2]')
+    ELEMENTS = (By.CSS_SELECTOR, 'br')
