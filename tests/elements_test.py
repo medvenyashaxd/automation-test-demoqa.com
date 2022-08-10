@@ -112,7 +112,7 @@ class TestElements:
         def test_no_content_link(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
-            response = links_page.check_no_content('https://demoqa.com/no-content')
+            response = links_page.check_no_content_link('https://demoqa.com/no-content')
             assert response == 204
 
         def test_moved_link(self, driver):
@@ -121,26 +121,26 @@ class TestElements:
             response = link_page.check_moved_link('https://demoqa.com/moved')
             assert response == 301
 
-        def test_bad_request(self, driver):
+        def test_bad_request_link(self, driver):
             link_page = LinksPage(driver, 'https://demoqa.com/links')
             link_page.open()
-            response = link_page.check_bad_request('https://demoqa.com/bad-request')
+            response = link_page.check_bad_request_link('https://demoqa.com/bad-request')
             assert response == 400
 
-        def test_not_found(self, driver):
+        def test_not_found_link(self, driver):
             link_page = LinksPage(driver, 'https://demoqa.com/links')
             link_page.open()
             response = link_page.check_not_found_link('https://demoqa.com/invalid-url')
             assert response == 404
 
     class TestBrokenLinksImage:
-        def test_valid_link(self, driver):
+        def test_valid_broken_link(self, driver):
             broken_page = BrokenLinksImagesPage(driver, 'https://demoqa.com/broken')
             broken_page.open()
             valid_url, valid_response = broken_page.check_valid_link('http://demoqa.com/')
             broken_page = BrokenLinksImagesPage(driver, 'https://demoqa.com/broken')
             broken_page.open()
-            broken_url, broken_response = broken_page.check_broken_link\
+            broken_url, broken_response = broken_page.check_broken_link \
                 ('http://the-internet.herokuapp.com/status_codes/500')
             assert valid_response == 200
             assert broken_response == 500

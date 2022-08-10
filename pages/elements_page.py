@@ -201,7 +201,7 @@ class LinksPage(BasePage):
         else:
             return request.status_code
 
-    def check_no_content(self, url):
+    def check_no_content_link(self, url):
         request = requests.get(url)
         if request.status_code == 200:
             self.element_is_visible(self.locators.CONTENT_LINK).click()
@@ -215,7 +215,7 @@ class LinksPage(BasePage):
         else:
             return request.status_code
 
-    def check_bad_request(self, url):
+    def check_bad_request_link(self, url):
         request = requests.get(url)
         if request.status_code == 200:
             self.element_is_visible(self.locators.BAD_REQUEST).click()
