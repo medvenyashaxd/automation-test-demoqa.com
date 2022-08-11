@@ -89,3 +89,7 @@ class BrokenLinksImages:
     VALID_LINK = (By.XPATH, '//div[2]/a[1]')
     BROKEN_LINK = (By.XPATH, '//div[2]/a[2]')
     ELEMENTS = (By.CSS_SELECTOR, 'br')
+
+
+class UpLoadAndDownload:
+    SELECT_A_FILE = (By.CSS_SELECTOR, 'input[id="uploadFile"]')

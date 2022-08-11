@@ -1,6 +1,6 @@
 import time
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage, ButtonsPage, LinksPage, \
-    BrokenLinksImagesPage
+    BrokenLinksImagesPage, UpLoadAndDownLoadPage
 
 
 class TestElements:
@@ -144,3 +144,10 @@ class TestElements:
                 ('http://the-internet.herokuapp.com/status_codes/500')
             assert valid_response == 200
             assert broken_response == 500
+
+    class TestUpLoadAndDownLoadFile:
+        def test_upload_file(self, driver):
+            upload_and_download_page = UpLoadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
+            #upload_and_download_page.open()
+            upload_and_download_page.up_load_file()
+

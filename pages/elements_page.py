@@ -1,8 +1,9 @@
+import os
 import random
 import requests
 from generator.person_generator import generator_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonLocators, \
-    WebTablesLocators, ButtonsLocators, LinksLocators, BrokenLinksImages
+    WebTablesLocators, ButtonsLocators, LinksLocators, BrokenLinksImages, UpLoadAndDownload
 from pages.base_page import BasePage
 
 
@@ -256,3 +257,14 @@ class BrokenLinksImagesPage(BasePage):
             return url, request.status_code
         else:
             return url, request.status_code
+
+class UpLoadAndDownLoadPage(BasePage):
+    locators = UpLoadAndDownload()
+
+    def up_load_file(self):
+        file = open('SomeFile.txt', 'w')
+        file.write('qwer')
+        self.element_is_present(self.locators.SELECT_A_FILE).send_keys(file)
+        file.close()
+        os.remove('SomeFile.txt')
+
