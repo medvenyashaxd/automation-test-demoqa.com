@@ -1,6 +1,7 @@
+import os
 import time
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage, ButtonsPage, LinksPage, \
-    BrokenLinksImagesPage, UpLoadAndDownLoadPage
+    BrokenLinksImagesPage, UploadAndDownLoadPage
 
 
 class TestElements:
@@ -140,14 +141,20 @@ class TestElements:
             valid_url, valid_response = broken_page.check_valid_link('http://demoqa.com/')
             broken_page = BrokenLinksImagesPage(driver, 'https://demoqa.com/broken')
             broken_page.open()
-            broken_url, broken_response = broken_page.check_broken_link \
+            broken_url, broken_response = broken_page.check_broken_link\
                 ('http://the-internet.herokuapp.com/status_codes/500')
             assert valid_response == 200
             assert broken_response == 500
 
     class TestUpLoadAndDownLoadFile:
-        def test_upload_file(self, driver):
-            upload_and_download_page = UpLoadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
-            #upload_and_download_page.open()
-            upload_and_download_page.up_load_file()
+        def test_download_file(self, driver):
+            up_load_and_download_page = UploadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
+            up_load_and_download_page.open()
+            up_load_and_download_page.download_file()
 
+        def test_upload_file(self, driver):
+            up_load_and_download_page = UploadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
+            up_load_and_download_page.open()
+            path, check_file = up_load_and_download_page.up_load_file()
+            assert path == check_file
+            os.remove(path)

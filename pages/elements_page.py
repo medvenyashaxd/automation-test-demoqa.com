@@ -1,9 +1,10 @@
+import base64
 import os
 import random
 import requests
 from generator.person_generator import generator_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonLocators, \
-    WebTablesLocators, ButtonsLocators, LinksLocators, BrokenLinksImages, UpLoadAndDownload
+    WebTablesLocators, ButtonsLocators, LinksLocators, BrokenLinksImagesLocators, UploadAndDownLoadLocators
 from pages.base_page import BasePage
 
 
@@ -232,7 +233,7 @@ class LinksPage(BasePage):
 
 
 class BrokenLinksImagesPage(BasePage):
-    locators = BrokenLinksImages()
+    locators = BrokenLinksImagesLocators()
 
     def check_valid_link(self, url):
         request = requests.get(url)
@@ -258,13 +259,26 @@ class BrokenLinksImagesPage(BasePage):
         else:
             return url, request.status_code
 
-class UpLoadAndDownLoadPage(BasePage):
-    locators = UpLoadAndDownload()
+
+class UploadAndDownLoadPage(BasePage):
+    locators = UploadAndDownLoadLocators()
+
+    def download_file(self):
+        link = self.element_is_visible(self.locators.DOWNLOAD_BUTTON).get_attribute('href').split(',')
+        link_b = base64.b64decode(link[1])
+        path = rf'C:\Users\AMD.BY\PycharmProjects\Quality-assurance-tests\tests\SomeFileImg{random.randint(1, 10)}.jpeg'
+        with open(path, 'wb+') as f:
+            # offset = link_b.find(b'\xff\xd8')
+            # f.write(link_b[offset:])
+            f.write(link_b)
+            check_file = os.path.exists(path)
+            f.close()
+        return check_file
 
     def up_load_file(self):
-        file = open('SomeFile.txt', 'w')
-        file.write('qwer')
-        self.element_is_present(self.locators.SELECT_A_FILE).send_keys(file)
-        file.close()
-        os.remove('SomeFile.txt')
-
+        path = rf'C:\Users\AMD.BY\PycharmProjects\Quality-assurance-tests\tests\SomeFile{random.randint(1, 10)}.txt'
+        file = open(path, 'w')
+        file.write(f'qwe{random.randint(1, 1000)}')
+        self.element_is_visible(self.locators.SELECT_A_FILE).send_keys(path)
+        check_file = self.element_is_visible(self.locators.UPLOAD_FILE_PATH).text
+        return path.split('\\')[-1], check_file.split('\\')[-1]

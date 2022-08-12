@@ -85,11 +85,14 @@ class LinksLocators:
     NOT_FOUND = (By.CSS_SELECTOR, 'a[id="invalid-url"]')
 
 
-class BrokenLinksImages:
+class BrokenLinksImagesLocators:
     VALID_LINK = (By.XPATH, '//div[2]/a[1]')
     BROKEN_LINK = (By.XPATH, '//div[2]/a[2]')
     ELEMENTS = (By.CSS_SELECTOR, 'br')
 
 
-class UpLoadAndDownload:
+class UploadAndDownLoadLocators:
+    DOWNLOAD_BUTTON = (By.CSS_SELECTOR, 'a[id="downloadButton"]')
+
     SELECT_A_FILE = (By.CSS_SELECTOR, 'input[id="uploadFile"]')
+    UPLOAD_FILE_PATH = (By.CSS_SELECTOR, 'p[id="uploadedFilePath"]')
