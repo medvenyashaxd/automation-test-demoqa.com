@@ -1,7 +1,7 @@
 import os
 import time
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage, ButtonsPage, LinksPage, \
-    BrokenLinksImagesPage, UploadAndDownLoadPage
+    BrokenLinksImagesPage, UpLoadAndDownLoadPage
 
 
 class TestElements:
@@ -96,43 +96,43 @@ class TestElements:
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
             href_link, current_url = links_page.check_link_in_handles()
-            assert href_link == current_url
+            assert href_link == current_url, 'the link is broken or url is incorrect'
 
         def test_dynamic_link_in_window_handles(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
             href_link, current_url = links_page.check_dynamic_link()
-            assert href_link == current_url
+            assert href_link == current_url, 'the link is broken or url is incorrect'
 
         def test_created_link(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
             response = links_page.check_created_link('https://demoqa.com/created')
-            assert response == 201
+            assert response == 201, 'the links works'
 
         def test_no_content_link(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
             response = links_page.check_no_content_link('https://demoqa.com/no-content')
-            assert response == 204
+            assert response == 204, 'the links works'
 
         def test_moved_link(self, driver):
             link_page = LinksPage(driver, 'https://demoqa.com/links')
             link_page.open()
             response = link_page.check_moved_link('https://demoqa.com/moved')
-            assert response == 301
+            assert response == 301, 'the links works'
 
         def test_bad_request_link(self, driver):
             link_page = LinksPage(driver, 'https://demoqa.com/links')
             link_page.open()
             response = link_page.check_bad_request_link('https://demoqa.com/bad-request')
-            assert response == 400
+            assert response == 400, 'the links works'
 
         def test_not_found_link(self, driver):
             link_page = LinksPage(driver, 'https://demoqa.com/links')
             link_page.open()
             response = link_page.check_not_found_link('https://demoqa.com/invalid-url')
-            assert response == 404
+            assert response == 404, 'the links works'
 
     class TestBrokenLinksImage:
         def test_valid_broken_link(self, driver):
@@ -143,18 +143,19 @@ class TestElements:
             broken_page.open()
             broken_url, broken_response = broken_page.check_broken_link\
                 ('http://the-internet.herokuapp.com/status_codes/500')
-            assert valid_response == 200
-            assert broken_response == 500
+            assert valid_response == 200, 'the links not works'
+            assert broken_response == 500, 'the links works'
 
-    class TestUpLoadAndDownLoadFile:
-        def test_download_file(self, driver):
-            up_load_and_download_page = UploadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
-            up_load_and_download_page.open()
-            up_load_and_download_page.download_file()
+    class TestUpLoadAndDownload:
+        def test_download(self, driver):
+            download_file_page = UpLoadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
+            download_file_page.open()
+            check = download_file_page.download_file()
+            assert check is True, 'the file has not been download'
 
-        def test_upload_file(self, driver):
-            up_load_and_download_page = UploadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
-            up_load_and_download_page.open()
-            path, check_file = up_load_and_download_page.up_load_file()
-            assert path == check_file
+        def test_upload(self, driver):
+            upload_file_page = UpLoadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
+            upload_file_page.open()
+            check_file, path = upload_file_page.upload_file()
+            assert check_file == path, 'the files is not true'
             os.remove(path)

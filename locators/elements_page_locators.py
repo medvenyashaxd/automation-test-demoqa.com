@@ -91,8 +91,7 @@ class BrokenLinksImagesLocators:
     ELEMENTS = (By.CSS_SELECTOR, 'br')
 
 
-class UploadAndDownLoadLocators:
+class UpLoadAndDownLoadLocators:
     DOWNLOAD_BUTTON = (By.CSS_SELECTOR, 'a[id="downloadButton"]')
-
     SELECT_A_FILE = (By.CSS_SELECTOR, 'input[id="uploadFile"]')
-    UPLOAD_FILE_PATH = (By.CSS_SELECTOR, 'p[id="uploadedFilePath"]')
+    UPLOADED_FILE_PATH = (By.CSS_SELECTOR, 'p[id="uploadedFilePath"]')
