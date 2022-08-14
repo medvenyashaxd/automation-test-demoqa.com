@@ -1,10 +1,14 @@
 import base64
 import os
 import random
+import time
 import requests
+from selenium.common import TimeoutException
+
 from generator.person_generator import generator_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonLocators, \
-    WebTablesLocators, ButtonsLocators, LinksLocators, BrokenLinksImagesLocators, UpLoadAndDownLoadLocators
+    WebTablesLocators, ButtonsLocators, LinksLocators, BrokenLinksImagesLocators, UpLoadAndDownLoadLocators, \
+    DynamicPropertiesLocators
 from pages.base_page import BasePage
 
 
@@ -74,8 +78,12 @@ class RadioButtonPage(BasePage):
 
     def click_radio_button(self, element):
         elements = {'yes': self.locators.RADIO_BUTTON_YES,
-                    'impressive': self.locators.RADIO_BUTTON_IMPRESSIVE}
-        self.element_is_visible(elements[element]).click()
+                    'impressive': self.locators.RADIO_BUTTON_IMPRESSIVE,
+                    'no': self.locators.RADIO_BUTTON_NO}
+        try:
+            self.element_is_visible(elements[element]).click()
+        except TimeoutException:
+            return False
 
     def output_text_button(self):
         return self.element_is_present(self.locators.CHECK_RADIO_BUTTON).text
@@ -180,6 +188,7 @@ class LinksPage(BasePage):
             simple_link.click()
             self.driver.switch_to.window(self.driver.window_handles[1])
             url = self.driver.current_url
+            self.driver.switch_to.window(self.driver.window_handles[0])
             return href_link, url
         else:
             return href_link, request.status_code
@@ -268,8 +277,6 @@ class UpLoadAndDownLoadPage(BasePage):
         link_b = base64.b64decode(link[1])
         path = fr'C:\Users\AMD.BY\PycharmProjects\Quality-assurance-tests\tests\SomeImgFile{random.randint(1, 10)}.jpeg'
         with open(path, 'wb+') as f:
-            #offset = link_b.find(b'\xff\xd8')
-            #f.write(link_b[offset:])
             f.write(link_b)
             check_file = os.path.exists(path)
             f.close()
@@ -277,10 +284,38 @@ class UpLoadAndDownLoadPage(BasePage):
         return check_file
 
     def upload_file(self):
-        path = fr'C:\Users\AMD.BY\PycharmProjects\Quality-assurance-tests\tests\SomeFile{random.randint(1,10)}.txt'
+        path = fr'C:\Users\AMD.BY\PycharmProjects\Quality-assurance-tests\tests\SomeFile{random.randint(1, 10)}.txt'
         file = open(path, 'w')
         file.write(f'qwert{random.randint(1, 100)}')
         file.close()
         self.element_is_present(self.locators.SELECT_A_FILE).send_keys(path)
         check_file = self.element_is_present(self.locators.UPLOADED_FILE_PATH).text
         return check_file.split('\\')[-1], path.split('\\')[-1]
+
+
+class DynamicPropertiesPage(BasePage):
+    locators = DynamicPropertiesLocators()
+
+    def check_text_with_random_id(self):
+        check_text = self.element_is_visible(self.locators.TEXT_WITH_RANDOM_ID).text
+        return check_text
+
+    def check_enable_button_after_5_second(self):
+        try:
+            self.element_is_clickable(self.locators.WILL_ENABLE_5_SECONDS_BUTTON)
+            return True
+        except TimeoutException:
+            return False
+
+    def check_change_color(self):
+        default_color = self.element_is_visible(self.locators.COLOR_CHANGE_BUTTON)
+        change_color = default_color.value_of_css_property('color')
+        return change_color
+
+    def check_visible_button_after_5_second(self):
+        try:
+            self.element_is_visible(self.locators.VISIBLE_AFTER_5_SECONDS)
+            return True
+
+        except TimeoutException:
+            return False

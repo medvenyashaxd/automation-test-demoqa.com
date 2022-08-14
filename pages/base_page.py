@@ -41,3 +41,4 @@ class BasePage:
         actions = ActionChains(self.driver)
         actions.context_click(element)
         actions.perform()
+

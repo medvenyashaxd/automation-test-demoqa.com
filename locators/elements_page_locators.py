@@ -26,6 +26,7 @@ class CheckBoxPageLocators:
 class RadioButtonLocators:
     RADIO_BUTTON_YES = (By.CSS_SELECTOR, 'label[class="custom-control-label"][for="yesRadio"]')
     RADIO_BUTTON_IMPRESSIVE = (By.CSS_SELECTOR, 'label[class="custom-control-label"][for="impressiveRadio"]')
+    RADIO_BUTTON_NO = (By.CSS_SELECTOR, 'input[id="noRadio"]')
 
     CHECK_RADIO_BUTTON = (By.CSS_SELECTOR, 'p span[class="text-success"]')
 
@@ -95,3 +96,10 @@ class UpLoadAndDownLoadLocators:
     DOWNLOAD_BUTTON = (By.CSS_SELECTOR, 'a[id="downloadButton"]')
     SELECT_A_FILE = (By.CSS_SELECTOR, 'input[id="uploadFile"]')
     UPLOADED_FILE_PATH = (By.CSS_SELECTOR, 'p[id="uploadedFilePath"]')
+
+
+class DynamicPropertiesLocators:
+    TEXT_WITH_RANDOM_ID = (By.XPATH, '//div[2]/div[2]/p')
+    WILL_ENABLE_5_SECONDS_BUTTON = (By.CSS_SELECTOR, 'button[id="enableAfter"]')
+    COLOR_CHANGE_BUTTON = (By.CSS_SELECTOR, 'button[id="colorChange"]')
+    VISIBLE_AFTER_5_SECONDS = (By.CSS_SELECTOR, 'button[id="visibleAfter"]')
