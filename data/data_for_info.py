@@ -2,10 +2,11 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Person:
+class properties_for_information:
     full_name: str = None
     first_name: str = None
     last_name: str = None
+    mobile_number: int = None
     age: int = None
     salary: int = None
     department: str = None

@@ -3,13 +3,14 @@ import time
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage, ButtonsPage, LinksPage, \
     BrokenLinksImagesPage, UpLoadAndDownLoadPage, DynamicPropertiesPage
 
+
 class TestElements:
     class TestTextBox:
         def test_text_box(self, driver):
             text_box_page = TextBoxPage(driver, 'https://demoqa.com/text-box')
             text_box_page.open()
             time.sleep(2)
-            input_full_name, input_email, input_curr_addr, input_per_address = text_box_page.fill_all_fields()
+            input_full_name, input_email, input_curr_addr, input_per_address = text_box_page.fill_form_fields()
             output_name, output_email, output_curr_address, output_per_address = text_box_page.check_filled_form()
             assert input_full_name == output_name, 'name is not correct'
             assert input_email == output_email, 'email is not correct'
@@ -35,9 +36,9 @@ class TestElements:
             radio_button_page.open()
             time.sleep(2)
             radio_button_page.click_radio_button('yes')
-            output_yes = radio_button_page.output_text_button()
+            output_yes = radio_button_page.get_output_text_button()
             radio_button_page.click_radio_button('impressive')
-            output_impressive = radio_button_page.output_text_button()
+            output_impressive = radio_button_page.get_output_text_button()
             test_click_no = radio_button_page.click_radio_button('no')
             assert output_yes == 'Yes', 'button is not clicked'
             assert output_impressive == 'Impressive', 'button is not clicked'
@@ -157,3 +158,4 @@ class TestElements:
             assert text == 'This text has random Id', 'text does not match'
             assert color_button != 'rgba(255, 255, 255, 1)'
             assert visible_button is True, 'element is not visible'
+

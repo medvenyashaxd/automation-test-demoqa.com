@@ -1,4 +1,5 @@
-from selenium.webdriver import ActionChains
+import random
+from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -32,13 +33,27 @@ class BasePage:
     def go_to_element(self, element):
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
+    def page_scale(self):
+        self.driver.execute_script("document.body.style.zoom = '0.9'")
+
     def double_click(self, element):
         actions = ActionChains(self.driver)
-        actions.double_click(element)
-        actions.perform()
+        actions.double_click(element).perform()
 
     def right_click(self, element):
         actions = ActionChains(self.driver)
-        actions.context_click(element)
-        actions.perform()
+        actions.context_click(element).perform()
 
+    def random_choice_date(self):
+        actions = ActionChains(self.driver)
+        for _ in range(random.randint(10, 50)):
+            actions.send_keys(Keys.UP).perform()
+
+    def random_choice_location(self):
+        actions = ActionChains(self.driver)
+        for _ in range(random.randint(1, 3)):
+            actions.send_keys(Keys.DOWN).perform()
+
+    def press_enter(self):
+        actions = ActionChains(self.driver)
+        actions.send_keys(Keys.ENTER).perform()
