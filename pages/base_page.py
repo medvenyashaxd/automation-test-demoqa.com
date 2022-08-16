@@ -33,6 +33,10 @@ class BasePage:
     def go_to_element(self, element):
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
+    def switch_to_window(self, amount):
+        self.driver.switch_to.window(self.driver.window_handles[amount])
+
+
     def page_scale(self):
         self.driver.execute_script("document.body.style.zoom = '0.9'")
 

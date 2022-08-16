@@ -12,4 +12,4 @@ class TestPracticeForm:
             input_info = practice_form.fill_fields()
             output_info = practice_form.check_submitting_form()
             assert [input_info.first_name + ' ' + input_info.last_name, input_info.email] == [output_info[0],
-                    output_info[1]], 'table is filled incorrectly'
+                    output_info[1]], 'table form is filled incorrectly'

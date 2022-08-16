@@ -178,9 +178,9 @@ class LinksPage(BasePage):
         request = requests.get(href_link)
         if request.status_code == 200:
             simple_link.click()
-            self.driver.switch_to.window(self.driver.window_handles[1])
+            self.switch_to_window(1)
             url = self.driver.current_url
-            self.driver.switch_to.window(self.driver.window_handles[0])
+            self.switch_to_window(0)
             return href_link, url
         else:
             return href_link, request.status_code
@@ -191,7 +191,7 @@ class LinksPage(BasePage):
         request = requests.get(href_link)
         if request.status_code == 200:
             dynamic_link.click()
-            self.driver.switch_to.window(self.driver.window_handles[1])
+            self.switch_to_window(1)
             url = self.driver.current_url
             return href_link, url
         else:
