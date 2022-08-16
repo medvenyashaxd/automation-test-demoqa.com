@@ -39,7 +39,7 @@ class CheckBoxPage(BasePage):
 
     def click_random_checkbox(self):
         elements_list = self.elements_are_visible(self.locators.ELEMENTS_LIST)
-        count = 21
+        count = 15
         while count != 0:
             element = elements_list[random.randint(1, 15)]
             if count > 0:

@@ -10,4 +10,5 @@ class BrowserWindowLocators:
 
 
 class AlertsLocators:
-    SAMPLE_BUTTON = (By.CSS_SELECTOR, 'button[id="alertButton"]')
+    SIMPLE_ALERT = (By.CSS_SELECTOR, 'button[id="alertButton"]')
+    TIME_ALERT = (By.CSS_SELECTOR, 'button[id="timerAlertButton"]')

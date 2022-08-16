@@ -25,9 +25,13 @@ class AlertPage(BasePage):
     locators = AlertsLocators()
 
     def click_buttons_and_get_text(self):
-        self.element_is_visible(self.locators.SAMPLE_BUTTON).click()
-        alert = self.switch_to_alert()
-        text_sample_button = alert.text
-        alert.accept()
-
-        return text_sample_button
+        self.element_is_visible(self.locators.SIMPLE_ALERT).click()
+        simple_alert = self.switch_to_alert()
+        text_simple_button = simple_alert.text
+        simple_alert.accept()
+        self.element_is_visible(self.locators.TIME_ALERT).click()
+        time.sleep(5)
+        time_alert = self.switch_to_alert()
+        text_time_alert = time_alert.text
+        time_alert.accept()
+        return text_simple_button, text_time_alert

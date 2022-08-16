@@ -16,4 +16,6 @@ class TestAlertsFrameWindows:
         def test_alerts(self, driver):
             alerts_page = AlertPage(driver, 'https://demoqa.com/alerts')
             alerts_page.open()
-            alerts_page.click_buttons_and_get_text()
+            simple_alert_text, text_time_alert = alerts_page.click_buttons_and_get_text()
+            assert simple_alert_text == 'You clicked a button'
+            assert text_time_alert == 'This alert appeared after 5 seconds'
