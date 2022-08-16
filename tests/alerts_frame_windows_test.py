@@ -1,4 +1,4 @@
-from pages.alerts_frame_window_page import BrowserWindowPage
+from pages.alerts_frame_window_page import BrowserWindowPage, AlertPage
 
 
 class TestAlertsFrameWindows:
@@ -11,3 +11,9 @@ class TestAlertsFrameWindows:
             text_new_window = browser_windows_page.test_new_window()
             assert text_new_tab == 'This is a sample page', 'text does not match'
             assert text_new_window == 'This is a sample page', 'text does not match'
+
+    class TestAlerts:
+        def test_alerts(self, driver):
+            alerts_page = AlertPage(driver, 'https://demoqa.com/alerts')
+            alerts_page.open()
+            alerts_page.click_buttons_and_get_text()

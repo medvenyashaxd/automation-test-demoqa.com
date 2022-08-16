@@ -36,6 +36,9 @@ class BasePage:
     def switch_to_window(self, amount):
         self.driver.switch_to.window(self.driver.window_handles[amount])
 
+    def switch_to_alert(self):
+        alert = self.driver.switch_to.alert
+        return alert
 
     def page_scale(self):
         self.driver.execute_script("document.body.style.zoom = '0.9'")
