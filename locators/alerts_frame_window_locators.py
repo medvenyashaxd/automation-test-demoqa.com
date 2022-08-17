@@ -12,3 +12,7 @@ class BrowserWindowLocators:
 class AlertsLocators:
     SIMPLE_ALERT = (By.CSS_SELECTOR, 'button[id="alertButton"]')
     TIME_ALERT = (By.CSS_SELECTOR, 'button[id="timerAlertButton"]')
+    ALERT_BOX = (By.CSS_SELECTOR, 'button[id="confirmButton"]')
+    ALERT_BOX_RESULT = (By.CSS_SELECTOR, 'span[id="confirmResult"]')
+    ALERT_INPUT_BOX = (By.CSS_SELECTOR, 'button[id="promtButton"]')
+    RESULT_ALERT_INPUT_BOX = (By.CSS_SELECTOR, 'span[id="promptResult"]')

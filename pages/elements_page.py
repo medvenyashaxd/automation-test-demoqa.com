@@ -40,6 +40,7 @@ class CheckBoxPage(BasePage):
     def click_random_checkbox(self):
         elements_list = self.elements_are_visible(self.locators.ELEMENTS_LIST)
         count = 15
+
         while count != 0:
             element = elements_list[random.randint(1, 15)]
             if count > 0:
@@ -52,16 +53,20 @@ class CheckBoxPage(BasePage):
     def check_checked_box(self):
         check_elements = self.elements_are_present(self.locators.CHECK_LIST)
         list_check = []
+
         for check in check_elements:
             element = check.find_element('xpath', self.locators.CHECK_ELEMENT_CLICK)
             list_check.append(element.text)
+
         return list_check
 
     def get_check_checked_box(self):
         output_elements = self.elements_are_present(self.locators.OUTPUT_CHECK_LIST)
         list_check = []
+
         for check in output_elements:
             list_check.append(check.text)
+
         return list_check
 
 
@@ -72,6 +77,7 @@ class RadioButtonPage(BasePage):
         elements = {'yes': self.locators.RADIO_BUTTON_YES,
                     'impressive': self.locators.RADIO_BUTTON_IMPRESSIVE,
                     'no': self.locators.RADIO_BUTTON_NO}
+
         try:
             self.element_is_visible(elements[element]).click()
         except TimeoutException:
@@ -93,6 +99,7 @@ class WebTablesPage(BasePage):
             age = person_info.age
             salary = person_info.salary
             department = person_info.department
+
             if count > 0:
                 self.element_is_visible(self.locators.BUTTON_ADD).click()
                 self.element_is_visible(self.locators.FIRST_NAME).send_keys(first)
@@ -103,6 +110,7 @@ class WebTablesPage(BasePage):
                 self.element_is_visible(self.locators.DEPARTMENT).send_keys(department)
                 self.element_is_visible(self.locators.BUTTON_SUBMIT).click()
                 count -= 1
+
             else:
                 break
             return [first, last, str(age), email, str(salary), department]
@@ -110,8 +118,10 @@ class WebTablesPage(BasePage):
     def check_web_table(self):
         persons = self.elements_are_present(self.locators.TABLE_PERSON)
         persons_info = []
+
         for person in persons:
             persons_info.append(person.text.splitlines())
+
         return persons_info
 
     def filling_search(self, type_to_search):
@@ -126,7 +136,9 @@ class WebTablesPage(BasePage):
         person_info = next(generator_info())
         self.element_is_visible(self.locators.EDIT_BUTTON).click()
         self.element_is_visible(self.locators.INPUT_AGE).clear()
+
         new_age = person_info.age
+
         self.element_is_visible(self.locators.INPUT_AGE).send_keys(new_age)
         self.element_is_visible(self.locators.BUTTON_SUBMIT).click()
         return str(new_age)
@@ -143,8 +155,10 @@ class WebTablesPage(BasePage):
         self.element_is_present(self.locators.SELECT_ROWS).click()
         self.element_is_present(self.locators.ROWS20).click()
         elements = self.elements_are_present(self.locators.TABLE_PERSON)
+
         for element in elements:
             self.go_to_element(element)
+
         self.element_is_present(self.locators.SELECT_ROWS).click()
         self.element_is_visible(self.locators.ROWS25).click()
 
@@ -176,12 +190,14 @@ class LinksPage(BasePage):
         simple_link = self.element_is_visible(self.locators.SIMPLE_LINK)
         href_link = simple_link.get_attribute('href')
         request = requests.get(href_link)
+
         if request.status_code == 200:
             simple_link.click()
             self.switch_to_window(1)
             url = self.driver.current_url
             self.switch_to_window(0)
             return href_link, url
+
         else:
             return href_link, request.status_code
 
@@ -189,18 +205,22 @@ class LinksPage(BasePage):
         dynamic_link = self.element_is_visible(self.locators.DYNAMIC_LINK)
         href_link = dynamic_link.get_attribute('href')
         request = requests.get(href_link)
+
         if request.status_code == 200:
             dynamic_link.click()
             self.switch_to_window(1)
             url = self.driver.current_url
             return href_link, url
+
         else:
             return href_link, request.status_code
 
     def check_created_link(self, url):
         request = requests.get(url)
+
         if request.status_code == 200:
             self.element_is_visible(self.locators.CREATED_LINK).click()
+
         else:
             return request.status_code
 
@@ -208,25 +228,31 @@ class LinksPage(BasePage):
         request = requests.get(url)
         if request.status_code == 200:
             self.element_is_visible(self.locators.CONTENT_LINK).click()
+
         else:
             return request.status_code
 
     def check_moved_link(self, url):
         request = requests.get(url)
+
         if request.status_code == 200:
             self.element_is_visible(self.locators.MOVED_LINK).click()
+
         else:
             return request.status_code
 
     def check_bad_request_link(self, url):
         request = requests.get(url)
+
         if request.status_code == 200:
             self.element_is_visible(self.locators.BAD_REQUEST).click()
+
         else:
             return request.status_code
 
     def check_not_found_link(self, url):
         request = requests.get(url)
+
         if request.status_code == 200:
             self.element_is_visible(self.locators.NOT_FOUND).click()
         else:
@@ -238,11 +264,14 @@ class BrokenLinksImagesPage(BasePage):
 
     def check_valid_link(self, url):
         request = requests.get(url)
+
         if request.status_code == 200:
             elements = self.elements_are_present(self.locators.ELEMENTS)
+
             for element in elements:
                 self.go_to_element(element)
             self.element_is_visible(self.locators.VALID_LINK).click()
+
             url = self.driver.current_url
             return url, request.status_code
         else:
@@ -250,13 +279,16 @@ class BrokenLinksImagesPage(BasePage):
 
     def check_broken_link(self, url):
         request = requests.get(url)
+
         if request.status_code == 200:
             elements = self.elements_are_present(self.locators.ELEMENTS)
+
             for element in elements:
                 self.go_to_element(element)
             self.element_is_visible(self.locators.BROKEN_LINK).click()
             url = self.driver.current_url
             return url, request.status_code
+
         else:
             return url, request.status_code
 
@@ -280,6 +312,7 @@ class UpLoadAndDownLoadPage(BasePage):
         file = open(path, 'w')
         file.write(f'qwert{random.randint(1, 100)}')
         file.close()
+
         self.element_is_present(self.locators.SELECT_A_FILE).send_keys(path)
         check_file = self.element_is_present(self.locators.UPLOADED_FILE_PATH).text
         return check_file.split('\\')[-1], path.split('\\')[-1]
@@ -296,6 +329,7 @@ class DynamicPropertiesPage(BasePage):
         try:
             self.element_is_clickable(self.locators.WILL_ENABLE_5_SECONDS_BUTTON)
             return True
+
         except TimeoutException:
             return False
 

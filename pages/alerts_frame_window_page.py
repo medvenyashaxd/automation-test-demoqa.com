@@ -1,5 +1,5 @@
+import random
 import time
-
 from locators.alerts_frame_window_locators import BrowserWindowLocators, AlertsLocators
 from pages.base_page import BasePage
 
@@ -29,9 +29,27 @@ class AlertPage(BasePage):
         simple_alert = self.switch_to_alert()
         text_simple_button = simple_alert.text
         simple_alert.accept()
+
         self.element_is_visible(self.locators.TIME_ALERT).click()
         time.sleep(5)
         time_alert = self.switch_to_alert()
         text_time_alert = time_alert.text
         time_alert.accept()
-        return text_simple_button, text_time_alert
+
+        self.element_is_visible(self.locators.ALERT_BOX).click()
+        box_alert = self.switch_to_alert()
+        random_click = random.randint(1, 2)
+        if random_click == 1:
+            box_alert.accept()
+        else:
+            box_alert.dismiss()
+        text_random_click = self.element_is_present(self.locators.ALERT_BOX_RESULT).text
+
+        self.go_to_element(self.element_is_present(self.locators.ALERT_INPUT_BOX))
+        self.element_is_visible(self.locators.ALERT_INPUT_BOX).click()
+        random_text_input_alert = f'qwer{random.randint(1, 10)}'
+        input_box_alert = self.switch_to_alert()
+        input_box_alert.send_keys(random_text_input_alert)
+        input_box_alert.accept()
+        text_input_box_alert = (self.element_is_present(self.locators.RESULT_ALERT_INPUT_BOX)).text
+        return text_simple_button, text_time_alert, text_random_click, random_text_input_alert, text_input_box_alert

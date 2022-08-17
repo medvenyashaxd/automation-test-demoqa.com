@@ -42,20 +42,15 @@ class WebTablesLocators:
     BUTTON_SUBMIT = (By.CSS_SELECTOR, 'button[id="submit"]')
     SCROLL_TO_ELEMENTS = (By.CSS_SELECTOR, 'div[class="mt-2 row"]')
 
-    # for table
     TABLE_PERSON = (By.CSS_SELECTOR, 'div[class="rt-tr-group"]')
     # xpath
     ROW = ".//ancestor::div[@class='rt-tr-group']"
-
     SEARCH_FIELD = (By.CSS_SELECTOR, ' input[id="searchBox"]')
 
     BUTTON_DELETE = (By.CSS_SELECTOR, 'span[title="Delete"]')
-
     EDIT_BUTTON = (By.CSS_SELECTOR, 'span[title="Edit"]')
     INPUT_AGE = (By.CSS_SELECTOR, 'input[id="age"]')
-
     NO_ROWS_FOUND = (By.CSS_SELECTOR, 'div[class="rt-noData"]')
-
     SELECT_ROWS = (By.CSS_SELECTOR, 'span[class="select-wrap -pageSizeOptions"]')
 
     # edit amount rows

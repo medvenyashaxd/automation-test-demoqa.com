@@ -9,6 +9,7 @@ class TestAlertsFrameWindows:
             browser_windows_page.open()
             text_new_tab = browser_windows_page.test_new_tab()
             text_new_window = browser_windows_page.test_new_window()
+
             assert text_new_tab == 'This is a sample page', 'text does not match'
             assert text_new_window == 'This is a sample page', 'text does not match'
 
@@ -16,6 +17,10 @@ class TestAlertsFrameWindows:
         def test_alerts(self, driver):
             alerts_page = AlertPage(driver, 'https://demoqa.com/alerts')
             alerts_page.open()
-            simple_alert_text, text_time_alert = alerts_page.click_buttons_and_get_text()
+            simple_alert_text, text_time_alert, text_box_alert, random_text_input_alert, text_input_box_alert\
+                = alerts_page.click_buttons_and_get_text()
+
             assert simple_alert_text == 'You clicked a button'
             assert text_time_alert == 'This alert appeared after 5 seconds'
+            assert text_box_alert == 'You selected Ok' or 'You selected Cancel'
+            assert random_text_input_alert in text_input_box_alert
