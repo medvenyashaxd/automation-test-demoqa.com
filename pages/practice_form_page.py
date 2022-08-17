@@ -55,11 +55,11 @@ class PracticeFormPage(BasePage):
 
     def check_submitting_form(self):
         info = self.elements_are_present(self.locators.INFO_IN_TABLE)
-        data = []
 
+        info_in_table = []
         for attribute in info:
             self.go_to_element(attribute)
-            data.append(attribute.text)
+            info_in_table.append(attribute.text)
 
         self.element_is_visible(self.locators.CLOSE).click()
-        return data
+        return info_in_table
