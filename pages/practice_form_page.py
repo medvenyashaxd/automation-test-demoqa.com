@@ -1,6 +1,5 @@
 import os
 import random
-import time
 from generator_data.generator import generator_info, generator_subject
 from locators.practice_form_locators import PracticeFormLocators
 from pages.base_page import BasePage
@@ -24,16 +23,14 @@ class PracticeFormPage(BasePage):
 
         self.element_is_visible(self.locators.DATE_OF_BIRTH).click()
         self.random_choice_date()
-        time.sleep(1)
         self.press_enter()
 
         self.element_is_visible(self.locators.SUBJECT).send_keys(generator_subject())
-        time.sleep(1)
         self.press_enter()
 
         self.element_is_visible(self.locators.HOBBIES).click()
-        time.sleep(1)
 
+        #path = fr'C:\Users\AMD.BY\PycharmProjects\Quality-assurance-tests\pages{random.randint(1, 10)}.txt'
         path = fr'C:\Users\xmedv\PycharmProjects\Quality-assurance-tests\pages{random.randint(1, 10)}.txt'
         file = open(path, 'w')
         file.write(f'qwert{random.randint(1, 100)}')
