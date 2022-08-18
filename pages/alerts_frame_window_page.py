@@ -1,6 +1,7 @@
 import random
 import time
-from locators.alerts_frame_window_locators import BrowserWindowLocators, AlertsLocators, FramesLocators
+from locators.alerts_frame_window_locators import BrowserWindowLocators, AlertsLocators, FramesLocators, \
+    NestedFramesLocators
 from pages.base_page import BasePage
 
 
@@ -63,12 +64,29 @@ class FramesPage(BasePage):
         width_frame1 = frame1wrapper.get_attribute('width')
         height_frame1 = frame1wrapper.get_attribute('height')
         self.switch_to_frame(frame1wrapper)
-        text_frame1wrapper = self.element_is_present(self.locators.FRAMESTEXT).text
+        text_frame1wrapper = self.element_is_present(self.locators.FRAMES_TEXT).text
         self.switch_to_default_content()
 
         frame2wrapper = self.element_is_present(self.locators.FRAME2WRAPPER)
         width_frame2 = frame2wrapper.get_attribute('width')
         height_frame2 = frame2wrapper.get_attribute('height')
         self.switch_to_frame(frame2wrapper)
-        text_frame2wrapper = self.element_is_present(self.locators.FRAMESTEXT).text
+        text_frame2wrapper = self.element_is_present(self.locators.FRAMES_TEXT).text
         return [width_frame1, height_frame1, text_frame1wrapper, width_frame2, height_frame2, text_frame2wrapper]
+
+
+class NestedFrames(BasePage):
+    locators = NestedFramesLocators()
+
+    def check_nested_frames(self):
+        parent_frame = self.element_is_present(self.locators.PARENT_FRAME)
+        parent_width = parent_frame.get_attribute('width')
+        parent_height = parent_frame.get_attribute('height')
+        self.switch_to_frame(parent_frame)
+        parent_text = self.element_is_present(self.locators.PARENT_TEXT).text
+
+        child_frame = self.element_is_present(self.locators.CHILD_FRAME)
+        self.switch_to_frame(child_frame)
+        child_text = self.element_is_present(self.locators.CHILD_TEXT).text
+        return [parent_width, parent_height, parent_text, child_text]
+

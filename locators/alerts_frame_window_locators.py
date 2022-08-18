@@ -21,4 +21,12 @@ class AlertsLocators:
 class FramesLocators:
     FRAME1WRAPPER = (By.CSS_SELECTOR, 'iframe[id="frame1"]')
     FRAME2WRAPPER = (By.CSS_SELECTOR, 'iframe[id="frame2"]')
-    FRAMESTEXT = (By.CSS_SELECTOR, 'h1[id="sampleHeading"]')
+    FRAMES_TEXT = (By.CSS_SELECTOR, 'h1[id="sampleHeading"]')
+
+
+class NestedFramesLocators:
+    PARENT_FRAME = (By.CSS_SELECTOR, 'iframe[id="frame1"]')
+    PARENT_TEXT = (By.CSS_SELECTOR, 'body')
+
+    CHILD_FRAME = (By.CSS_SELECTOR, 'iframe[srcdoc="<p>Child Iframe</p>"]')
+    CHILD_TEXT = (By.CSS_SELECTOR, 'p')
