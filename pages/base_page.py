@@ -64,3 +64,9 @@ class BasePage:
     def press_enter(self):
         actions = ActionChains(self.driver)
         actions.send_keys(Keys.ENTER).perform()
+
+    def switch_to_default_content(self):
+        self.driver.switch_to.default_content()
+
+    def switch_to_frame(self, frame):
+        self.driver.switch_to.frame(frame)

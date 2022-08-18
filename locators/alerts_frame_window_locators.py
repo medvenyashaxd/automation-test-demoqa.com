@@ -16,3 +16,9 @@ class AlertsLocators:
     ALERT_BOX_RESULT = (By.CSS_SELECTOR, 'span[id="confirmResult"]')
     ALERT_INPUT_BOX = (By.CSS_SELECTOR, 'button[id="promtButton"]')
     RESULT_ALERT_INPUT_BOX = (By.CSS_SELECTOR, 'span[id="promptResult"]')
+
+
+class FramesLocators:
+    FRAME1WRAPPER = (By.CSS_SELECTOR, 'iframe[id="frame1"]')
+    FRAME2WRAPPER = (By.CSS_SELECTOR, 'iframe[id="frame2"]')
+    FRAMESTEXT = (By.CSS_SELECTOR, 'h1[id="sampleHeading"]')

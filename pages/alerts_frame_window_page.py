@@ -1,6 +1,6 @@
 import random
 import time
-from locators.alerts_frame_window_locators import BrowserWindowLocators, AlertsLocators
+from locators.alerts_frame_window_locators import BrowserWindowLocators, AlertsLocators, FramesLocators
 from pages.base_page import BasePage
 
 
@@ -53,3 +53,22 @@ class AlertPage(BasePage):
         input_box_alert.accept()
         text_input_box_alert = (self.element_is_present(self.locators.RESULT_ALERT_INPUT_BOX)).text
         return text_simple_button, text_time_alert, text_random_click, random_text_input_alert, text_input_box_alert
+
+
+class FramesPage(BasePage):
+    locators = FramesLocators()
+
+    def check_frames(self):
+        frame1wrapper = self.element_is_present(self.locators.FRAME1WRAPPER)
+        width_frame1 = frame1wrapper.get_attribute('width')
+        height_frame1 = frame1wrapper.get_attribute('height')
+        self.switch_to_frame(frame1wrapper)
+        text_frame1wrapper = self.element_is_present(self.locators.FRAMESTEXT).text
+        self.switch_to_default_content()
+
+        frame2wrapper = self.element_is_present(self.locators.FRAME2WRAPPER)
+        width_frame2 = frame2wrapper.get_attribute('width')
+        height_frame2 = frame2wrapper.get_attribute('height')
+        self.switch_to_frame(frame2wrapper)
+        text_frame2wrapper = self.element_is_present(self.locators.FRAMESTEXT).text
+        return [width_frame1, height_frame1, text_frame1wrapper, width_frame2, height_frame2, text_frame2wrapper]

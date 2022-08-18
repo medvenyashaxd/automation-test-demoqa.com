@@ -1,4 +1,4 @@
-from pages.alerts_frame_window_page import BrowserWindowPage, AlertPage
+from pages.alerts_frame_window_page import BrowserWindowPage, AlertPage, FramesPage
 
 
 class TestAlertsFrameWindows:
@@ -24,3 +24,10 @@ class TestAlertsFrameWindows:
             assert text_time_alert == 'This alert appeared after 5 seconds'
             assert text_box_alert == 'You selected Ok' or 'You selected Cancel'
             assert random_text_input_alert in text_input_box_alert
+
+    class TestFrames:
+        def test_frames(self, driver):
+            frames_page = FramesPage(driver, 'https://demoqa.com/frames')
+            frames_page.open()
+            check_info = frames_page.check_frames()
+            assert check_info == ['500px', '350px', 'This is a sample page', '100px', '100px', 'This is a sample page']
