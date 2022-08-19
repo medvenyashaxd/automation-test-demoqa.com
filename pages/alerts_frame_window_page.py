@@ -1,7 +1,7 @@
 import random
 import time
 from locators.alerts_frame_window_locators import BrowserWindowLocators, AlertsLocators, FramesLocators, \
-    NestedFramesLocators
+    NestedFramesLocators, ModalDialogsLocators
 from pages.base_page import BasePage
 
 
@@ -90,3 +90,28 @@ class NestedFrames(BasePage):
         child_text = self.element_is_present(self.locators.CHILD_TEXT).text
         return [parent_width, parent_height, parent_text, child_text]
 
+
+class ModalDialogs(BasePage):
+    locators = ModalDialogsLocators()
+
+    def check_modal_dialogs(self):
+        random_click = random.randint(1, 2)
+        if random_click == 1:
+            self.element_is_visible(self.locators.SMALL_MODAL).click()
+            text_small_modal = self.element_is_present(self.locators.TEXT_SMALL_MODAL).text
+            self.element_is_visible(self.locators.CLOSE_SMALL_MODAL).click()
+
+            self.element_is_visible(self.locators.LARGE_MODAL).click()
+            text_large_modal = self.element_is_present(self.locators.TEXT_LARGE_MODAL).text
+            self.element_is_visible(self.locators.CLOSE_LARGE_MODAL).click()
+            return len(text_large_modal) + len(text_small_modal)
+
+        if random_click == 2:
+            self.element_is_visible(self.locators.LARGE_MODAL).click()
+            text_large_modal = self.element_is_present(self.locators.TEXT_LARGE_MODAL).text
+            self.element_is_visible(self.locators.CLOSE_LARGE_MODAL).click()
+
+            self.element_is_visible(self.locators.SMALL_MODAL).click()
+            text_small_modal = self.element_is_present(self.locators.TEXT_SMALL_MODAL).text
+            self.element_is_visible(self.locators.CLOSE_SMALL_MODAL).click()
+            return len(text_large_modal) + len(text_small_modal)

@@ -1,4 +1,4 @@
-from pages.alerts_frame_window_page import BrowserWindowPage, AlertPage, FramesPage, NestedFrames
+from pages.alerts_frame_window_page import BrowserWindowPage, AlertPage, FramesPage, NestedFrames, ModalDialogs
 
 
 class TestAlertsFrameWindows:
@@ -39,3 +39,10 @@ class TestAlertsFrameWindows:
             nested_frames_page.open()
             frames_info = nested_frames_page.check_nested_frames()
             assert frames_info == ['500px', '350px', 'Parent frame', 'Child Iframe'], 'info does not match'
+
+    class TestModalDialogs:
+        def test_modal_dialogs(self, driver):
+            modal_dialogs_page = ModalDialogs(driver, 'https://demoqa.com/modal-dialogs')
+            modal_dialogs_page.open()
+            amount_letters = modal_dialogs_page.check_modal_dialogs()
+            assert amount_letters == 621, 'amount letters does not match'
