@@ -1,7 +1,6 @@
 import base64
 import os
 import random
-import time
 import requests
 from selenium.common import TimeoutException
 from generator_data.generator import generator_info
