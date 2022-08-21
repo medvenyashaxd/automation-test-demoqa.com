@@ -24,9 +24,9 @@ class TestAlertsFrameWindows:
             random_text_input_alert, output_text = alerts_page.check_alerts('box_input_alert')
 
             assert simple_alert == 'You clicked a button', 'button not pressed'
-            assert time_alert == 'This alert appeared after 5 seconds'
-            assert box_alert == 'You selected Ok' or 'You selected Cancel'
-            assert random_text_input_alert in output_text
+            assert time_alert == 'This alert appeared after 5 seconds', 'button not pressed'
+            assert box_alert == 'You selected Ok' or 'You selected Cancel', 'button not pressed'
+            assert random_text_input_alert in output_text, 'text does not match'
 
     class TestFrames:
         def test_frames(self, driver):
