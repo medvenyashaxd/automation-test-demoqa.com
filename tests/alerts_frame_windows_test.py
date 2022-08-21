@@ -1,3 +1,5 @@
+import time
+
 from pages.alerts_frame_window_page import BrowserWindowPage, AlertPage, FramesPage, NestedFrames, ModalDialogs
 
 
@@ -43,5 +45,7 @@ class TestAlertsFrameWindows:
         def test_modal_dialogs(self, driver):
             modal_dialogs_page = ModalDialogs(driver, 'https://demoqa.com/modal-dialogs')
             modal_dialogs_page.open()
-            amount_letters = modal_dialogs_page.check_modal_dialogs()
-            assert amount_letters == 621, 'amount letters does not match'
+            small_modal = modal_dialogs_page.check_modal_dialogs('small')
+            large_modal = modal_dialogs_page.check_modal_dialogs('large')
+            assert small_modal == 47, 'amount letters does not match'
+            assert large_modal == 574, 'amount letters does not match'
