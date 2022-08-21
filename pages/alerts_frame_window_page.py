@@ -43,8 +43,9 @@ class AlertPage(BasePage):
                  'text': self.locators.RESULT_ALERT_INPUT_BOX}
                 }
 
+        self.element_is_visible(alerts[alert]['alert']).click()
+
         if alert == 'simple_alert':
-            self.element_is_visible(alerts[alert]['alert']).click()
             selected_alert = self.switch_to_alert()
             alert_text = selected_alert.text
             selected_alert.accept()
@@ -52,7 +53,6 @@ class AlertPage(BasePage):
             return alert_text
 
         elif alert == 'time_alert':
-            self.element_is_visible(alerts[alert]['alert']).click()
             time.sleep(5)
             selected_alert = self.switch_to_alert()
             alert_text = selected_alert.text
@@ -61,18 +61,18 @@ class AlertPage(BasePage):
             return alert_text
 
         elif alert == 'box_alert':
-            self.element_is_visible(alerts[alert]['alert']).click()
             selected_alert = self.switch_to_alert()
             random_click = random.randint(1, 2)
             if random_click == 1:
                 selected_alert.accept()
+
             else:
                 selected_alert.dismiss()
             text_random_click = self.element_is_present(alerts[alert]['text']).text
+
             return text_random_click
 
         elif alert == 'box_input_alert':
-            self.element_is_visible(alerts[alert]['alert']).click()
             random_text_input_alert = f'qwer{random.randint(1, 10)}'
             selected_alert = self.switch_to_alert()
             selected_alert.send_keys(random_text_input_alert)
