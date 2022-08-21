@@ -9,6 +9,7 @@ class BrowserWindowLocators:
     TEXT_IN_WINDOW = (By.CSS_SELECTOR, 'h1[id="sampleHeading"]')
     TEXT_IN_WINDOW_MESSAGE = (By.CSS_SELECTOR, 'body')
 
+
 class AlertsLocators:
     SIMPLE_ALERT = (By.CSS_SELECTOR, 'button[id="alertButton"]')
     TIME_ALERT = (By.CSS_SELECTOR, 'button[id="timerAlertButton"]')
@@ -40,5 +41,3 @@ class ModalDialogsLocators:
     LARGE_MODAL = (By.CSS_SELECTOR, 'button[id="showLargeModal"]')
     TEXT_LARGE_MODAL = (By.CSS_SELECTOR, 'div[class="modal-body"] p')
     CLOSE_LARGE_MODAL = (By.CSS_SELECTOR, 'button[id="closeLargeModal"]')
-
-

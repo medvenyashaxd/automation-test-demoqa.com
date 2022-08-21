@@ -43,6 +43,7 @@ class TestAlertsFrameWindows:
             nested_frames_page = NestedFrames(driver, 'https://demoqa.com/nestedframes')
             nested_frames_page.open()
             frames_info = nested_frames_page.check_nested_frames()
+
             assert frames_info == ['500px', '350px', 'Parent frame', 'Child Iframe'], 'info does not match'
 
     class TestModalDialogs:
@@ -51,5 +52,6 @@ class TestAlertsFrameWindows:
             modal_dialogs_page.open()
             small_modal = modal_dialogs_page.check_modal_dialogs('small')
             large_modal = modal_dialogs_page.check_modal_dialogs('large')
+
             assert small_modal == 47, 'amount letters does not match'
             assert large_modal == 574, 'amount letters does not match'

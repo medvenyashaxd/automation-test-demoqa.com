@@ -10,8 +10,8 @@ class BrowserWindowPage(BasePage):
 
     def check_browser_window(self, button):
         buttons = {'new_tab':
-                       {'button': self.locators.NEW_TAB,
-                        'text': self.locators.TEXT_IN_TAB},
+                   {'button': self.locators.NEW_TAB,
+                    'text': self.locators.TEXT_IN_TAB},
 
                    'new_window':
                        {'button': self.locators.NEW_WINDOW,
@@ -34,7 +34,7 @@ class AlertPage(BasePage):
 
     def check_alerts(self, alert):
         alerts = {'simple_alert':
-                      {'alert': self.locators.SIMPLE_ALERT},
+                  {'alert': self.locators.SIMPLE_ALERT},
 
                   'time_alert':
                       {'alert': self.locators.TIME_ALERT},
@@ -92,7 +92,7 @@ class FramesPage(BasePage):
 
     def check_frames(self, frame, text):
         frames = {'frame1wrapper':
-                      {'window': self.locators.FRAME1WRAPPER},
+                  {'window': self.locators.FRAME1WRAPPER},
 
                   'frame2wrapper':
                       {'window': self.locators.FRAME2WRAPPER},
@@ -133,9 +133,9 @@ class ModalDialogs(BasePage):
 
     def check_modal_dialogs(self, dialog):
         modal_dialogs = {'small':
-                             {'button': self.locators.SMALL_MODAL,
-                              'text': self.locators.TEXT_SMALL_MODAL,
-                              'close': self.locators.CLOSE_SMALL_MODAL},
+                         {'button': self.locators.SMALL_MODAL,
+                          'text': self.locators.TEXT_SMALL_MODAL,
+                          'close': self.locators.CLOSE_SMALL_MODAL},
 
                          'large':
                              {'button': self.locators.LARGE_MODAL,
