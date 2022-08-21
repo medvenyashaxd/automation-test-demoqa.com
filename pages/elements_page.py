@@ -18,9 +18,10 @@ class TextBoxPage(BasePage):
         full_name = self.element_is_visible(self.locators.FULL_MAME).send_keys(person.full_name)
         email = self.element_is_visible(self.locators.EMAIL).send_keys(person.email)
         current_address = self.element_is_visible(self.locators.CURRENT_ADDRESS).send_keys(person.current_address)
-        permanent_address = self.element_is_visible(self.locators.PERMANENT_ADDRESS).send_keys\
+        permanent_address = self.element_is_visible(self.locators.PERMANENT_ADDRESS).send_keys \
             (person.permanent_address)
         self.element_is_visible(self.locators.SUBMIT).click()
+
         return full_name, email, current_address, permanent_address
 
     def check_filled_form(self):
@@ -28,6 +29,7 @@ class TextBoxPage(BasePage):
         email = self.element_is_present(self.locators.CREATED_EMAIL).text.split(':')[1]
         current_address = self.element_is_present(self.locators.CREATED_CURRENT_ADDRESS).text.split(':')[1]
         permanent_address = self.element_is_present(self.locators.CREATED_PERMANENT_ADDRESS).text.split(':')[1]
+
         return full_name, email, current_address, permanent_address
 
 
@@ -43,10 +45,12 @@ class CheckBoxPage(BasePage):
 
         while count != 0:
             element = elements_list[random.randint(1, 15)]
+
             if count > 0:
                 self.go_to_element(element)
                 element.click()
                 count -= 1
+
             else:
                 break
 
@@ -80,7 +84,9 @@ class RadioButtonPage(BasePage):
 
         try:
             self.element_is_visible(elements[element]).click()
+
         except TimeoutException:
+
             return False
 
     def get_output_text_button(self):
@@ -113,6 +119,7 @@ class WebTablesPage(BasePage):
 
             else:
                 break
+
             return [first, last, str(age), email, str(salary), department]
 
     def check_web_table(self):
@@ -130,6 +137,7 @@ class WebTablesPage(BasePage):
     def check_filling_search(self):
         delete_button = self.element_is_visible(self.locators.BUTTON_DELETE)
         row = delete_button.find_element('xpath', self.locators.ROW)
+
         return row.text.splitlines()
 
     def check_edit_info(self):
@@ -141,10 +149,12 @@ class WebTablesPage(BasePage):
 
         self.element_is_visible(self.locators.INPUT_AGE).send_keys(new_age)
         self.element_is_visible(self.locators.BUTTON_SUBMIT).click()
+
         return str(new_age)
 
     def delete_info_and_check(self):
         self.element_is_visible(self.locators.BUTTON_DELETE).click()
+
         return self.element_is_present(self.locators.NO_ROWS_FOUND).text
 
     def page_rows_edit(self):
@@ -169,14 +179,17 @@ class ButtonsPage(BasePage):
     def click_button(self, click):
         if click == 'double':
             self.double_click(self.element_is_visible(self.locators.DOUBLE_CLICK_ME))
+
             return self.check_click(self.locators.DONE_A_DOUBLE_CLICK)
 
         elif click == 'right':
             self.right_click(self.element_is_visible(self.locators.RIGHT_CLICK_ME))
+
             return self.check_click(self.locators.DONE_A_RIGHT_CLICK)
 
         elif click == 'click':
             self.element_is_visible(self.locators.CLICK_ME).click()
+
             return self.check_click(self.locators.DONE_A_DYNAMIC_CLICK)
 
     def check_click(self, element):
@@ -186,75 +199,49 @@ class ButtonsPage(BasePage):
 class LinksPage(BasePage):
     locators = LinksLocators()
 
-    def check_link_in_handles(self):
-        simple_link = self.element_is_visible(self.locators.SIMPLE_LINK)
-        href_link = simple_link.get_attribute('href')
+    def check_link_opened_in_new_tab(self, button):
+        buttons = {'home':
+                   {'button': self.locators.SIMPLE_LINK},
+
+                   'home_random_id':
+                       {'button': self.locators.DYNAMIC_LINK}
+                   }
+
+        link = self.element_is_present(buttons[button]['button'])
+        href_link = link.get_attribute('href')
         request = requests.get(href_link)
 
         if request.status_code == 200:
-            simple_link.click()
+            link.click()
             self.switch_to_window(1)
             url = self.driver.current_url
             self.switch_to_window(0)
-            return href_link, url
+
+            return [url, request.status_code]
 
         else:
-            return href_link, request.status_code
 
-    def check_dynamic_link(self):
-        dynamic_link = self.element_is_visible(self.locators.DYNAMIC_LINK)
-        href_link = dynamic_link.get_attribute('href')
-        request = requests.get(href_link)
+            return [href_link, request.status_code]
 
-        if request.status_code == 200:
-            dynamic_link.click()
-            self.switch_to_window(1)
-            url = self.driver.current_url
-            return href_link, url
+    def check_link(self, url, button):
+        buttons = {'created':
+                   {'button': self.locators.CREATED_LINK},
 
-        else:
-            return href_link, request.status_code
+                   'no_content':
+                       {'button': self.locators.CONTENT_LINK},
 
-    def check_created_link(self, url):
+                   'moved':
+                       {'button': self.locators.BAD_REQUEST},
+
+                   'not_found':
+                       {'button': self.locators.NOT_FOUND}
+                   }
+
         request = requests.get(url)
 
         if request.status_code == 200:
-            self.element_is_visible(self.locators.CREATED_LINK).click()
+            self.element_is_visible(buttons[button]['button']).click()
 
-        else:
-            return request.status_code
-
-    def check_no_content_link(self, url):
-        request = requests.get(url)
-        if request.status_code == 200:
-            self.element_is_visible(self.locators.CONTENT_LINK).click()
-
-        else:
-            return request.status_code
-
-    def check_moved_link(self, url):
-        request = requests.get(url)
-
-        if request.status_code == 200:
-            self.element_is_visible(self.locators.MOVED_LINK).click()
-
-        else:
-            return request.status_code
-
-    def check_bad_request_link(self, url):
-        request = requests.get(url)
-
-        if request.status_code == 200:
-            self.element_is_visible(self.locators.BAD_REQUEST).click()
-
-        else:
-            return request.status_code
-
-    def check_not_found_link(self, url):
-        request = requests.get(url)
-
-        if request.status_code == 200:
-            self.element_is_visible(self.locators.NOT_FOUND).click()
         else:
             return request.status_code
 
@@ -262,35 +249,23 @@ class LinksPage(BasePage):
 class BrokenLinksImagesPage(BasePage):
     locators = BrokenLinksImagesLocators()
 
-    def check_valid_link(self, url):
+    def check_link(self, url, link):
+        links = {'valid_link':
+                 {'button': self.locators.VALID_LINK},
+
+                 'broken_link':
+                     {'button': self.locators.BROKEN_LINK},
+                 }
+
         request = requests.get(url)
-
         if request.status_code == 200:
-            elements = self.elements_are_present(self.locators.ELEMENTS)
+            self.element_is_visible(links[link]['button']).click()
 
-            for element in elements:
-                self.go_to_element(element)
-            self.element_is_visible(self.locators.VALID_LINK).click()
-
-            url = self.driver.current_url
-            return url, request.status_code
-        else:
-            return url, request.status_code
-
-    def check_broken_link(self, url):
-        request = requests.get(url)
-
-        if request.status_code == 200:
-            elements = self.elements_are_present(self.locators.ELEMENTS)
-
-            for element in elements:
-                self.go_to_element(element)
-            self.element_is_visible(self.locators.BROKEN_LINK).click()
-            url = self.driver.current_url
-            return url, request.status_code
+            return request.status_code
 
         else:
-            return url, request.status_code
+
+            return request.status_code
 
 
 class UpLoadAndDownLoadPage(BasePage):
@@ -305,6 +280,7 @@ class UpLoadAndDownLoadPage(BasePage):
             check_file = os.path.exists(path)
             f.close()
         os.remove(path)
+
         return check_file
 
     def upload_file(self):
@@ -315,6 +291,7 @@ class UpLoadAndDownLoadPage(BasePage):
 
         self.element_is_present(self.locators.SELECT_A_FILE).send_keys(path)
         check_file = self.element_is_present(self.locators.UPLOADED_FILE_PATH).text
+
         return check_file.split('\\')[-1], path.split('\\')[-1]
 
 
@@ -323,14 +300,17 @@ class DynamicPropertiesPage(BasePage):
 
     def check_text_with_random_id(self):
         check_text = self.element_is_visible(self.locators.TEXT_WITH_RANDOM_ID).text
+
         return check_text
 
     def check_enable_button_after_5_second(self):
         try:
             self.element_is_clickable(self.locators.WILL_ENABLE_5_SECONDS_BUTTON)
+
             return True
 
         except TimeoutException:
+
             return False
 
     def check_change_color(self):
@@ -341,7 +321,9 @@ class DynamicPropertiesPage(BasePage):
     def check_visible_button_after_5_second(self):
         try:
             self.element_is_visible(self.locators.VISIBLE_AFTER_5_SECONDS)
+
             return True
 
         except TimeoutException:
+
             return False

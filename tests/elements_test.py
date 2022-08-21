@@ -76,7 +76,7 @@ class TestElements:
             edit_info = web_tables_page.check_edit_info()
             info_in_row = web_tables_page.check_filling_search()
 
-            assert edit_info in info_in_row
+            assert edit_info in info_in_row, 'text does not match'
 
         def test_delete_info(self, driver):
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
@@ -87,7 +87,7 @@ class TestElements:
             # web_tables_page.filling_search('Cierra')
             delete_info = web_tables_page.delete_info_and_check()
 
-            assert 'No rows found' in delete_info
+            assert 'No rows found' in delete_info, 'text does not match'
 
         def test_edit_rows(self, driver):  # bug! only 25 lines can be selected
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
@@ -112,35 +112,33 @@ class TestElements:
         def test_link_in_window_handles(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
-            href_link_from_handles, current_url_from_handles = links_page.check_link_in_handles()
-            time.sleep(1)
-            href_link_from_dynamic_link, current_url_from_dynamic_link = links_page.check_dynamic_link()
-            time.sleep(1)
-            response_from_created_link = links_page.check_created_link('https://demoqa.com/created')
-            response_from_no_content_link = links_page.check_no_content_link('https://demoqa.com/no-content')
-            response_from_moved_link = links_page.check_moved_link('https://demoqa.com/moved')
-            response_from_bad_request_link = links_page.check_bad_request_link('https://demoqa.com/bad-request')
-            response_from_not_found_link = links_page.check_not_found_link('https://demoqa.com/invalid-url')
+            url, status = links_page.check_link_opened_in_new_tab('home')
+            url_random_id, status_random_id = links_page.check_link_opened_in_new_tab('home_random_id')
 
-            assert href_link_from_handles == current_url_from_handles, 'link is broken or url is incorrect'
-            assert href_link_from_dynamic_link == current_url_from_dynamic_link, 'link is broken or url is incorrect'
-            assert response_from_created_link == 201, 'link is work'
-            assert response_from_no_content_link == 204, 'link is work'
-            assert response_from_moved_link == 301, 'link is work'
-            assert response_from_bad_request_link == 400, 'link is work'
-            assert response_from_not_found_link == 404, 'link is work'
+            status_code_created_link = links_page.check_link('https://demoqa.com/created', 'created')
+            status_code_no_content_link = links_page.check_link('https://demoqa.com/no-content', 'no_content')
+            status_code_moved_link = links_page.check_link('https://demoqa.com/moved', 'moved')
+            status_code_not_found_link = links_page.check_link('https://demoqa.com/invalid-url', 'not_found')
+
+            assert url, status == ['https://demoqa.com/ 200']
+            assert url_random_id, status_random_id == ['https://demoqa.com/ 200']
+
+            assert status_code_created_link == 201, 'link is work'
+            assert status_code_no_content_link == 204, 'link is work'
+            assert status_code_moved_link == 301, 'link is work'
+            assert status_code_not_found_link == 404, 'link is work'
 
     class TestBrokenLinksImage:
         def test_valid_broken_link(self, driver):
             broken_page = BrokenLinksImagesPage(driver, 'https://demoqa.com/broken')
             broken_page.open()
-            valid_url, valid_response = broken_page.check_valid_link('http://demoqa.com/')
+            request_status_code_valid_link = broken_page.check_link('http://demoqa.com/', 'valid_link')
             broken_page.open()
-            broken_url, broken_response = broken_page.check_broken_link\
-                ('http://the-internet.herokuapp.com/status_codes/500')
+            request_status_code_broken_link = broken_page.check_link(
+                'http://the-internet.herokuapp.com/status_codes/500', 'broken_link')
 
-            assert valid_response == 200, 'link not work'
-            assert broken_response == 500, 'link is work'
+            assert request_status_code_valid_link == 200, 'link not work'
+            assert request_status_code_broken_link == 500, 'link is work'
 
     class TestUpLoadAndDownload:
         def test_download(self, driver):
@@ -171,4 +169,3 @@ class TestElements:
             assert text == 'This text has random Id', 'text does not match'
             assert color_button != 'rgba(255, 255, 255, 1)'
             assert visible_button is True, 'element is not visible'
-
