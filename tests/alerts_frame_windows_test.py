@@ -12,7 +12,7 @@ class TestAlertsFrameWindows:
             new_window = browser_windows_page.check_browser_window('new_window')
             new_window_message = browser_windows_page.check_browser_window('new_window_message')
 
-            assert new_window_message == 'This is a sample page'
+            assert new_window_message == 'This is a sample page', 'text does not match'
             assert new_tab == 'This is a sample page', 'text does not match'
             assert new_window == 'This is a sample page', 'text does not match'
 
