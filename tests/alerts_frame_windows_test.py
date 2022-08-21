@@ -3,7 +3,6 @@ from pages.alerts_frame_window_page import BrowserWindowPage, AlertPage, FramesP
 
 class TestAlertsFrameWindows:
     class TestBrowserWindow:
-
         def test_browser_windows(self, driver):
             browser_windows_page = BrowserWindowPage(driver, 'https://demoqa.com/browser-windows')
             browser_windows_page.open()
