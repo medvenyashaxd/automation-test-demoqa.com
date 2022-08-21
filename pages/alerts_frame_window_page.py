@@ -27,36 +27,59 @@ class BrowserWindowPage(BasePage):
 class AlertPage(BasePage):
     locators = AlertsLocators()
 
-    def click_buttons_and_get_text(self):
-        self.element_is_visible(self.locators.SIMPLE_ALERT).click()
-        simple_alert = self.switch_to_alert()
-        text_simple_button = simple_alert.text
-        simple_alert.accept()
+    def check_alerts(self, alert):
+        alerts = {'simple_alert':
+                {'alert': self.locators.SIMPLE_ALERT},
 
-        self.element_is_visible(self.locators.TIME_ALERT).click()
-        time.sleep(5)
-        time_alert = self.switch_to_alert()
-        text_time_alert = time_alert.text
-        time_alert.accept()
+                'time_alert':
+                {'alert': self.locators.TIME_ALERT},
 
-        self.element_is_visible(self.locators.ALERT_BOX).click()
-        box_alert = self.switch_to_alert()
-        random_click = random.randint(1, 2)
-        if random_click == 1:
-            box_alert.accept()
-        else:
-            box_alert.dismiss()
-        text_random_click = self.element_is_present(self.locators.ALERT_BOX_RESULT).text
+                'box_alert':
+                {'alert': self.locators.ALERT_BOX,
+                 'text': self.locators.ALERT_BOX_RESULT},
 
-        self.go_to_element(self.element_is_present(self.locators.ALERT_INPUT_BOX))
-        self.element_is_visible(self.locators.ALERT_INPUT_BOX).click()
-        random_text_input_alert = f'qwer{random.randint(1, 10)}'
-        input_box_alert = self.switch_to_alert()
-        input_box_alert.send_keys(random_text_input_alert)
-        input_box_alert.accept()
-        text_input_box_alert = (self.element_is_present(self.locators.RESULT_ALERT_INPUT_BOX)).text
+                'box_input_alert':
+                {'alert': self.locators.ALERT_INPUT_BOX,
+                 'text': self.locators.RESULT_ALERT_INPUT_BOX}
+                }
 
-        return text_simple_button, text_time_alert, text_random_click, random_text_input_alert, text_input_box_alert
+        if alert == 'simple_alert':
+            self.element_is_visible(alerts[alert]['alert']).click()
+            selected_alert = self.switch_to_alert()
+            alert_text = selected_alert.text
+            selected_alert.accept()
+
+            return alert_text
+
+        elif alert == 'time_alert':
+            self.element_is_visible(alerts[alert]['alert']).click()
+            time.sleep(5)
+            selected_alert = self.switch_to_alert()
+            alert_text = selected_alert.text
+            selected_alert.accept()
+
+            return alert_text
+
+        elif alert == 'box_alert':
+            self.element_is_visible(alerts[alert]['alert']).click()
+            selected_alert = self.switch_to_alert()
+            random_click = random.randint(1, 2)
+            if random_click == 1:
+                selected_alert.accept()
+            else:
+                selected_alert.dismiss()
+            text_random_click = self.element_is_present(alerts[alert]['text']).text
+            return text_random_click
+
+        elif alert == 'box_input_alert':
+            self.element_is_visible(alerts[alert]['alert']).click()
+            random_text_input_alert = f'qwer{random.randint(1, 10)}'
+            selected_alert = self.switch_to_alert()
+            selected_alert.send_keys(random_text_input_alert)
+            selected_alert.accept()
+            output_text = self.element_is_present(alerts[alert]['text']).text
+
+            return random_text_input_alert, output_text
 
 
 class FramesPage(BasePage):

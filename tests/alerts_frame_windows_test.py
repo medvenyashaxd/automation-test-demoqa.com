@@ -18,13 +18,15 @@ class TestAlertsFrameWindows:
         def test_alerts(self, driver):
             alerts_page = AlertPage(driver, 'https://demoqa.com/alerts')
             alerts_page.open()
-            simple_alert_text, text_time_alert, text_box_alert, random_text_input_alert, text_input_box_alert \
-                = alerts_page.click_buttons_and_get_text()
+            simple_alert = alerts_page.check_alerts('simple_alert')
+            time_alert = alerts_page.check_alerts('time_alert')
+            box_alert = alerts_page.check_alerts('box_alert')
+            random_text_input_alert, output_text = alerts_page.check_alerts('box_input_alert')
 
-            assert simple_alert_text == 'You clicked a button', 'button not pressed'
-            assert text_time_alert == 'This alert appeared after 5 seconds', 'button not pressed'
-            assert text_box_alert == 'You selected Ok' or 'You selected Cancel', 'button not pressed'
-            assert random_text_input_alert in text_input_box_alert, 'text does not match'
+            assert simple_alert == 'You clicked a button', 'button not pressed'
+            assert time_alert == 'This alert appeared after 5 seconds'
+            assert box_alert == 'You selected Ok' or 'You selected Cancel'
+            assert random_text_input_alert in output_text
 
     class TestFrames:
         def test_frames(self, driver):
@@ -32,8 +34,8 @@ class TestAlertsFrameWindows:
             frames_page.open()
             frame1wrapper = frames_page.check_frames('frame1wrapper', 'text')
             frame2wrapper = frames_page.check_frames('frame2wrapper', 'text')
-            assert frame1wrapper == ['500px', '350px', 'This is a sample page']
-            assert frame2wrapper == ['100px', '100px', 'This is a sample page']
+            assert frame1wrapper == ['500px', '350px', 'This is a sample page'], 'info does not match'
+            assert frame2wrapper == ['100px', '100px', 'This is a sample page'], 'info does not match'
 
     class TestNestedFrames:
         def test_nested_frames(self, driver):
