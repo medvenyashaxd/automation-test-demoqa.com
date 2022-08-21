@@ -1,6 +1,7 @@
 import base64
 import os
 import random
+import time
 import requests
 from selenium.common import TimeoutException
 from generator_data.generator import generator_info
@@ -14,23 +15,19 @@ class TextBoxPage(BasePage):
     locators = TextBoxPageLocators()
 
     def fill_form_fields(self):
-        person = next(generator_info())
-        full_name = self.element_is_visible(self.locators.FULL_MAME).send_keys(person.full_name)
-        email = self.element_is_visible(self.locators.EMAIL).send_keys(person.email)
-        current_address = self.element_is_visible(self.locators.CURRENT_ADDRESS).send_keys(person.current_address)
-        permanent_address = self.element_is_visible(self.locators.PERMANENT_ADDRESS).send_keys \
-            (person.permanent_address)
+        info = next(generator_info())
+        self.element_is_visible(self.locators.FULL_MAME).send_keys(info.full_name)
+        self.element_is_visible(self.locators.EMAIL).send_keys(info.email)
+        self.element_is_visible(self.locators.CURRENT_ADDRESS).send_keys(info.current_address)
+        self.element_is_visible(self.locators.PERMANENT_ADDRESS).send_keys(info.permanent_address)
         self.element_is_visible(self.locators.SUBMIT).click()
 
-        return full_name, email, current_address, permanent_address
+        return [info.full_name, info.email]
 
     def check_filled_form(self):
         full_name = self.element_is_present(self.locators.CREATED_FULL_NAME).text.split(':')[1]
         email = self.element_is_present(self.locators.CREATED_EMAIL).text.split(':')[1]
-        current_address = self.element_is_present(self.locators.CREATED_CURRENT_ADDRESS).text.split(':')[1]
-        permanent_address = self.element_is_present(self.locators.CREATED_PERMANENT_ADDRESS).text.split(':')[1]
-
-        return full_name, email, current_address, permanent_address
+        return[full_name, email]
 
 
 class CheckBoxPage(BasePage):

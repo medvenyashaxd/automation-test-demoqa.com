@@ -7,7 +7,7 @@ Faker.seed()
 
 def generator_info():
     yield properties_for_information(
-        full_name=faker.first_name() + ' ' + faker.last_name(),# + ' ' + faker.middle_name(),
+        full_name=faker.first_name() + ' ' + faker.last_name(),
         first_name=faker.first_name(),
         last_name=faker.last_name(),
         age=random.randint(22, 55),

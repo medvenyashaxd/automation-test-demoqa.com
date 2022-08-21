@@ -9,14 +9,12 @@ class TestElements:
         def test_text_box(self, driver):
             text_box_page = TextBoxPage(driver, 'https://demoqa.com/text-box')
             text_box_page.open()
-            time.sleep(2)
-            input_full_name, input_email, input_curr_addr, input_per_address = text_box_page.fill_form_fields()
-            output_name, output_email, output_curr_address, output_per_address = text_box_page.check_filled_form()
+            full_name, email = text_box_page.fill_form_fields()
+            output_full_name, output_email = text_box_page.check_filled_form()
 
-            assert input_full_name == output_name, 'name is not correct'
-            assert input_email == output_email, 'email is not correct'
-            assert input_curr_addr == output_curr_address, 'current address is not correct'
-            assert input_per_address == output_per_address, 'permanent address is not correct'
+            assert full_name == output_full_name, 'name is not correct'
+            assert email == output_email, 'email is not correct'
+
 
     class TestCheckBox:
         # bug! Invalid file name to check output
