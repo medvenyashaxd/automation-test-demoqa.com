@@ -30,9 +30,10 @@ class TestAlertsFrameWindows:
         def test_frames(self, driver):
             frames_page = FramesPage(driver, 'https://demoqa.com/frames')
             frames_page.open()
-            frames_info = frames_page.check_frames()
-            assert frames_info == ['500px', '350px', 'This is a sample page', '100px', '100px',
-                                   'This is a sample page'], 'info does not match'
+            frame1wrapper = frames_page.check_frames('frame1wrapper', 'text')
+            frame2wrapper = frames_page.check_frames('frame2wrapper', 'text')
+            assert frame1wrapper == ['500px', '350px', 'This is a sample page']
+            assert frame2wrapper == ['100px', '100px', 'This is a sample page']
 
     class TestNestedFrames:
         def test_nested_frames(self, driver):
