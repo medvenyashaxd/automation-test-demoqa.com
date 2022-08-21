@@ -1,5 +1,7 @@
 import os
 import random
+import time
+
 from generator_data.generator import generator_info, generator_subject
 from locators.practice_form_locators import PracticeFormLocators
 from pages.base_page import BasePage
@@ -23,9 +25,11 @@ class PracticeFormPage(BasePage):
 
         self.element_is_visible(self.locators.DATE_OF_BIRTH).click()
         self.random_choice_date()
+        time.sleep(1)
         self.press_enter()
 
         self.element_is_visible(self.locators.SUBJECT).send_keys(generator_subject())
+        time.sleep(1)
         self.press_enter()
 
         self.element_is_visible(self.locators.HOBBIES).click()
@@ -53,10 +57,13 @@ class PracticeFormPage(BasePage):
     def check_submitting_form(self):
         info_in_table = self.elements_are_present(self.locators.INFO_IN_TABLE)
 
+        time.sleep(1)
+
         info = []
         for attribute in info_in_table:
             self.go_to_element(attribute)
             info.append(attribute.text)
 
         self.element_is_visible(self.locators.CLOSE).click()
+
         return info
