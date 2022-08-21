@@ -8,20 +8,25 @@ from pages.base_page import BasePage
 class BrowserWindowPage(BasePage):
     locators = BrowserWindowLocators()
 
-    def test_new_tab(self):
-        self.element_is_visible(self.locators.NEW_TAB).click()
+    def check_browser_window(self, button):
+        buttons = {'new_tab':
+                       {'button': self.locators.NEW_TAB,
+                        'text': self.locators.TEXT_IN_TAB},
+
+                   'new_window':
+                       {'button': self.locators.NEW_WINDOW,
+                        'text': self.locators.TEXT_IN_WINDOW},
+
+                   'new_window_message':
+                       {'button': self.locators.NEW_WINDOW_MESSAGE,
+                        'text': self.locators.TEXT_IN_WINDOW_MESSAGE}
+                   }
+        self.element_is_visible(buttons[button]['button']).click()
         self.switch_to_window(1)
-        text_in_new_tab = self.element_is_present(self.locators.TEXT_IN_TAB).text
+        text = self.element_is_present(buttons[button]['text']).text
         self.switch_to_window(0)
 
-        return text_in_new_tab
-
-    def test_new_window(self):
-        self.element_is_visible(self.locators.NEW_WINDOW).click()
-        self.switch_to_window(1)
-        text_in_new_window = self.element_is_present(self.locators.TEXT_IN_WINDOW).text
-
-        return text_in_new_window
+        return text
 
 
 class AlertPage(BasePage):
@@ -29,19 +34,19 @@ class AlertPage(BasePage):
 
     def check_alerts(self, alert):
         alerts = {'simple_alert':
-                {'alert': self.locators.SIMPLE_ALERT},
+                      {'alert': self.locators.SIMPLE_ALERT},
 
-                'time_alert':
-                {'alert': self.locators.TIME_ALERT},
+                  'time_alert':
+                      {'alert': self.locators.TIME_ALERT},
 
-                'box_alert':
-                {'alert': self.locators.ALERT_BOX,
-                 'text': self.locators.ALERT_BOX_RESULT},
+                  'box_alert':
+                      {'alert': self.locators.ALERT_BOX,
+                       'text': self.locators.ALERT_BOX_RESULT},
 
-                'box_input_alert':
-                {'alert': self.locators.ALERT_INPUT_BOX,
-                 'text': self.locators.RESULT_ALERT_INPUT_BOX}
-                }
+                  'box_input_alert':
+                      {'alert': self.locators.ALERT_INPUT_BOX,
+                       'text': self.locators.RESULT_ALERT_INPUT_BOX}
+                  }
 
         self.element_is_visible(alerts[alert]['alert']).click()
 
@@ -87,13 +92,13 @@ class FramesPage(BasePage):
 
     def check_frames(self, frame, text):
         frames = {'frame1wrapper':
-                    {'window': self.locators.FRAME1WRAPPER},
+                      {'window': self.locators.FRAME1WRAPPER},
 
                   'frame2wrapper':
-                    {'window': self.locators.FRAME2WRAPPER},
+                      {'window': self.locators.FRAME2WRAPPER},
 
                   'text':
-                    {'content': self.locators.FRAMES_TEXT}
+                      {'content': self.locators.FRAMES_TEXT}
                   }
 
         frame_wrapper = self.element_is_present(frames[frame]['window'])

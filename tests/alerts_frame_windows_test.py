@@ -8,11 +8,13 @@ class TestAlertsFrameWindows:
         def test_browser_windows(self, driver):
             browser_windows_page = BrowserWindowPage(driver, 'https://demoqa.com/browser-windows')
             browser_windows_page.open()
-            text_new_tab = browser_windows_page.test_new_tab()
-            text_new_window = browser_windows_page.test_new_window()
+            new_tab = browser_windows_page.check_browser_window('new_tab')
+            new_window = browser_windows_page.check_browser_window('new_window')
+            new_window_message = browser_windows_page.check_browser_window('new_window_message')
 
-            assert text_new_tab == 'This is a sample page', 'text does not match'
-            assert text_new_window == 'This is a sample page', 'text does not match'
+            assert new_window_message == 'This is a sample page'
+            assert new_tab == 'This is a sample page', 'text does not match'
+            assert new_window == 'This is a sample page', 'text does not match'
 
     class TestAlerts:
         def test_alerts(self, driver):
@@ -34,6 +36,7 @@ class TestAlertsFrameWindows:
             frames_page.open()
             frame1wrapper = frames_page.check_frames('frame1wrapper', 'text')
             frame2wrapper = frames_page.check_frames('frame2wrapper', 'text')
+
             assert frame1wrapper == ['500px', '350px', 'This is a sample page'], 'info does not match'
             assert frame2wrapper == ['100px', '100px', 'This is a sample page'], 'info does not match'
 

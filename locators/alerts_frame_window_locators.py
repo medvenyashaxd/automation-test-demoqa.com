@@ -7,7 +7,7 @@ class BrowserWindowLocators:
     NEW_WINDOW_MESSAGE = (By.CSS_SELECTOR, 'button[id="messageWindowButton"]')
     TEXT_IN_TAB = (By.CSS_SELECTOR, 'h1[id="sampleHeading"]')
     TEXT_IN_WINDOW = (By.CSS_SELECTOR, 'h1[id="sampleHeading"]')
-
+    TEXT_IN_WINDOW_MESSAGE = (By.CSS_SELECTOR, 'body')
 
 class AlertsLocators:
     SIMPLE_ALERT = (By.CSS_SELECTOR, 'button[id="alertButton"]')
