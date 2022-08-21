@@ -1,5 +1,3 @@
-import time
-
 from pages.alerts_frame_window_page import BrowserWindowPage, AlertPage, FramesPage, NestedFrames, ModalDialogs
 
 
