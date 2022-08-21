@@ -1,5 +1,3 @@
-import time
-
 from locators.widgets_locators import AccordianLocators
 from pages.base_page import BasePage
 

@@ -10,6 +10,7 @@ class TestWidgets:
             section_one = accordian_page.check_accordian('section_one')
             section_two = accordian_page.check_accordian('section_two')
             section_three = accordian_page.check_accordian('section_three')
+
             assert section_one == 574
             assert section_two == 763
             assert section_three == 613
