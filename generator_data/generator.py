@@ -1,12 +1,13 @@
 import random
-from data.data_for_info import properties_for_information
+from data.data_for_info import Properties_for_information, Subject
 from faker import Faker
+
 faker = Faker('en.US')
 Faker.seed()
 
 
 def generator_info():
-    yield properties_for_information(
+    yield Properties_for_information(
         full_name=faker.first_name() + ' ' + faker.last_name(),
         first_name=faker.first_name(),
         last_name=faker.last_name(),
@@ -21,6 +22,7 @@ def generator_info():
 
 
 def generator_subject():
-    subject = ['English', 'Math', 'Physics', 'Chemistry', 'Computer Science', 'Economics', 'Arts', 'Social Studies',
-               'Arts', 'History', 'Civics', 'Biology', 'Accounting', 'Hindi']
-    return subject[random.randint(0, 13)]
+    yield Subject(
+        subject=['English', 'Math', 'Physics', 'Chemistry', 'Computer Science', 'Economics', 'Arts', 'Social Studies',
+                 'Arts', 'History', 'Civics', 'Biology', 'Accounting', 'Hindi']
+                )
