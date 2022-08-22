@@ -1,5 +1,5 @@
 import random
-from data.data_for_info import Properties_for_information, Subject
+from data.data_for_info import PropertiesForInformation, Subject, Color
 from faker import Faker
 
 faker = Faker('en.US')
@@ -7,7 +7,7 @@ Faker.seed()
 
 
 def generator_info():
-    yield Properties_for_information(
+    yield PropertiesForInformation(
         full_name=faker.first_name() + ' ' + faker.last_name(),
         first_name=faker.first_name(),
         last_name=faker.last_name(),
@@ -25,4 +25,10 @@ def generator_subject():
     yield Subject(
         subject=['English', 'Math', 'Physics', 'Chemistry', 'Computer Science', 'Economics', 'Arts', 'Social Studies',
                  'Arts', 'History', 'Civics', 'Biology', 'Accounting', 'Hindi']
+                )
+
+
+def generator_color():
+    yield Color(
+        color=['Black', 'Blue', 'Aqua', 'Magenta', 'White', 'Yellow', 'Red', 'Green', 'Purple', 'Violet', 'Indigo']
                 )

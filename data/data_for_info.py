@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Properties_for_information:
+class PropertiesForInformation:
     full_name: str = None
     first_name: str = None
     last_name: str = None
@@ -22,4 +22,4 @@ class Subject:
 
 @dataclass
 class Color:
-    color: str = None
+    color: list = None
