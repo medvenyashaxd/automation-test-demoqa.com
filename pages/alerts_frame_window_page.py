@@ -1,5 +1,6 @@
 import random
 import time
+
 from locators.alerts_frame_window_locators import BrowserWindowLocators, AlertsLocators, FramesLocators, \
     NestedFramesLocators, ModalDialogsLocators
 from pages.base_page import BasePage

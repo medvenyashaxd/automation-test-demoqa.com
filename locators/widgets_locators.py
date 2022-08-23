@@ -13,10 +13,16 @@ class AccordianLocators:
 
 
 class AutoCompleteLocators:
-    MULTIPLE_INPUT = (By.CSS_SELECTOR, 'input[id="autoCompleteMultipleInput"]')
-    MULTIPLE_COLORS = (By.CSS_SELECTOR, 'div[class="css-1rhbuit-multiValue auto-complete__multi-value"]')
-    DELETE_COLORS = (By.CSS_SELECTOR, 'div[class="css-xb97g8 auto-complete__multi-value__remove"] path[d]')
-    CLEAR_COLORS = (By.CSS_SELECTOR, 'div[class="auto-complete__indicators css-1wy0on6"] path[d]')
+    MULTIPLE_COLORS_INPUT = (By.CSS_SELECTOR, 'input[id="autoCompleteMultipleInput"]')
+    DELETE_BUTTON = (By.CSS_SELECTOR, 'div[class="css-xb97g8 auto-complete__multi-value__remove"] path[d]')
+    CLEAR_ALL = (By.CSS_SELECTOR, 'div[class="auto-complete__indicators css-1wy0on6"] path[d]')
 
-    SINGLE_INPUT = (By.CSS_SELECTOR, 'input[id="autoCompleteSingleInput"]')
-    SINGLE_TEXT = (By.CSS_SELECTOR, 'div[class="auto-complete__single-value css-1uccc91-singleValue"]')
+    BUTTONS_COLOR_TEXT = (By.CSS_SELECTOR, 'div[class="css-12jo7m5 auto-complete__multi-value__label"]')
+
+    SINGLE_COLOR_INPUT = (By.CSS_SELECTOR, 'input[id="autoCompleteSingleInput"]')
+    BUTTON_COLOR_TEXT = (By.CSS_SELECTOR, 'div[class="auto-complete__single-value css-1uccc91-singleValue"]')
+
+
+class DatePickerLocators:
+    SELECT_DATE = (By.CSS_SELECTOR, 'input[id="datePickerMonthYearInput"]')
+    SELECT_MONTH = (By.CSS_SELECTOR, 'select[class="react-datepicker__month-select"]')

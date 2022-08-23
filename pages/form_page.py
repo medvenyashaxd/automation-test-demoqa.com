@@ -28,11 +28,9 @@ class PracticeFormPage(BasePage):
         time.sleep(1)
         self.press_enter()
 
-        subjects = (random.sample(next(generator_subject()).subject, k=random.randint(2, 4)))
-        for subject in subjects:
-            self.element_is_present(self.locators.SUBJECT).send_keys(subject)
-            time.sleep(1)
-            self.press_enter()
+        self.element_is_visible(self.locators.SUBJECT).send_keys(random.sample(next(generator_subject()).subject, k=1))
+        time.sleep(1)
+        self.press_enter()
 
         self.element_is_visible(self.locators.HOBBIES).click()
 

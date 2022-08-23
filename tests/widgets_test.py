@@ -1,6 +1,4 @@
-import time
-
-from pages.widgets_page import WidgetsPage, AutoCompletePage
+from pages.widgets_page import WidgetsPage, AutoCompletePage, DatePickerPage
 
 
 class TestWidgets:
@@ -21,12 +19,16 @@ class TestWidgets:
         def test_auto_complete(self, driver):
             auto_complete_page = AutoCompletePage(driver, 'https://demoqa.com/auto-complete')
             auto_complete_page.open()
-            time.sleep(2)
-            added_colors = auto_complete_page.check_multiple_auto_complete()
-            result_colors = auto_complete_page.delete_auto_complete()
-            clear = auto_complete_page.clear_auto_complete()
-            input_colors, output_colors = auto_complete_page.check_auto_complete_single_color()
+            colors, color_after = auto_complete_page.check_multiple_color()
+            clear = auto_complete_page.clear_all()
+            singe_color, get_single_color = auto_complete_page.check_single_color()
 
-            assert added_colors != result_colors, 'color is not removed'
-            assert clear is True, 'input not cleared'
-            assert input_colors == output_colors, 'color is does not match'
+            assert singe_color == get_single_color, 'colors do not match'
+            assert colors != color_after, 'color is not removed'
+            assert clear is True, 'colors not cleared'
+
+    class TestDatePicker:
+        def test_date_picker(self, driver):
+            date_picker_page = DatePickerPage(driver, 'https://demoqa.com/date-picker')
+            date_picker_page.open()
+            date_picker_page.set_time()

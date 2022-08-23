@@ -1,5 +1,7 @@
 import random
+
 from selenium.webdriver import ActionChains, Keys
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -70,3 +72,7 @@ class BasePage:
 
     def switch_to_frame(self, frame):
         self.driver.switch_to.frame(frame)
+
+    def select_by_value(self, element, value):
+        select = Select(self.element_is_present(element))
+        select.select_by_value(value)
