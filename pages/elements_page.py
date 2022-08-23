@@ -2,6 +2,7 @@ import base64
 import os
 import random
 import requests
+
 from selenium.common import TimeoutException
 from generator_data.generator import generator_info
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonLocators, \

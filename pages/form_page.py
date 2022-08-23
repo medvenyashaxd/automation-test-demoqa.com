@@ -28,7 +28,7 @@ class PracticeFormPage(BasePage):
         time.sleep(1)
         self.press_enter()
 
-        self.element_is_visible(self.locators.SUBJECT).send_keys(generator_subject())
+        self.element_is_visible(self.locators.SUBJECT).send_keys(random.sample(next(generator_subject()).subject, k=1))
         time.sleep(1)
         self.press_enter()
 

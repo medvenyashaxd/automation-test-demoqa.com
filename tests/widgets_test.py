@@ -1,4 +1,4 @@
-from pages.widgets_page import WidgetsPage
+from pages.widgets_page import WidgetsPage, AutoCompletePage
 
 
 class TestWidgets:
@@ -11,6 +11,18 @@ class TestWidgets:
             section_two = accordian_page.check_accordian('section_two')
             section_three = accordian_page.check_accordian('section_three')
 
-            assert section_one == 574
-            assert section_two == 763
-            assert section_three == 613
+            assert section_one == 574, 'the number of letters does not match'
+            assert section_two == 763, 'the number of letters does not match'
+            assert section_three == 613, 'the number of letters does not match'
+
+    class TestAutoComplete:
+        def test_auto_complete(self, driver):
+            auto_complete_page = AutoCompletePage(driver, 'https://demoqa.com/auto-complete')
+            auto_complete_page.open()
+            colors, color_after = auto_complete_page.check_multiple_color()
+            clear = auto_complete_page.clear_all()
+            singe_color, get_single_color = auto_complete_page.check_single_color()
+
+            assert singe_color == get_single_color, 'colors do not match'
+            assert colors != color_after, 'color is not removed'
+            assert clear is True, 'colors not cleared'
