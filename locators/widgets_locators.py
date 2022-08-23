@@ -21,3 +21,8 @@ class AutoCompleteLocators:
 
     SINGLE_COLOR_INPUT = (By.CSS_SELECTOR, 'input[id="autoCompleteSingleInput"]')
     BUTTON_COLOR_TEXT = (By.CSS_SELECTOR, 'div[class="auto-complete__single-value css-1uccc91-singleValue"]')
+
+
+class DatePickerLocators:
+    SELECT_DATE = (By.CSS_SELECTOR, 'input[id="datePickerMonthYearInput"]')
+    SELECT_MONTH = (By.CSS_SELECTOR, 'select[class="react-datepicker__month-select"]')

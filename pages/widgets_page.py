@@ -1,8 +1,9 @@
 import random
+import time
 
 from selenium.common import TimeoutException
 from generator_data.generator import generator_color
-from locators.widgets_locators import AccordianLocators, AutoCompleteLocators
+from locators.widgets_locators import AccordianLocators, AutoCompleteLocators, DatePickerLocators
 from pages.base_page import BasePage
 
 
@@ -69,3 +70,15 @@ class AutoCompletePage(BasePage):
         self.press_enter()
         get_single_color = self.element_is_present(self.locators.BUTTON_COLOR_TEXT).text
         return single_color, [get_single_color]
+
+
+class DatePickerPage(BasePage):
+    locators = DatePickerLocators()
+
+    def set_time(self):
+        self.element_is_visible(self.locators.SELECT_DATE).click()
+
+        self.element_is_present(self.locators.SELECT_MONTH).click()
+
+        self.select_by_value(self.locators.SELECT_MONTH, value="2")
+        self.press_enter()
