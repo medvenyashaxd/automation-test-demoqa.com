@@ -76,9 +76,15 @@ class DatePickerPage(BasePage):
     locators = DatePickerLocators()
 
     def set_time(self):
-        self.element_is_visible(self.locators.SELECT_DATE).click()
+        select_date = self.element_is_visible(self.locators.SELECT_DATE)
+        date = select_date.get_attribute('value')
+        select_date.click()
 
-        self.element_is_present(self.locators.SELECT_MONTH).click()
+        self.select_by_value(self.locators.SELECT_MONTH, value=f"{random.randint(0, 11)}")
 
-        self.select_by_value(self.locators.SELECT_MONTH, value="2")
-        self.press_enter()
+        self.select_by_value(self.locators.SELECT_YEAR, value=f"{random.randint(1985, 2005)}")
+
+        days = self.elements_are_present(self.locators.SELECT_DAY)
+        days[random.randint(2, 28)].click()
+        date_after = select_date.get_attribute('value')
+        return date, date_after

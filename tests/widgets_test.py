@@ -31,4 +31,5 @@ class TestWidgets:
         def test_date_picker(self, driver):
             date_picker_page = DatePickerPage(driver, 'https://demoqa.com/date-picker')
             date_picker_page.open()
-            date_picker_page.set_time()
+            date, date_after = date_picker_page.set_time()
+            assert date != date_after, 'date has not changed'

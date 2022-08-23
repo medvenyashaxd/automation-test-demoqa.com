@@ -26,3 +26,5 @@ class AutoCompleteLocators:
 class DatePickerLocators:
     SELECT_DATE = (By.CSS_SELECTOR, 'input[id="datePickerMonthYearInput"]')
     SELECT_MONTH = (By.CSS_SELECTOR, 'select[class="react-datepicker__month-select"]')
+    SELECT_YEAR = (By.CSS_SELECTOR, 'select[class="react-datepicker__year-select"]')
+    SELECT_DAY = (By.CSS_SELECTOR, 'div[class*="react-datepicker__day react-datepicker__day--"]')
