@@ -73,6 +73,7 @@ class BasePage:
     def switch_to_frame(self, frame):
         self.driver.switch_to.frame(frame)
 
-    def select_by_value(self, element, value):
-        select = Select(self.element_is_present(element))
+    def select_by_value(self, locator, value):
+        select = Select(self.element_is_present(locator))
         select.select_by_value(value)
+
