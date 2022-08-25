@@ -1,8 +1,10 @@
 import random
+import time
 
 from selenium.common import TimeoutException
 from generator_data.generator import generator_color
-from locators.widgets_locators import AccordianLocators, AutoCompleteLocators, DatePickerLocators
+from locators.widgets_locators import AccordianLocators, AutoCompleteLocators, DatePickerLocators, SliderLocators, \
+    ProgressBarLocators
 from pages.base_page import BasePage
 
 
@@ -87,3 +89,31 @@ class DatePickerPage(BasePage):
         days[random.randint(2, 28)].click()
         date_after = select_date.get_attribute('value')
         return date, date_after
+
+
+class SliderPage(BasePage):
+    locators = SliderLocators()
+
+    def move_the_slider(self):
+        slider = self.element_is_visible(self.locators.SLIDER_INPUT)
+        self.action_drag_and_drop_by_offset(slider, random.randint(1, 100), 0)
+
+        value = self.element_is_present(self.locators.SLIDER_VALUE)
+        changed_value = value.get_attribute('value')
+
+        return changed_value
+
+
+class ProgressBar(BasePage):
+    locators = ProgressBarLocators()
+
+    def check_progress_bar(self):
+        slider = self.element_is_present(self.locators.PROGRESS_SLIDER)
+        status_slider = slider.get_attribute('aria-valuenow')
+
+        self.element_is_present(self.locators.BUTTON_START).click()
+        time.sleep(11)
+
+        status_after = slider.get_attribute('aria-valuenow')
+
+        return status_slider, status_after

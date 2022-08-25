@@ -30,3 +30,13 @@ class DatePickerLocators:
     SELECT_MONTH = (By.CSS_SELECTOR, 'select[class="react-datepicker__month-select"]')
     SELECT_YEAR = (By.CSS_SELECTOR, 'select[class="react-datepicker__year-select"]')
     SELECT_DAY = (By.CSS_SELECTOR, 'div[class*="react-datepicker__day react-datepicker__day--"]')
+
+
+class SliderLocators:
+    SLIDER_INPUT = (By.CSS_SELECTOR, 'input[class="range-slider range-slider--primary"]')
+    SLIDER_VALUE = (By.CSS_SELECTOR, 'input[id="sliderValue"]')
+
+
+class ProgressBarLocators:
+    BUTTON_START = (By.CSS_SELECTOR, 'button[id="startStopButton"]')
+    PROGRESS_SLIDER = (By.CSS_SELECTOR, 'div[role="progressbar"]')

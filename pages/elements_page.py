@@ -82,6 +82,8 @@ class RadioButtonPage(BasePage):
         try:
             self.element_is_visible(elements[element]).click()
 
+            return True
+
         except TimeoutException:
 
             return False
