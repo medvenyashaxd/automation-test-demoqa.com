@@ -1,4 +1,4 @@
-from pages.widgets_page import WidgetsPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBar
+from pages.widgets_page import WidgetsPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage
 
 
 class TestWidgets:
@@ -43,9 +43,23 @@ class TestWidgets:
 
     class TestProgressBar:
         def test_progress_bar(self, driver):
-            progress_bar_page = ProgressBar(driver, 'https://demoqa.com/progress-bar')
+            progress_bar_page = ProgressBarPage(driver, 'https://demoqa.com/progress-bar')
             progress_bar_page.open()
             status_slider, status_after = progress_bar_page.check_progress_bar()
 
-            assert status_slider == '0'
-            assert status_after == '100'
+            assert status_slider == '0', 'button not pressed'
+            assert status_after == '100', 'slider not reached value'
+
+    class TestTabs:
+        def test_tabs(self, driver):
+            tabs_page = TabsPage(driver, 'https://demoqa.com/tabs')
+            tabs_page.open()
+            text_tab_whats = tabs_page.check_tabs('whats')
+            text_tab_origin = tabs_page.check_tabs('origin')
+            text_tab_use = tabs_page.check_tabs('use')
+            text_tab_more = tabs_page.check_tabs('more')
+
+            assert text_tab_whats == 574, 'the number of letters does not match'
+            assert text_tab_origin == 763, 'the number of letters does not match'
+            assert text_tab_use == 613, 'the number of letters does not match'
+            assert text_tab_more is False, 'the button is clickable'

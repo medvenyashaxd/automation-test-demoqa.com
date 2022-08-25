@@ -1,10 +1,10 @@
 import random
 import time
 
-from selenium.common import TimeoutException
+from selenium.common import TimeoutException, ElementClickInterceptedException
 from generator_data.generator import generator_color
 from locators.widgets_locators import AccordianLocators, AutoCompleteLocators, DatePickerLocators, SliderLocators, \
-    ProgressBarLocators
+    ProgressBarLocators, TabsLocators
 from pages.base_page import BasePage
 
 
@@ -104,7 +104,7 @@ class SliderPage(BasePage):
         return changed_value
 
 
-class ProgressBar(BasePage):
+class ProgressBarPage(BasePage):
     locators = ProgressBarLocators()
 
     def check_progress_bar(self):
@@ -117,3 +117,34 @@ class ProgressBar(BasePage):
         status_after = slider.get_attribute('aria-valuenow')
 
         return status_slider, status_after
+
+
+class TabsPage(BasePage):
+    locators = TabsLocators()
+
+    def check_tabs(self, tab):
+        tabs = {'whats':
+                {'tab': self.locators.TAB_WHAT,
+                 'text': self.locators.TEXT_WHAT},
+
+                'origin':
+                {'tab': self.locators.TAB_ORIGIN,
+                 'text': self.locators.TEXT_ORIGIN},
+
+                'use':
+                {'tab': self.locators.TAB_USE,
+                 'text': self.locators.TEXT_USE},
+
+                'more':
+                {'tab': self.locators.TAB_MORE}
+                }
+        try:
+            self.element_is_visible(tabs[tab]['tab']).click()
+
+            text = self.element_is_present(tabs[tab]['text']).text
+
+            return len(text)
+
+        except ElementClickInterceptedException:
+
+            return False
