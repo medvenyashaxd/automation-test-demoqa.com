@@ -53,3 +53,12 @@ class TabsLocators:
     TEXT_USE = (By.CSS_SELECTOR, 'div[id="demo-tabpane-use"] p[class]')
 
     TAB_MORE = (By.CSS_SELECTOR, 'a[id="demo-tab-more"]')
+
+
+class ToolTipsLocators:
+    BUTTON = (By.CSS_SELECTOR, 'button[id="toolTipButton"]')
+    INPUT = (By.CSS_SELECTOR, 'input[class=" mr-sm-2 form-control"]')
+    CONTRARY = (By.XPATH, '//div[2]/div[2]/div[3]/a[1]')
+    NUMBERS = (By.XPATH, '//div[2]/div[3]/a[2]')
+
+    TEXT = (By.CSS_SELECTOR, 'div[class="tooltip-inner"]')

@@ -71,6 +71,10 @@ class BasePage:
         actions = ActionChains(self.driver)
         actions.drag_and_drop_by_offset(element, x_offset, y_offset).perform()
 
+    def action_move_to_element(self, element):
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+
     def switch_to_default_content(self):
         self.driver.switch_to.default_content()
 

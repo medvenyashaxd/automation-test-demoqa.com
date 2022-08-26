@@ -1,4 +1,7 @@
-from pages.widgets_page import WidgetsPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage
+import time
+
+from pages.widgets_page import WidgetsPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
+    ToolTipsPage
 
 
 class TestWidgets:
@@ -63,3 +66,19 @@ class TestWidgets:
             assert text_tab_origin == 763, 'the number of letters does not match'
             assert text_tab_use == 613, 'the number of letters does not match'
             assert text_tab_more is False, 'the button is clickable'
+
+    class TestToolTips:
+        def test_tool_tips(self, driver):
+            tool_tips_page = ToolTipsPage(driver, 'https://demoqa.com/tool-tips')
+            tool_tips_page.open()
+            time.sleep(2)
+
+            text_button = tool_tips_page.check_tool_tips_page('button')
+            text_input = tool_tips_page.check_tool_tips_page('input')
+            text_contrary = tool_tips_page.check_tool_tips_page('contrary')
+            text_numbers = tool_tips_page.check_tool_tips_page('numbers')
+
+            assert text_button == 'You hovered over the Button'
+            assert text_input == 'You hovered over the text field'
+            assert text_contrary == 'You hovered over the Contrary'
+            assert text_numbers == 'You hovered over the 1.10.32'

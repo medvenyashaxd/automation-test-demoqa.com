@@ -4,7 +4,7 @@ import time
 from selenium.common import TimeoutException, ElementClickInterceptedException
 from generator_data.generator import generator_color
 from locators.widgets_locators import AccordianLocators, AutoCompleteLocators, DatePickerLocators, SliderLocators, \
-    ProgressBarLocators, TabsLocators
+    ProgressBarLocators, TabsLocators, ToolTipsLocators
 from pages.base_page import BasePage
 
 
@@ -148,3 +148,32 @@ class TabsPage(BasePage):
         except ElementClickInterceptedException:
 
             return False
+
+
+class ToolTipsPage(BasePage):
+    locators = ToolTipsLocators()
+
+    def check_tool_tips_page(self, element):
+        elements = {'button':
+                    {'locator': self.locators.BUTTON},
+
+                    'input':
+                    {'locator': self.locators.INPUT},
+
+                    'contrary':
+                    {'locator': self.locators.CONTRARY},
+
+                    'numbers':
+                    {'locator': self.locators.NUMBERS}
+                    }
+
+        self.go_to_element(self.element_is_present(elements[element]['locator']))
+
+        self.action_move_to_element(self.element_is_present(elements[element]['locator']))
+
+        time.sleep(1)
+
+        tool_tip_text = self.element_is_visible(self.locators.TEXT).text
+
+        return tool_tip_text
+
