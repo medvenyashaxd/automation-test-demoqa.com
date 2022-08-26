@@ -1,3 +1,5 @@
+import random
+
 from selenium.webdriver.common.by import By
 
 
@@ -62,3 +64,21 @@ class ToolTipsLocators:
     NUMBERS = (By.XPATH, '//div[2]/div[3]/a[2]')
 
     TEXT = (By.CSS_SELECTOR, 'div[class="tooltip-inner"]')
+
+
+class MenuLocators:
+    HREF = (By.CSS_SELECTOR, 'a[href="#"]')
+
+
+class SelectMenuLocators:
+    SELECT_VALUE = (By.CSS_SELECTOR, 'div[id="withOptGroup"]')
+
+
+    SELECT_ONE = (By.CSS_SELECTOR, 'div[id="selectOne"]')
+    SELECT_STYLE = (By.CSS_SELECTOR, 'select[id="oldSelectMenu"]')
+
+    #drop down
+    MULTISELECT = (By.XPATH, '//div[7]/div/div')
+    MULTISELECT_VALUE = (By.CSS_SELECTOR, f'div[id="react-select-4-option-{random.randint(0, 3)}"]')
+
+    CARS = (By.CSS_SELECTOR, 'select[id="cars"]')

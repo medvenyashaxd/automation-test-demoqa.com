@@ -4,7 +4,7 @@ import time
 from selenium.common import TimeoutException, ElementClickInterceptedException
 from generator_data.generator import generator_color
 from locators.widgets_locators import AccordianLocators, AutoCompleteLocators, DatePickerLocators, SliderLocators, \
-    ProgressBarLocators, TabsLocators, ToolTipsLocators
+    ProgressBarLocators, TabsLocators, ToolTipsLocators, MenuLocators, SelectMenuLocators
 from pages.base_page import BasePage
 
 
@@ -177,3 +177,24 @@ class ToolTipsPage(BasePage):
 
         return tool_tip_text
 
+
+class MenuPage(BasePage):
+    locators = MenuLocators()
+
+    def check_menu(self):
+        href_links = self.elements_are_present(self.locators.HREF)
+
+        list_menu = []
+
+        for link in href_links:
+            self.action_move_to_element(link)
+            list_menu.append(link.text)
+
+        return list_menu
+
+
+class SelectMenuPage(BasePage):
+    locators = SelectMenuLocators()
+
+    def check_select_menu(self):
+        self.element_is_visible(self.locators.SELECT_VALUE).click()
