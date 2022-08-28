@@ -196,5 +196,26 @@ class MenuPage(BasePage):
 class SelectMenuPage(BasePage):
     locators = SelectMenuLocators()
 
-    def check_select_menu(self):
-        self.element_is_visible(self.locators.SELECT_VALUE).click()
+    def check_select_menu(self, select):
+
+        selects = {'select_value':
+                    {'menu': self.locators.SELECT_VALUE,
+                     'click_value': self.locators.SELECT_VALUE_MENU},
+
+                   'select_one':
+                    {'menu': self.locators.SELECT_ONE,
+                     'click_value': self.locators.SELECT_ONE_MENU},
+
+                   'multiselect':
+                    {'menu': self.locators.MULTISELECT,
+                     'click_value': self.locators.MULTISELECT_VALUE}
+                   }
+
+        self.element_is_visible(selects[select]['menu']).click()
+        self.element_is_present(selects[select]['click_value']).click()
+
+        self.select_by_value(self.locators.SELECT_STYLE, value=f"{random.randint(1, 10)}")
+
+        self.select_by_index(self.locators.CARS, value=f"{random.randint(0, 3)}")
+
+        return True

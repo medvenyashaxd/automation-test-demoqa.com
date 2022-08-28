@@ -72,12 +72,13 @@ class MenuLocators:
 
 class SelectMenuLocators:
     SELECT_VALUE = (By.CSS_SELECTOR, 'div[id="withOptGroup"]')
-
+    SELECT_VALUE_MENU = (By.CSS_SELECTOR, f'div[id="react-select-2-option-{random.randint(0, 1)}-{random.randint(0, 1)}"]')
 
     SELECT_ONE = (By.CSS_SELECTOR, 'div[id="selectOne"]')
+    SELECT_ONE_MENU = (By.CSS_SELECTOR, f'div[id="react-select-3-option-0-{random.randint(0, 5)}"]')
+
     SELECT_STYLE = (By.CSS_SELECTOR, 'select[id="oldSelectMenu"]')
 
-    #drop down
     MULTISELECT = (By.XPATH, '//div[7]/div/div')
     MULTISELECT_VALUE = (By.CSS_SELECTOR, f'div[id="react-select-4-option-{random.randint(0, 3)}"]')
 

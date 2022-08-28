@@ -85,3 +85,6 @@ class BasePage:
         select = Select(self.element_is_present(locator))
         select.select_by_value(value)
 
+    def select_by_index(self, locator, value):
+        select = Select(self.element_is_present(locator))
+        select.select_by_index(value)

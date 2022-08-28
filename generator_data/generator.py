@@ -33,4 +33,3 @@ def generator_color():
     yield Color(
         color=['Black', 'Blue', 'White', 'Aqua', 'Yellow', 'Red', 'Green', 'Indigo', 'Purple', 'Voilet', 'Magenta']
                 )
-

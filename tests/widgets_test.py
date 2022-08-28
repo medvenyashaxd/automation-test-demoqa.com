@@ -1,7 +1,7 @@
 import time
 
 from pages.widgets_page import WidgetsPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
-    ToolTipsPage, MenuPage
+    ToolTipsPage, MenuPage, SelectMenuPage
 
 
 class TestWidgets:
@@ -91,3 +91,15 @@ class TestWidgets:
 
             assert list_menu == ['Main Item 1', 'Main Item 2', 'Sub Item', 'Sub Item', 'SUB SUB LIST »',
                                  'Sub Sub Item 1', 'Sub Sub Item 2', 'Main Item 3']
+
+    class TestSelectMenu:
+        def test_select_menu(self, driver):
+            select_menu_page = SelectMenuPage(driver, 'https://demoqa.com/select-menu')
+            select_menu_page.open()
+            select_value = select_menu_page.check_select_menu('select_value')
+            select_one = select_menu_page.check_select_menu('select_one')
+            multiselect = select_menu_page.check_select_menu('multiselect')
+
+            assert select_value is True
+            assert select_one is True
+            assert multiselect is True
