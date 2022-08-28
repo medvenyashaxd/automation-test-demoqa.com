@@ -67,6 +67,10 @@ class BasePage:
         actions = ActionChains(self.driver)
         actions.send_keys(Keys.ENTER).perform()
 
+    def action_drag_and_drop(self, source, target):
+        actions = ActionChains(self.driver)
+        actions.drag_and_drop(source, target).perform()
+
     def action_drag_and_drop_by_offset(self, element, x_offset, y_offset):
         actions = ActionChains(self.driver)
         actions.drag_and_drop_by_offset(element, x_offset, y_offset).perform()
