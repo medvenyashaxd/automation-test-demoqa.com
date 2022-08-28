@@ -100,6 +100,6 @@ class TestWidgets:
             select_one = select_menu_page.check_select_menu('select_one')
             multiselect = select_menu_page.check_select_menu('multiselect')
 
-            assert select_value is True
-            assert select_one is True
-            assert multiselect is True
+            assert select_value is True, 'check is failed'
+            assert select_one is True, 'check is failed'
+            assert multiselect is True, 'check is failed'
