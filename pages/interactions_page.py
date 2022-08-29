@@ -1,6 +1,7 @@
 import random
+import time
 
-from locators.interactions_locators import SortableLocators, SelectableLocators
+from locators.interactions_locators import SortableLocators, SelectableLocators, ResizableLocators
 from pages.base_page import BasePage
 
 
@@ -63,3 +64,26 @@ class SelectablePage(BasePage):
         check_clicked_grid_elements = self.check_clicked_elements(self.locators.GRID_ACTIVE_ELEMENTS)
 
         return len(check_clicked_list_elements), len(check_clicked_grid_elements)
+
+
+class ResizablePage(BasePage):
+    locators = ResizableLocators()
+
+    def get_size(self, locator):
+        return [self.element_is_present(locator).get_attribute('style')]
+
+    def move_arrow(self, locator, x, y):
+        self.action_drag_and_drop_by_offset(self.element_is_present(locator), x, y)
+
+    def change_size(self):
+        self.move_arrow(self.locators.RESIZABLE_BOX_ARROW, 600, 400)
+        box_check_one = self.get_size(self.locators.GET_SIZE_BOX)
+
+        self.move_arrow(self.locators.RESIZABLE_BOX_ARROW, -550, -450)
+        box_check_two = self.get_size(self.locators.GET_SIZE_BOX)
+
+        self.go_to_element(self.element_is_present(self.locators.GET_SIZE_OUT_BOX))
+        self.move_arrow(self.locators.RESIZABLE_BOX_OUT_ARROW, 150, 150)
+        check_box_out = self.get_size(self.locators.GET_SIZE_OUT_BOX)
+
+        return box_check_one, box_check_two, check_box_out
