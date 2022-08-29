@@ -1,7 +1,7 @@
 import random
 import time
 
-from locators.interactions_locators import SortableLocators, SelectableLocators, ResizableLocators
+from locators.interactions_locators import SortableLocators, SelectableLocators, ResizableLocators, DroppableLocators
 from pages.base_page import BasePage
 
 
@@ -87,3 +87,18 @@ class ResizablePage(BasePage):
         check_box_out = self.get_size(self.locators.GET_SIZE_OUT_BOX)
 
         return box_check_one, box_check_two, check_box_out
+
+
+class DroppablePage(BasePage):
+    locators = DroppableLocators()
+
+    def get_text(self, locator):
+        return self.element_is_present(locator).text
+
+    def move_to_target(self, element, target):
+        self.action_drag_and_drop(self.element_is_present(element), self.element_is_present(target))
+
+    def check_droppable(self):
+        self.move_to_target(self.locators.SIMPLE_DRAGGABLE, self.locators.SIMPLE_DROP_HERE)
+        text_simple_droppable = self.get_text(self.locators.SIMPLE_TEXT)
+        print(text_simple_droppable)#Dropped!

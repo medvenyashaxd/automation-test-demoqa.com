@@ -1,4 +1,4 @@
-from pages.interactions_page import SortablePage, SelectablePage, ResizablePage
+from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage
 
 
 class TestInteractions:
@@ -31,3 +31,9 @@ class TestInteractions:
             assert box_check_one == ['width: 500px; height: 300px;'], 'height and width do not match'
             assert box_check_two == ['width: 150px; height: 150px;'], 'height and width do not match'
             assert check_box_out == ['width: 350px; height: 350px;'], 'height and width do not match'
+
+    class TestDroppable:
+        def test_droppable(self, driver):
+            droppable_page = DroppablePage(driver, 'https://demoqa.com/droppable')
+            droppable_page.open()
+            droppable_page.check_droppable()

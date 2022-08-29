@@ -18,9 +18,18 @@ class SelectableLocators:
 
 
 class ResizableLocators:
-    RESIZABLE_BOX_ARROW = (By.CSS_SELECTOR, 'div[id="resizableBoxWithRestriction"] span[class="react-resizable-handle react-resizable-handle-se"]')
+    RESIZABLE_BOX_ARROW = (By.CSS_SELECTOR, 'div[id="resizableBoxWithRestriction"]\
+                                                        span[class="react-resizable-handle react-resizable-handle-se"]')
 
     GET_SIZE_BOX = (By.CSS_SELECTOR, 'div[id="resizableBoxWithRestriction"]')
 
-    RESIZABLE_BOX_OUT_ARROW = (By.CSS_SELECTOR, 'div[id="resizable"] span[class="react-resizable-handle react-resizable-handle-se"]')
+    RESIZABLE_BOX_OUT_ARROW = (By.CSS_SELECTOR, 'div[id="resizable"]\
+                                                        span[class="react-resizable-handle react-resizable-handle-se"]')
+
     GET_SIZE_OUT_BOX = (By.CSS_SELECTOR, 'div[id="resizable"]')
+
+
+class DroppableLocators:
+    SIMPLE_DRAGGABLE = (By.CSS_SELECTOR, 'div #draggable')
+    SIMPLE_DROP_HERE = (By.CSS_SELECTOR, ' div[id="droppableExample-tabpane-simple"] #droppable')
+    SIMPLE_TEXT = (By.CSS_SELECTOR, ' div[id="droppableExample-tabpane-simple"] #droppable p')
