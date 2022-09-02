@@ -1,4 +1,4 @@
-from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage
+from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage, DraggablePage
 
 
 class TestInteractions:
@@ -45,3 +45,20 @@ class TestInteractions:
             assert not_greedy_text == 'Dropped!', 'the source is not in the target'
             assert greedy_box_text == 'Outer droppable', 'target is not greedy'
             assert greedy_text == 'Dropped!', 'the source is not in the target'
+
+    class TestDraggable:
+        def test_draggable(self, driver):
+            draggable_page = DraggablePage(driver, 'https://demoqa.com/dragabble')
+            draggable_page.open()
+            simple, restricted_x, restricted_y, in_container, parent_container = draggable_page.check_draggable()
+
+            assert simple == 'position: relative; left: 30px; top: 50px;',\
+                'the target does not move or the coordinates do not converge'
+            assert restricted_x == 'position: relative; left: 50px; top: 0px;',\
+                'the target does not move or the coordinates do not converge'
+            assert restricted_y == 'position: relative; left: 0px; top: 100px;',\
+                'the target does not move or the coordinates do not converge'
+            assert in_container == 'position: relative; left: 120px; top: 15px;',\
+                'the target does not move or the coordinates do not converge'
+            assert parent_container == 'position: relative; left: 5px; top: 45px;',\
+                'the target does not move or the coordinates do not converge'

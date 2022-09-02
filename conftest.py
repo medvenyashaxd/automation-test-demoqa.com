@@ -1,3 +1,4 @@
+import time
 import pytest
 
 from selenium import webdriver
@@ -16,6 +17,6 @@ def driver():
     options.add_argument(r"user-data-dir=C:\Users\xmedv\AppData\Local\Google\Chrome\User Data\Profile 1")
 
     driver = webdriver.Chrome(executable_path=driver_path, options=options)
-
+    time.sleep(1)
     yield driver
 

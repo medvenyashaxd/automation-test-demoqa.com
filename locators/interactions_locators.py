@@ -56,3 +56,16 @@ class DroppableLocators:
     DROP_HERE_REVERT_TEXT = (By.CSS_SELECTOR, 'div [id="droppableExample-tabpane-revertable"] div[id="droppable"] p')
 
     NOT_REVERT = (By.CSS_SELECTOR, 'div #notRevertable')
+
+
+class DraggableLocators:
+    DRAG_ME_SIMPLE = (By.CSS_SELECTOR, 'div #draggableExample-tabpane-simple \
+                                                                div[class="drag-box ui-draggable ui-draggable-handle"]')
+
+    AXIS_RESTRICTED_TAB = (By.CSS_SELECTOR, 'nav #draggableExample-tab-axisRestriction')
+    BOX_ONLY_X = (By.CSS_SELECTOR, 'div #restrictedX')
+    BOX_ONLY_Y = (By.CSS_SELECTOR, 'div #restrictedY')
+
+    CONTAINER_RESTRICTED_TAB = (By.CSS_SELECTOR, 'nav #draggableExample-tab-containerRestriction')
+    BOX_WITHIN_CONTAINER = (By.CSS_SELECTOR, 'div[class="draggable ui-widget-content ui-draggable ui-draggable-handle"]')
+    BOX_PARENT_CONTAINER = (By.CSS_SELECTOR , 'span[class="ui-widget-header ui-draggable ui-draggable-handle"]')

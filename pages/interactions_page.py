@@ -1,6 +1,7 @@
 import random
 
-from locators.interactions_locators import SortableLocators, SelectableLocators, ResizableLocators, DroppableLocators
+from locators.interactions_locators import SortableLocators, SelectableLocators, ResizableLocators, DroppableLocators, \
+    DraggableLocators
 from pages.base_page import BasePage
 
 
@@ -123,3 +124,38 @@ class DroppablePage(BasePage):
 
         return text_simple_droppable, text_acceptable_droppable, not_greedy_box_text, not_greedy_text, greedy_box_text,\
         greedy_text
+
+
+class DraggablePage(BasePage):
+    locators = DraggableLocators()
+
+    def move_to_x_y(self, locator, x, y):
+        self.action_drag_and_drop_by_offset(self.element_is_present(locator), x, y)
+
+    def get_element_attribute(self, element):
+        attribute = self.element_is_present(element).get_attribute('style')
+        return attribute
+
+    def check_draggable(self):
+        self.move_to_x_y(self.locators.DRAG_ME_SIMPLE, 30, 50)
+        attribute_simple = self.get_element_attribute(self.locators.DRAG_ME_SIMPLE)
+
+        self.element_is_visible(self.locators.AXIS_RESTRICTED_TAB).click()
+        self.move_to_x_y(self.locators.BOX_ONLY_X, 50, 0)
+        attribute_restricted_x = self.get_element_attribute(self.locators.BOX_ONLY_X)
+
+        self.move_to_x_y(self.locators.BOX_ONLY_Y, 0, 100)
+        attribute_restricted_y = self.get_element_attribute(self.locators.BOX_ONLY_Y)
+
+        self.element_is_visible(self.locators.CONTAINER_RESTRICTED_TAB).click()
+        self.move_to_x_y(self.locators.BOX_WITHIN_CONTAINER, 120, 15)
+        attribute_box_in_container = self.get_element_attribute(self.locators.BOX_WITHIN_CONTAINER)
+
+        self.move_to_x_y(self.locators.BOX_PARENT_CONTAINER, 5, 45)
+        attribute_box_parent_container = self.get_element_attribute(self.locators.BOX_PARENT_CONTAINER)
+
+        return attribute_simple, attribute_restricted_x, attribute_restricted_y, attribute_box_in_container, \
+               attribute_box_parent_container
+
+
+
