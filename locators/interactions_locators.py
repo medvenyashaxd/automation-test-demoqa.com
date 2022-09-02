@@ -34,6 +34,7 @@ class DroppableLocators:
     SIMPLE_DROP_HERE = (By.CSS_SELECTOR, ' div[id="droppableExample-tabpane-simple"] #droppable')
     SIMPLE_TEXT = (By.CSS_SELECTOR, ' div[id="droppableExample-tabpane-simple"] #droppable p')
 
+
     ACCEPT_PAGE = (By.CSS_SELECTOR, 'a[id="droppableExample-tab-accept"]')
     NOT_ACCEPTABLE_NOTIFICATION = (By.CSS_SELECTOR, 'div #notAcceptable')
     ACCEPTABLE_NOTIFICATION = (By.CSS_SELECTOR, 'div #acceptable')

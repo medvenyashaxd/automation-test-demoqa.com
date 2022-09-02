@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.options import Options
 
 @pytest.fixture(scope='function')
 def driver():
-    # driver = webdriver.Chrome(ChromeDriverManager().install())
+    #driver = webdriver.Chrome(ChromeDriverManager().install())
 
     driver_path = \
                 r'C:\Users\xmedv\PycharmProjects\weddriver\.wdm\drivers\chromedriver\win32\104.0.5112\chromedriver.exe'
