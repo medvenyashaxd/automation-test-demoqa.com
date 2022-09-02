@@ -36,4 +36,12 @@ class TestInteractions:
         def test_droppable(self, driver):
             droppable_page = DroppablePage(driver, 'https://demoqa.com/droppable')
             droppable_page.open()
-            droppable_page.check_droppable()
+            text_simple_droppable, text_acceptable_droppable, not_greedy_box_text, not_greedy_text, greedy_box_text, \
+            greedy_text = droppable_page.check_droppable()
+
+            assert text_simple_droppable == 'Dropped!', 'the source is not in the target'
+            assert text_acceptable_droppable == 'Dropped!', 'the source is not in the target'
+            assert not_greedy_box_text == 'Dropped!', 'the source is not in the target'
+            assert not_greedy_text == 'Dropped!', 'the source is not in the target'
+            assert greedy_box_text == 'Outer droppable', 'target is not greedy'
+            assert greedy_text == 'Dropped!', 'the source is not in the target'

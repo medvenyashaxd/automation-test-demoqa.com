@@ -1,12 +1,10 @@
 import random
-import time
 
 from locators.interactions_locators import SortableLocators, SelectableLocators, ResizableLocators, DroppableLocators
 from pages.base_page import BasePage
 
 
 class SortablePage(BasePage):
-
     locators = SortableLocators()
 
     def get_order_of_numbers(self, locator):
@@ -19,8 +17,8 @@ class SortablePage(BasePage):
 
     def check_sortable(self):
         order_of_numbers_list_before = self.get_order_of_numbers(self.locators.NUMBERS_LIST)
-        self.action_drag_and_drop(self.get_number(self.locators.NUMBERS_LIST), self.get_number\
-                                                                                        (self.locators.NUMBERS_LIST))
+        self.action_drag_and_drop(self.get_number(self.locators.NUMBERS_LIST), self.get_number \
+            (self.locators.NUMBERS_LIST))
         order_of_numbers_list_after = self.get_order_of_numbers(self.locators.NUMBERS_LIST)
 
         self.element_is_visible(self.locators.GRID_PAGE).click()
@@ -28,12 +26,11 @@ class SortablePage(BasePage):
         self.action_drag_and_drop(self.get_number(self.locators.GRID_LIST), self.get_number(self.locators.GRID_LIST))
         order_of_numbers_grid_after = self.get_order_of_numbers(self.locators.GRID_LIST)
 
-        return order_of_numbers_list_before, order_of_numbers_list_after, order_of_numbers_grid_before,\
+        return order_of_numbers_list_before, order_of_numbers_list_after, order_of_numbers_grid_before, \
                order_of_numbers_grid_after
 
 
 class SelectablePage(BasePage):
-
     locators = SelectableLocators()
 
     def check_clicked_elements(self, locator):
@@ -101,4 +98,28 @@ class DroppablePage(BasePage):
     def check_droppable(self):
         self.move_to_target(self.locators.SIMPLE_DRAGGABLE, self.locators.SIMPLE_DROP_HERE)
         text_simple_droppable = self.get_text(self.locators.SIMPLE_TEXT)
-        print(text_simple_droppable)#Dropped!
+
+        self.element_is_visible(self.locators.ACCEPT_PAGE).click()
+        self.move_to_target(self.locators.NOT_ACCEPTABLE_NOTIFICATION, self.locators.ACCEPTABLE_DROP_HERE)
+        self.move_to_target(self.locators.ACCEPTABLE_NOTIFICATION, self.locators.ACCEPTABLE_DROP_HERE)
+        text_acceptable_droppable = self.get_text(self.locators.ACCEPTABLE_TEXT)
+
+        # not_greedy
+        self.element_is_visible(self.locators.PREVENT_PROPAGATION_PAGE).click()
+        self.move_to_target(self.locators.DRAG_ME_PREVENT, self.locators.NOT_GREEDY_BOX)
+        not_greedy_box_text = self.get_text(self.locators.TEXT_NOT_GREEDY_BOX)
+        not_greedy_text = self.get_text(self.locators.TEXT_NOT_GREEDY)
+
+        # greedy
+        self.move_to_target(self.locators.DRAG_ME_PREVENT, self.locators.GREEDY_BOX)
+        greedy_box_text = self.get_text(self.locators.GREEDY_BOX_TEXT)
+        greedy_text = self.get_text(self.locators.GREEDY_TEXT)
+
+        self.element_is_visible(self.locators.REVERT_DRAG_ME_PAGE).click()
+        self.move_to_target(self.locators.WILL_REVERT, self.locators.DROP_HERE_REVERT_BOX)
+
+        self.move_to_target(self.locators.NOT_REVERT, self.locators.DROP_HERE_REVERT_BOX)
+        self.move_to_target(self.locators.NOT_REVERT, self.locators.WILL_REVERT)
+
+        return text_simple_droppable, text_acceptable_droppable, not_greedy_box_text, not_greedy_text, greedy_box_text,\
+        greedy_text
