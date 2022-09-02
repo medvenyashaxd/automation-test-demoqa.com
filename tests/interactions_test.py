@@ -44,4 +44,4 @@ class TestInteractions:
             assert not_greedy_box_text == 'Dropped!', 'the source is not in the target'
             assert not_greedy_text == 'Dropped!', 'the source is not in the target'
             assert greedy_box_text == 'Outer droppable', 'target is not greedy'
-            assert greedy_text == 'Dropped!', 'the source is not in the target'1
+            assert greedy_text == 'Dropped!', 'the source is not in the target'
