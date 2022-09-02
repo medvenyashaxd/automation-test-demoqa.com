@@ -118,7 +118,6 @@ class DroppablePage(BasePage):
         self.element_is_visible(self.locators.REVERT_DRAG_ME_PAGE).click()
         self.move_to_target(self.locators.WILL_REVERT, self.locators.DROP_HERE_REVERT_BOX)
 
-
         self.move_to_target(self.locators.NOT_REVERT, self.locators.DROP_HERE_REVERT_BOX)
         self.move_to_target(self.locators.NOT_REVERT, self.locators.WILL_REVERT)
 

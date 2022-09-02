@@ -39,7 +39,6 @@ class TestInteractions:
             text_simple_droppable, text_acceptable_droppable, not_greedy_box_text, not_greedy_text, greedy_box_text, \
             greedy_text = droppable_page.check_droppable()
 
-
             assert text_simple_droppable == 'Dropped!', 'the source is not in the target'
             assert text_acceptable_droppable == 'Dropped!', 'the source is not in the target'
             assert not_greedy_box_text == 'Dropped!', 'the source is not in the target'

@@ -18,3 +18,4 @@ def driver():
     driver = webdriver.Chrome(executable_path=driver_path, options=options)
 
     yield driver
+
