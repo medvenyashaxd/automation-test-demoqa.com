@@ -23,3 +23,8 @@ class Subject:
 @dataclass
 class Color:
     color: list = None
+
+
+@dataclass
+class Book:
+    book: list = None

@@ -1,6 +1,6 @@
 import random
 
-from data.data_for_info import PropertiesForInformation, Subject, Color
+from data.data_for_info import PropertiesForInformation, Subject, Color, Book
 from faker import Faker
 
 faker = Faker('en.US')
@@ -33,3 +33,11 @@ def generator_color():
     yield Color(
         color=['Black', 'Blue', 'White', 'Aqua', 'Yellow', 'Red', 'Green', 'Indigo', 'Purple', 'Voilet', 'Magenta']
                 )
+
+
+def generator_book():
+    yield Book(
+        book=['Git Pocket Guide', 'Learning JavaScript Design Patterns', 'Designing Evolvable Web APIs with ASP.NET',
+              'Speaking JavaScript', 'You Don''t Know JS', 'Programming JavaScript Applications',
+              'Eloquent JavaScript, Second Edition', 'Understanding ECMAScript 6']
+    )
