@@ -16,7 +16,6 @@ class TestElements:
             assert full_name == output_full_name, 'name is not correct'
             assert email == output_email, 'email is not correct'
 
-
     class TestCheckBox:
         # bug! Invalid file name to check output
         def test_check_box(self, driver):
@@ -83,7 +82,6 @@ class TestElements:
             time.sleep(2)
             person_info = web_tables_page.click_add_and_fill_form(1)
             web_tables_page.filling_search(person_info[1])
-            # web_tables_page.filling_search('Cierra')
             delete_info = web_tables_page.delete_info_and_check()
 
             assert 'No rows found' in delete_info, 'text does not match'
@@ -92,7 +90,6 @@ class TestElements:
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
             web_tables_page.open()
             web_tables_page.page_rows_edit()
-            time.sleep(5)
 
     class TestButtons:
         def test_buttons(self, driver):
