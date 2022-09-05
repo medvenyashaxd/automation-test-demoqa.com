@@ -273,7 +273,7 @@ class UpLoadAndDownLoadPage(BasePage):
     def download_file(self):
         link = self.element_is_present(self.locators.DOWNLOAD_BUTTON).get_attribute('href').split(',')
         link_b = base64.b64decode(link[1])
-        #path = fr'C:\Users\AMD.BY\PycharmProjects\Quality-assurance-tests\tests\SomeImgFile{random.randint(1, 10)}.jpeg'
+
         path = fr'C:\Users\xmedv\PycharmProjects\Quality-assurance-tests\tests\SomeImgFile{random.randint(1, 10)}.txt'
         with open(path, 'wb+') as f:
             f.write(link_b)
@@ -284,7 +284,6 @@ class UpLoadAndDownLoadPage(BasePage):
         return check_file
 
     def upload_file(self):
-        #path = fr'C:\Users\AMD.BY\PycharmProjects\Quality-assurance-tests\tests\SomeFile{random.randint(1, 10)}.txt'
         path = fr'C:\Users\xmedv\PycharmProjects\Quality-assurance-tests\tests\SomeImgFile{random.randint(1, 10)}.txt'
         file = open(path, 'w')
         file.write(f'qwert{random.randint(1, 100)}')
