@@ -68,6 +68,7 @@ class AutoCompletePage(BasePage):
     def check_single_color(self):
         single_color = random.sample(next(generator_color()).color, k=1)
         self.element_is_present(self.locators.SINGLE_COLOR_INPUT).send_keys(single_color)
+        time.sleep(1)
         self.press_enter()
         get_single_color = self.element_is_present(self.locators.BUTTON_COLOR_TEXT).text
         return single_color, [get_single_color]
@@ -140,7 +141,7 @@ class TabsPage(BasePage):
                 }
         try:
             self.element_is_visible(tabs[tab]['tab']).click()
-
+            time.sleep(1)
             text = self.element_is_present(tabs[tab]['text']).text
 
             return len(text)
