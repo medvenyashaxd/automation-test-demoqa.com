@@ -38,6 +38,6 @@ def generator_color():
 def generator_book():
     yield Book(
         book=['Git Pocket Guide', 'Learning JavaScript Design Patterns', 'Designing Evolvable Web APIs with ASP.NET',
-              'Speaking JavaScript', 'You Don''t Know JS', 'Programming JavaScript Applications',
+              'Speaking JavaScript', "You Don't Know JS", 'Programming JavaScript Applications',
               'Eloquent JavaScript, Second Edition', 'Understanding ECMAScript 6']
     )
