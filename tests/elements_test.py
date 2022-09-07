@@ -1,12 +1,17 @@
-import os
 import time
+import allure
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage, ButtonsPage, LinksPage, \
     BrokenLinksImagesPage, UpLoadAndDownLoadPage, DynamicPropertiesPage
 
 
+@allure.suite('Elements')
 class TestElements:
+
+    @allure.feature('Test text box')
     class TestTextBox:
+
+        @allure.title('Check text box')
         def test_text_box(self, driver):
             text_box_page = TextBoxPage(driver, 'https://demoqa.com/text-box')
             text_box_page.open()
@@ -16,8 +21,10 @@ class TestElements:
             assert full_name == output_full_name, 'name is not correct'
             assert email == output_email, 'email is not correct'
 
+    @allure.feature('Test check box')
     class TestCheckBox:
-        # bug! Invalid file name to check output
+
+        @allure.title('Check box page')  # Invalid file name to check output
         def test_check_box(self, driver):
             check_box_page = CheckBoxPage(driver, 'https://demoqa.com/checkbox')
             check_box_page.open()
@@ -30,7 +37,10 @@ class TestElements:
             print(check)
             print(check_output)
 
+    @allure.feature('Test radio button')
     class TestRadioButton:
+
+        @allure.title('Check radio button')
         def test_radio_button(self, driver):
             radio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
             radio_button_page.open()
@@ -45,7 +55,10 @@ class TestElements:
             assert output_impressive == 'Impressive', 'button is not clicked'
             assert test_click_no is False, 'button is clicked'
 
+    @allure.feature('Test web tables')
     class TestWebTables:
+
+        @allure.title('Check web tables')
         def test_web_tables(self, driver):
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
             web_tables_page.open()
@@ -55,6 +68,7 @@ class TestElements:
 
             assert input_table in output_table, 'person was not found in the table'
 
+        @allure.title('Check search table')
         def test_search_table(self, driver):
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
             web_tables_page.open()
@@ -65,6 +79,7 @@ class TestElements:
 
             assert person_info in table_info, 'person was not found in the search'
 
+        @allure.title('Check edit information')
         def test_edit_info(self, driver):
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
             web_tables_page.open()
@@ -76,6 +91,7 @@ class TestElements:
 
             assert edit_info in info_in_row, 'text does not match'
 
+        @allure.title('Check delete information')
         def test_delete_info(self, driver):
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
             web_tables_page.open()
@@ -86,12 +102,16 @@ class TestElements:
 
             assert 'No rows found' in delete_info, 'text does not match'
 
+        @allure.title('Check edit rows')
         def test_edit_rows(self, driver):  # bug! only 25 lines can be selected
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
             web_tables_page.open()
             web_tables_page.page_rows_edit()
 
+    @allure.feature('Test buttons')
     class TestButtons:
+
+        @allure.title('Check buttons ')
         def test_buttons(self, driver):
             buttons_page = ButtonsPage(driver, 'https://demoqa.com/buttons')
             buttons_page.open()
@@ -104,7 +124,10 @@ class TestElements:
             assert right == 'You have done a right click', 'right click error'
             assert click == 'You have done a dynamic click', 'click error'
 
+    @allure.feature('Test link')
     class TestLinks:
+
+        @allure.title('Check link in window handles')
         def test_link_in_window_handles(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
@@ -124,7 +147,10 @@ class TestElements:
             assert status_code_moved_link == 301, 'link is work'
             assert status_code_not_found_link == 404, 'link is work'
 
+    @allure.feature('Test broken link')
     class TestBrokenLinksImage:
+
+        @allure.title('Check valid broken link')
         def test_valid_broken_link(self, driver):
             broken_page = BrokenLinksImagesPage(driver, 'https://demoqa.com/broken')
             broken_page.open()
@@ -136,7 +162,10 @@ class TestElements:
             assert request_status_code_valid_link == 200, 'link not work'
             assert request_status_code_broken_link == 500, 'link is work'
 
+    @allure.feature('Test upload and download file')
     class TestUpLoadAndDownload:
+
+        @allure.title('Check download')
         def test_download(self, driver):
             download_file_page = UpLoadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
             download_file_page.open()
@@ -144,15 +173,18 @@ class TestElements:
 
             assert check is True, 'file has not been download'
 
+        @allure.title('Check lpload')
         def test_upload(self, driver):
             upload_file_page = UpLoadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
             upload_file_page.open()
             check_file, path = upload_file_page.upload_file()
 
             assert check_file == path, 'file is not true'
-            os.remove(path)
 
+    @allure.feature('Test dynamic properties')
     class TestDynamicProperties:
+
+        @allure.title('Check dynamic properties')
         def test_dynamic_properties(self, driver):
             dynamic_properties = DynamicPropertiesPage(driver, 'https://demoqa.com/dynamic-properties')
             dynamic_properties.open()
