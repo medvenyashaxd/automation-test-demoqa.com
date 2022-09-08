@@ -237,3 +237,4 @@ class SelectMenuPage(BasePage):
         self.select_by_index(self.locators.CARS, value=f"{random.randint(0, 3)}")
 
         return True
+

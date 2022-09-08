@@ -1,5 +1,4 @@
 import time
-
 import allure
 
 from pages.widgets_page import WidgetsPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
