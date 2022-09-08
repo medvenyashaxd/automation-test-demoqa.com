@@ -3,10 +3,10 @@ import allure
 from pages.book_store_application_page import BookStoreApplicationPage
 
 
-@allure.suite('Bookstore testing')
+@allure.suite('Book store testing')
 class TestBookApplicationStore:
     @allure.feature('Shop test')
-    class test_of_store:
+    class TestOfStore:
 
         @allure.title('Check book store application')
         def test_book_store_application(self, driver):

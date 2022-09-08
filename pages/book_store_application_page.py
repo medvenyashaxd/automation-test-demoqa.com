@@ -33,6 +33,7 @@ class BookStoreApplicationPage(BasePage):
                 book = random.sample(next(generator_book()).book, k=1)
 
                 with allure.step('Insert the generated book into the search'):
+                    self.element_is_present(self.locators.SEARCH_BOOK).clear()
                     self.element_is_present(self.locators.SEARCH_BOOK).send_keys(book)
 
                 with allure.step('Click on the found book to go to the store'):
@@ -44,6 +45,7 @@ class BookStoreApplicationPage(BasePage):
                 with allure.step('Switch to alert and click accept'):
                     time.sleep(1)
                     selected_alert = self.switch_to_alert()
+                    time.sleep(1)
                     selected_alert.accept()
 
                 self.element_is_visible(self.locators.BACk_TO_BOOK_STORE).click()
@@ -54,6 +56,7 @@ class BookStoreApplicationPage(BasePage):
 
     @allure.step('Check delete book')
     def check_delete_book(self):
+        self.go_to_element(self.element_is_present(self.locators.PROFILE_LINK))
         self.element_is_present(self.locators.PROFILE_LINK).click()
         self.element_is_visible(self.locators.FIRST_DELETE_BUTTON).click()
         self.element_is_present(self.locators.NOTIFICATION_DELETE_BOOK).click()
