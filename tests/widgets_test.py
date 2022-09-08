@@ -1,12 +1,18 @@
 import time
 
+import allure
+
 from pages.widgets_page import WidgetsPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
     ToolTipsPage, MenuPage, SelectMenuPage
 
 
+@allure.suite('Tests widgets')
 class TestWidgets:
+
+    @allure.feature('Tests accordian')
     class TestAccordian:
 
+        @allure.title('Check accordian')
         def test_accordian(self, driver):
             accordian_page = WidgetsPage(driver, 'https://demoqa.com/accordian')
             accordian_page.open()
@@ -18,8 +24,11 @@ class TestWidgets:
             assert section_two == 763, 'the number of letters does not match'
             assert section_three == 613, 'the number of letters does not match'
 
+    @allure.feature('Tests autocomplete')
     class TestAutoComplete:
-        def test_auto_complete(self, driver):
+
+        @allure.title('Check autocomplete')
+        def test_autocomplete(self, driver):
             auto_complete_page = AutoCompletePage(driver, 'https://demoqa.com/auto-complete')
             auto_complete_page.open()
             colors, color_after = auto_complete_page.check_multiple_color()
@@ -30,21 +39,30 @@ class TestWidgets:
             assert colors != color_after, 'color is not removed'
             assert clear is True, 'colors not cleared'
 
+    @allure.feature('Tests data picker')
     class TestDatePicker:
+
+        @allure.title('Check data picker')
         def test_date_picker(self, driver):
             date_picker_page = DatePickerPage(driver, 'https://demoqa.com/date-picker')
             date_picker_page.open()
             date, date_after = date_picker_page.set_time()
             assert date != date_after, 'date has not changed'
 
+    @allure.feature('Tests slider')
     class TestSlider:
+
+        @allure.title('Check slider')
         def test_slider(self, driver):
             slider_page = SliderPage(driver, 'https://demoqa.com/slider')
             slider_page.open()
             changed_value = slider_page.move_the_slider()
             assert changed_value != '25', 'value has not changed'
 
+    @allure.feature('Tests progress bar')
     class TestProgressBar:
+
+        @allure.title('Check progress bar ')
         def test_progress_bar(self, driver):
             progress_bar_page = ProgressBarPage(driver, 'https://demoqa.com/progress-bar')
             progress_bar_page.open()
@@ -53,7 +71,9 @@ class TestWidgets:
             assert status_slider == '0', 'button not pressed'
             assert status_after == '100', 'slider not reached value'
 
+    @allure.feature('TestS tabs')
     class TestTabs:
+        @allure.title('Check tabs')
         def test_tabs(self, driver):
             tabs_page = TabsPage(driver, 'https://demoqa.com/tabs')
             tabs_page.open()
@@ -67,7 +87,10 @@ class TestWidgets:
             assert text_tab_use == 613, 'the number of letters does not match'
             assert text_tab_more is False, 'the button is clickable'
 
+    @allure.feature('Tests tool tips')
     class TestToolTips:
+
+        @allure.title('Check tool tips')
         def test_tool_tips(self, driver):
             tool_tips_page = ToolTipsPage(driver, 'https://demoqa.com/tool-tips')
             tool_tips_page.open()
@@ -83,7 +106,10 @@ class TestWidgets:
             assert text_contrary == 'You hovered over the Contrary'
             assert text_numbers == 'You hovered over the 1.10.32'
 
+    @allure.feature('Tests menu')
     class TestMenu:
+
+        @allure.title('Check test menu')
         def test_menu(self, driver):
             menu_page = MenuPage(driver, 'https://demoqa.com/menu')
             menu_page.open()
@@ -92,7 +118,10 @@ class TestWidgets:
             assert list_menu == ['Main Item 1', 'Main Item 2', 'Sub Item', 'Sub Item', 'SUB SUB LIST »',
                                  'Sub Sub Item 1', 'Sub Sub Item 2', 'Main Item 3']
 
+    @allure.feature('Tests select menu')
     class TestSelectMenu:
+
+        @allure.title('Check select menu')
         def test_select_menu(self, driver):
             select_menu_page = SelectMenuPage(driver, 'https://demoqa.com/select-menu')
             select_menu_page.open()

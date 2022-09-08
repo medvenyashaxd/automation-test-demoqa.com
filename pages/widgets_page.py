@@ -1,5 +1,6 @@
 import random
 import time
+import allure
 
 from selenium.common import TimeoutException, ElementClickInterceptedException
 from generator_data.generator import generator_color
@@ -11,6 +12,7 @@ from pages.base_page import BasePage
 class WidgetsPage(BasePage):
     locators = AccordianLocators()
 
+    @allure.step('Gets the section number clicks on it and takes the text')
     def check_accordian(self, section_num):
         sections = {'section_one':
                         {'header': self.locators.SECTION_ONE,
@@ -34,24 +36,29 @@ class WidgetsPage(BasePage):
 class AutoCompletePage(BasePage):
     locators = AutoCompleteLocators()
 
+    @allure.step('Using a color generator, the number of colors is randomly called')
     def check_multiple_color(self):
         colors = random.sample(next(generator_color()).color, k=(random.randint(2, 4)))
         multiple_input = self.element_is_present(self.locators.MULTIPLE_COLORS_INPUT)
 
-        for color in colors:
-            multiple_input.send_keys(color)
-            self.press_enter()
+        with allure.step('After each iteration, insert a color and press enter'):
+            for color in colors:
+                multiple_input.send_keys(color)
+                self.press_enter()
 
-        buttons_delete = self.elements_are_present(self.locators.DELETE_BUTTON)
-        buttons_delete[random.randint(0, 1)].click()
+        with allure.step('Random color remove'):
+            buttons_delete = self.elements_are_present(self.locators.DELETE_BUTTON)
+            buttons_delete[random.randint(0, 1)].click()
 
-        color_after = self.elements_are_present(self.locators.BUTTONS_COLOR_TEXT)
-        buttons_color_text = []
-        for button in color_after:
-            buttons_color_text.append(button.text)
+        with allure.step('Gets the color in the input line'):
+            color_after = self.elements_are_present(self.locators.BUTTONS_COLOR_TEXT)
+            buttons_color_text = []
+            for button in color_after:
+                buttons_color_text.append(button.text)
 
         return colors, buttons_color_text
 
+    @allure.step('Clears the input line')
     def clear_all(self):
         self.element_is_present(self.locators.CLEAR_ALL).click()
         try:
@@ -65,6 +72,7 @@ class AutoCompletePage(BasePage):
 
             return True
 
+    @allure.step('Single line color check')
     def check_single_color(self):
         single_color = random.sample(next(generator_color()).color, k=1)
         self.element_is_present(self.locators.SINGLE_COLOR_INPUT).send_keys(single_color)
@@ -77,24 +85,28 @@ class AutoCompletePage(BasePage):
 class DatePickerPage(BasePage):
     locators = DatePickerLocators()
 
+    @allure.step('Sets random date')
     def set_time(self):
         select_date = self.element_is_visible(self.locators.SELECT_DATE)
         date = select_date.get_attribute('value')
         select_date.click()
 
-        self.select_by_value(self.locators.SELECT_MONTH, value=f"{random.randint(0, 11)}")
+        with allure.step('selects a value randomly from a date'):
+            self.select_by_value(self.locators.SELECT_MONTH, value=f"{random.randint(0, 11)}")
 
-        self.select_by_value(self.locators.SELECT_YEAR, value=f"{random.randint(1985, 2005)}")
+            self.select_by_value(self.locators.SELECT_YEAR, value=f"{random.randint(1985, 2005)}")
 
-        days = self.elements_are_present(self.locators.SELECT_DAY)
-        days[random.randint(2, 28)].click()
-        date_after = select_date.get_attribute('value')
+            days = self.elements_are_present(self.locators.SELECT_DAY)
+            days[random.randint(2, 28)].click()
+            date_after = select_date.get_attribute('value')
+
         return date, date_after
 
 
 class SliderPage(BasePage):
     locators = SliderLocators()
 
+    @allure.step('Presses the button and drags the slider along the coordinates')
     def move_the_slider(self):
         slider = self.element_is_visible(self.locators.SLIDER_INPUT)
         self.action_drag_and_drop_by_offset(slider, random.randint(1, 100), 0)
@@ -108,6 +120,7 @@ class SliderPage(BasePage):
 class ProgressBarPage(BasePage):
     locators = ProgressBarLocators()
 
+    @allure.step('Clicks on the slider start button and after a while gets the status value')
     def check_progress_bar(self):
         slider = self.element_is_present(self.locators.PROGRESS_SLIDER)
         status_slider = slider.get_attribute('aria-valuenow')
@@ -123,6 +136,7 @@ class ProgressBarPage(BasePage):
 class TabsPage(BasePage):
     locators = TabsLocators()
 
+    @allure.step('Clicks on the tabs and takes the text from it')
     def check_tabs(self, tab):
         tabs = {'whats':
                 {'tab': self.locators.TAB_WHAT,
@@ -154,6 +168,7 @@ class TabsPage(BasePage):
 class ToolTipsPage(BasePage):
     locators = ToolTipsLocators()
 
+    @allure.step('Moves the cursor over an element and takes the text from the window that appears')
     def check_tool_tips_page(self, element):
         elements = {'button':
                     {'locator': self.locators.BUTTON},
@@ -182,6 +197,7 @@ class ToolTipsPage(BasePage):
 class MenuPage(BasePage):
     locators = MenuLocators()
 
+    @allure.step('hover over the menu and get the text')
     def check_menu(self):
         href_links = self.elements_are_present(self.locators.HREF)
 
@@ -197,6 +213,7 @@ class MenuPage(BasePage):
 class SelectMenuPage(BasePage):
     locators = SelectMenuLocators()
 
+    @allure.step('Selects values from select menu')
     def check_select_menu(self, select):
 
         selects = {'select_value':
