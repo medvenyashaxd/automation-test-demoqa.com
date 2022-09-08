@@ -1,4 +1,5 @@
 Quality assurance tests website demoqa.com
+
 In this test, there are such elements as: Text box Check box Radio button Web tables
 
 Buttons: double click, right click
