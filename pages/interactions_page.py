@@ -1,4 +1,5 @@
 import random
+import time
 import allure
 
 from locators.interactions_locators import SortableLocators, SelectableLocators, ResizableLocators, DroppableLocators, \
@@ -94,6 +95,7 @@ class ResizablePage(BasePage):
 
     @allure.step('Change size')
     def change_size(self):
+        time.sleep(1)
         self.move_arrow(self.locators.RESIZABLE_BOX_ARROW, 600, 400)
         box_check_one = self.get_size(self.locators.GET_SIZE_BOX)
 
