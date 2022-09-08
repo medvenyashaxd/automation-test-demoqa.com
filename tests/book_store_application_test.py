@@ -1,8 +1,14 @@
+import allure
+
 from pages.book_store_application_page import BookStoreApplicationPage
 
 
+@allure.suite('Bookstore testing')
 class TestBookApplicationStore:
-    class TestLogin:
+    @allure.feature('Shop test')
+    class test_of_store:
+
+        @allure.title('Check book store application')
         def test_book_store_application(self, driver):
             book_store = BookStoreApplicationPage(driver, 'https://demoqa.com/login')
             book_store.open()
