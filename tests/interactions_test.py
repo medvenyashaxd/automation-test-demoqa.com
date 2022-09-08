@@ -1,9 +1,15 @@
+import allure
+
 from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage, DraggablePage
 
 
+@allure.suite('Test interactions')
 class TestInteractions:
+
+    @allure.feature('Test sortable')
     class TestSortable:
 
+        @allure.title('Check sortable')
         def test_sortable(self, driver):
             sortable_page = SortablePage(driver, 'https://demoqa.com/sortable')
             sortable_page.open()
@@ -13,7 +19,10 @@ class TestInteractions:
             assert order_of_numbers_list_before != order_of_numbers_list_after, 'values are not swapped'
             assert order_of_numbers_grid_before != order_of_numbers_grid_after, 'values are not swapped'
 
+    @allure.feature('Test selectable')
     class TestSelectable:
+
+        @allure.title('Check selectable')
         def test_selectable(self, driver):
             selectable_page = SelectablePage(driver, 'https://demoqa.com/selectable')
             selectable_page.open()
@@ -22,7 +31,10 @@ class TestInteractions:
             assert clicked_elements_list != 0, 'elements are not clicked'
             assert check_clicked_grid != 0, 'elements are not clicked'
 
+    @allure.feature('Test resizable')
     class TestResizable:
+
+        @allure.title('Check resizable')
         def test_resizable(self, driver):
             resizable_page = ResizablePage(driver, 'https://demoqa.com/resizable')
             resizable_page.open()
@@ -32,7 +44,10 @@ class TestInteractions:
             assert box_check_two == ['width: 150px; height: 150px;'], 'height and width do not match'
             assert check_box_out == ['width: 350px; height: 350px;'], 'height and width do not match'
 
+    @allure.feature('Test droppable')
     class TestDroppable:
+
+        @allure.title('Check droppable')
         def test_droppable(self, driver):
             droppable_page = DroppablePage(driver, 'https://demoqa.com/droppable')
             droppable_page.open()
@@ -46,7 +61,10 @@ class TestInteractions:
             assert greedy_box_text == 'Outer droppable', 'target is not greedy'
             assert greedy_text == 'Dropped!', 'the source is not in the target'
 
+    @allure.feature('Test draggable')
     class TestDraggable:
+
+        @allure.title('Check draggable')
         def test_draggable(self, driver):
             draggable_page = DraggablePage(driver, 'https://demoqa.com/dragabble')
             draggable_page.open()
