@@ -9,8 +9,7 @@ class TestAlertsFrameWindows:
     @allure.feature('Test window')
     class TestBrowserWindow:
 
-        allure.title('Check browser window')
-
+        @allure.title('Check browser window')
         def test_browser_windows(self, driver):
             browser_windows_page = BrowserWindowPage(driver, 'https://demoqa.com/browser-windows')
             browser_windows_page.open()
