@@ -18,9 +18,9 @@ def driver():
     driver = webdriver.Chrome(executable_path=driver_path, options=options)
     time.sleep(1)
 
+    yield driver
+
     attach = driver.get_screenshot_as_png()
     allure.attach(attach, name=f'Screenshot{datetime.today()}', attachment_type=allure.attachment_type.PNG)
-
-    yield driver
 
     driver.quit()
