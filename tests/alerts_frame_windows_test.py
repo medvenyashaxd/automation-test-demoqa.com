@@ -1,8 +1,16 @@
+import allure
+
 from pages.alerts_frame_window_page import BrowserWindowPage, AlertPage, FramesPage, NestedFrames, ModalDialogs
 
 
+@allure.suite('Test allerts frame and window')
 class TestAlertsFrameWindows:
+
+    @allure.feature('Test window')
     class TestBrowserWindow:
+
+        allure.title('Check browswer window')
+
         def test_browser_windows(self, driver):
             browser_windows_page = BrowserWindowPage(driver, 'https://demoqa.com/browser-windows')
             browser_windows_page.open()
@@ -14,7 +22,9 @@ class TestAlertsFrameWindows:
             assert new_tab == 'This is a sample page', 'text does not match'
             assert new_window == 'This is a sample page', 'text does not match'
 
+    @allure.feature('Test allerts')
     class TestAlerts:
+        @allure.title('Check alerts')
         def test_alerts(self, driver):
             alerts_page = AlertPage(driver, 'https://demoqa.com/alerts')
             alerts_page.open()
@@ -28,7 +38,10 @@ class TestAlertsFrameWindows:
             assert box_alert == 'You selected Ok' or 'You selected Cancel', 'button not pressed'
             assert random_text_input_alert in output_text, 'text does not match'
 
+    @allure.feature('Test frames')
     class TestFrames:
+
+        @allure.title('Test frames')
         def test_frames(self, driver):
             frames_page = FramesPage(driver, 'https://demoqa.com/frames')
             frames_page.open()
@@ -38,7 +51,9 @@ class TestAlertsFrameWindows:
             assert frame1wrapper == ['500px', '350px', 'This is a sample page'], 'info does not match'
             assert frame2wrapper == ['100px', '100px', 'This is a sample page'], 'info does not match'
 
+    @allure.feature('Test nested franes')
     class TestNestedFrames:
+        @allure.title('Check nested frames')
         def test_nested_frames(self, driver):
             nested_frames_page = NestedFrames(driver, 'https://demoqa.com/nestedframes')
             nested_frames_page.open()
@@ -46,7 +61,10 @@ class TestAlertsFrameWindows:
 
             assert frames_info == ['500px', '350px', 'Parent frame', 'Child Iframe'], 'info does not match'
 
+    @allure.feature('Test modal dialogs')
     class TestModalDialogs:
+
+        @allure.title('Check modal dialogs')
         def test_modal_dialogs(self, driver):
             modal_dialogs_page = ModalDialogs(driver, 'https://demoqa.com/modal-dialogs')
             modal_dialogs_page.open()

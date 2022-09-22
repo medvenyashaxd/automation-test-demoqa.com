@@ -1,5 +1,6 @@
 import random
 import time
+import allure
 
 from locators.alerts_frame_window_locators import BrowserWindowLocators, AlertsLocators, FramesLocators, \
     NestedFramesLocators, ModalDialogsLocators
@@ -9,6 +10,7 @@ from pages.base_page import BasePage
 class BrowserWindowPage(BasePage):
     locators = BrowserWindowLocators()
 
+    @allure.step('Click on the button, switch to a new tab and take the text')
     def check_browser_window(self, button):
         buttons = {'new_tab':
                    {'button': self.locators.NEW_TAB,
@@ -22,6 +24,7 @@ class BrowserWindowPage(BasePage):
                        {'button': self.locators.NEW_WINDOW_MESSAGE,
                         'text': self.locators.TEXT_IN_WINDOW_MESSAGE}
                    }
+
         self.element_is_visible(buttons[button]['button']).click()
         self.switch_to_window(1)
         text = self.element_is_present(buttons[button]['text']).text
@@ -33,6 +36,7 @@ class BrowserWindowPage(BasePage):
 class AlertPage(BasePage):
     locators = AlertsLocators()
 
+    @allure.step('Click on the button, switch to the notification and take the text')
     def check_alerts(self, alert):
         alerts = {'simple_alert':
                   {'alert': self.locators.SIMPLE_ALERT},
@@ -91,6 +95,7 @@ class AlertPage(BasePage):
 class FramesPage(BasePage):
     locators = FramesLocators()
 
+    @allure.step('Switching attention between frames and taking width, height and text')
     def check_frames(self, frame, text):
         frames = {'frame1wrapper':
                   {'window': self.locators.FRAME1WRAPPER},
@@ -115,6 +120,7 @@ class FramesPage(BasePage):
 class NestedFrames(BasePage):
     locators = NestedFramesLocators()
 
+    @allure.step('Switching attention between parent and child frames and taking text')
     def check_nested_frames(self):
         parent_frame = self.element_is_present(self.locators.PARENT_FRAME)
         parent_width = parent_frame.get_attribute('width')
@@ -132,6 +138,7 @@ class NestedFrames(BasePage):
 class ModalDialogs(BasePage):
     locators = ModalDialogsLocators()
 
+    @allure.step('Switching between Modal Dialogs')
     def check_modal_dialogs(self, dialog):
         modal_dialogs = {'small':
                          {'button': self.locators.SMALL_MODAL,
