@@ -3,13 +3,13 @@ import allure
 from pages.alerts_frame_window_page import BrowserWindowPage, AlertPage, FramesPage, NestedFrames, ModalDialogs
 
 
-@allure.suite('Test allerts frame and window')
+@allure.suite('Test alerts frame and window')
 class TestAlertsFrameWindows:
 
     @allure.feature('Test window')
     class TestBrowserWindow:
 
-        allure.title('Check browswer window')
+        allure.title('Check browser window')
 
         def test_browser_windows(self, driver):
             browser_windows_page = BrowserWindowPage(driver, 'https://demoqa.com/browser-windows')
@@ -22,7 +22,7 @@ class TestAlertsFrameWindows:
             assert new_tab == 'This is a sample page', 'text does not match'
             assert new_window == 'This is a sample page', 'text does not match'
 
-    @allure.feature('Test allerts')
+    @allure.feature('Test alerts')
     class TestAlerts:
         @allure.title('Check alerts')
         def test_alerts(self, driver):
@@ -51,7 +51,7 @@ class TestAlertsFrameWindows:
             assert frame1wrapper == ['500px', '350px', 'This is a sample page'], 'info does not match'
             assert frame2wrapper == ['100px', '100px', 'This is a sample page'], 'info does not match'
 
-    @allure.feature('Test nested franes')
+    @allure.feature('Test nested frames')
     class TestNestedFrames:
         @allure.title('Check nested frames')
         def test_nested_frames(self, driver):
