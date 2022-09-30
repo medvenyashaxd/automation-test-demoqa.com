@@ -1,6 +1,5 @@
 import random
 import time
-
 import allure
 
 from generator_data.generator import generator_book
