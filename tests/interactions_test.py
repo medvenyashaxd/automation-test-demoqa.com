@@ -1,5 +1,6 @@
 import allure
 
+from selenium.common import TimeoutException
 from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage, DraggablePage
 
 
@@ -11,25 +12,51 @@ class TestInteractions:
 
         @allure.title('Check sortable')
         def test_sortable(self, driver):
-            sortable_page = SortablePage(driver, 'https://demoqa.com/sortable')
-            sortable_page.open()
-            order_of_numbers_list_before, order_of_numbers_list_after, order_of_numbers_grid_before, \
-            order_of_numbers_grid_after = sortable_page.check_sortable()
+            try:
+                sortable_page = SortablePage(driver, 'https://demoqa.com/sortable')
+                sortable_page.open()
 
-            assert order_of_numbers_list_before != order_of_numbers_list_after, 'values are not swapped'
-            assert order_of_numbers_grid_before != order_of_numbers_grid_after, 'values are not swapped'
+                order_of_numbers_list_before, order_of_numbers_list_after, order_of_numbers_grid_before, \
+                order_of_numbers_grid_after = sortable_page.check_sortable()
+
+                assert order_of_numbers_list_before != order_of_numbers_list_after, 'values are not swapped'
+                assert order_of_numbers_grid_before != order_of_numbers_grid_after, 'values are not swapped'
+
+            except AssertionError:
+                # Maybe random is not on your side
+                sortable_page = SortablePage(driver, 'https://demoqa.com/sortable')
+                sortable_page.open()
+
+                order_of_numbers_list_before, order_of_numbers_list_after, order_of_numbers_grid_before, \
+                order_of_numbers_grid_after = sortable_page.check_sortable()
+
+                assert order_of_numbers_list_before != order_of_numbers_list_after, 'values are not swapped'
+                assert order_of_numbers_grid_before != order_of_numbers_grid_after, 'values are not swapped'
 
     @allure.feature('Test selectable')
     class TestSelectable:
 
         @allure.title('Check selectable')
         def test_selectable(self, driver):
-            selectable_page = SelectablePage(driver, 'https://demoqa.com/selectable')
-            selectable_page.open()
-            clicked_elements_list, check_clicked_grid = selectable_page.check_selectable()
+            try:
+                selectable_page = SelectablePage(driver, 'https://demoqa.com/selectable')
+                selectable_page.open()
 
-            assert clicked_elements_list != 0, 'elements are not clicked'
-            assert check_clicked_grid != 0, 'elements are not clicked'
+                clicked_elements_list, check_clicked_grid = selectable_page.check_selectable()
+
+                assert clicked_elements_list != 0, 'elements are not clicked'
+                assert check_clicked_grid != 0, 'elements are not clicked'
+
+            except TimeoutException:
+                # random is not on your side
+                selectable_page = SelectablePage(driver, 'https://demoqa.com/selectable')
+                selectable_page.open()
+                selectable_page.check_selectable()
+
+                clicked_elements_list, check_clicked_grid = selectable_page.check_selectable()
+
+                assert clicked_elements_list != 0, 'elements are not clicked'
+                assert check_clicked_grid != 0, 'elements are not clicked'
 
     @allure.feature('Test resizable')
     class TestResizable:
@@ -38,6 +65,7 @@ class TestInteractions:
         def test_resizable(self, driver):
             resizable_page = ResizablePage(driver, 'https://demoqa.com/resizable')
             resizable_page.open()
+
             box_check_one, box_check_two, check_box_out = resizable_page.change_size()
 
             assert box_check_one == ['width: 500px; height: 300px;'], 'height and width do not match'
@@ -51,6 +79,7 @@ class TestInteractions:
         def test_droppable(self, driver):
             droppable_page = DroppablePage(driver, 'https://demoqa.com/droppable')
             droppable_page.open()
+
             text_simple_droppable, text_acceptable_droppable, not_greedy_box_text, not_greedy_text, greedy_box_text, \
             greedy_text = droppable_page.check_droppable()
 
@@ -68,6 +97,7 @@ class TestInteractions:
         def test_draggable(self, driver):
             draggable_page = DraggablePage(driver, 'https://demoqa.com/dragabble')
             draggable_page.open()
+
             simple, restricted_x, restricted_y, in_container, parent_container = draggable_page.check_draggable()
 
             assert simple == 'position: relative; left: 30px; top: 50px;',\

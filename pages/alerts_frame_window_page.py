@@ -11,18 +11,18 @@ class BrowserWindowPage(BasePage):
     locators = BrowserWindowLocators()
 
     @allure.step('Click on the button, switch to a new tab and take the text')
-    def check_browser_window(self, button):
+    def check_browser_window(self, button, locator=locators):
         buttons = {'new_tab':
-                   {'button': self.locators.NEW_TAB,
-                    'text': self.locators.TEXT_IN_TAB},
+                   {'button': locator.NEW_TAB,
+                    'text': locator.TEXT_IN_TAB},
 
                    'new_window':
-                       {'button': self.locators.NEW_WINDOW,
-                        'text': self.locators.TEXT_IN_WINDOW},
+                       {'button': locator.NEW_WINDOW,
+                        'text': locator.TEXT_IN_WINDOW},
 
                    'new_window_message':
-                       {'button': self.locators.NEW_WINDOW_MESSAGE,
-                        'text': self.locators.TEXT_IN_WINDOW_MESSAGE}
+                       {'button': locator.NEW_WINDOW_MESSAGE,
+                        'text': locator.TEXT_IN_WINDOW_MESSAGE}
                    }
 
         self.element_is_visible(buttons[button]['button']).click()
@@ -37,20 +37,20 @@ class AlertPage(BasePage):
     locators = AlertsLocators()
 
     @allure.step('Click on the button, switch to the notification and take the text')
-    def check_alerts(self, alert):
+    def check_alerts(self, alert, locator=locators):
         alerts = {'simple_alert':
-                  {'alert': self.locators.SIMPLE_ALERT},
+                  {'alert': locator.SIMPLE_ALERT},
 
                   'time_alert':
-                      {'alert': self.locators.TIME_ALERT},
+                      {'alert': locator.TIME_ALERT},
 
                   'box_alert':
-                      {'alert': self.locators.ALERT_BOX,
-                       'text': self.locators.ALERT_BOX_RESULT},
+                      {'alert': locator.ALERT_BOX,
+                       'text': locator.ALERT_BOX_RESULT},
 
                   'box_input_alert':
-                      {'alert': self.locators.ALERT_INPUT_BOX,
-                       'text': self.locators.RESULT_ALERT_INPUT_BOX}
+                      {'alert': locator.ALERT_INPUT_BOX,
+                       'text': locator.RESULT_ALERT_INPUT_BOX}
                   }
 
         self.element_is_visible(alerts[alert]['alert']).click()
@@ -96,15 +96,15 @@ class FramesPage(BasePage):
     locators = FramesLocators()
 
     @allure.step('Switching attention between frames and taking width, height and text')
-    def check_frames(self, frame, text):
+    def check_frames(self, frame, text, locator=locators):
         frames = {'frame1wrapper':
-                  {'window': self.locators.FRAME1WRAPPER},
+                  {'window': locator.FRAME1WRAPPER},
 
                   'frame2wrapper':
-                      {'window': self.locators.FRAME2WRAPPER},
+                      {'window': locator.FRAME2WRAPPER},
 
                   'text':
-                      {'content': self.locators.FRAMES_TEXT}
+                      {'content': locator.FRAMES_TEXT}
                   }
 
         frame_wrapper = self.element_is_present(frames[frame]['window'])
@@ -121,16 +121,16 @@ class NestedFrames(BasePage):
     locators = NestedFramesLocators()
 
     @allure.step('Switching attention between parent and child frames and taking text')
-    def check_nested_frames(self):
-        parent_frame = self.element_is_present(self.locators.PARENT_FRAME)
+    def check_nested_frames(self, locator=locators):
+        parent_frame = self.element_is_present(locator.PARENT_FRAME)
         parent_width = parent_frame.get_attribute('width')
         parent_height = parent_frame.get_attribute('height')
         self.switch_to_frame(parent_frame)
-        parent_text = self.element_is_present(self.locators.PARENT_TEXT).text
+        parent_text = self.element_is_present(locator.PARENT_TEXT).text
 
-        child_frame = self.element_is_present(self.locators.CHILD_FRAME)
+        child_frame = self.element_is_present(locator.CHILD_FRAME)
         self.switch_to_frame(child_frame)
-        child_text = self.element_is_present(self.locators.CHILD_TEXT).text
+        child_text = self.element_is_present(locator.CHILD_TEXT).text
 
         return [parent_width, parent_height, parent_text, child_text]
 
@@ -139,21 +139,20 @@ class ModalDialogs(BasePage):
     locators = ModalDialogsLocators()
 
     @allure.step('Switching between Modal Dialogs')
-    def check_modal_dialogs(self, dialog):
+    def check_modal_dialogs(self, dialog, locator=locators):
         modal_dialogs = {'small':
-                         {'button': self.locators.SMALL_MODAL,
-                          'text': self.locators.TEXT_SMALL_MODAL,
-                          'close': self.locators.CLOSE_SMALL_MODAL},
+                         {'button': locator.SMALL_MODAL,
+                          'text': locator.TEXT_SMALL_MODAL,
+                          'close': locator.CLOSE_SMALL_MODAL},
 
                          'large':
-                             {'button': self.locators.LARGE_MODAL,
-                              'text': self.locators.TEXT_LARGE_MODAL,
-                              'close': self.locators.CLOSE_LARGE_MODAL}
+                             {'button': locator.LARGE_MODAL,
+                              'text': locator.TEXT_LARGE_MODAL,
+                              'close': locator.CLOSE_LARGE_MODAL}
                          }
 
         self.element_is_visible(modal_dialogs[dialog]['button']).click()
-        time.sleep(1)
-        text_dialog = self.element_is_present(modal_dialogs[dialog]['text']).text
+        text_dialog = self.element_is_visible(modal_dialogs[dialog]['text']).text
         self.element_is_visible(modal_dialogs[dialog]['close']).click()
 
         return len(text_dialog)

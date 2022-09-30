@@ -1,10 +1,11 @@
 import random
+import time
 import allure
 
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.ui import WebDriverWait as wait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait as Wait
+from selenium.webdriver.support import expected_conditions as ec
 
 
 class BasePage:
@@ -18,27 +19,27 @@ class BasePage:
 
     @allure.step('Finds a visible element')
     def element_is_visible(self, locator, timeout=5):
-        return wait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+        return Wait(self.driver, timeout).until(ec.visibility_of_element_located(locator))
 
     @allure.step('Finds a visible elements')
     def elements_are_visible(self, locator, timeout=5):
-        return wait(self.driver, timeout).until(EC.visibility_of_all_elements_located(locator))
+        return Wait(self.driver, timeout).until(ec.visibility_of_all_elements_located(locator))
 
     @allure.step('Finds a present element')
     def element_is_present(self, locator, timeout=5):
-        return wait(self.driver, timeout).until(EC.presence_of_element_located(locator))
+        return Wait(self.driver, timeout).until(ec.presence_of_element_located(locator))
 
     @allure.step('Finds a present elements')
     def elements_are_present(self, locator, timeout=5):
-        return wait(self.driver, timeout).until(EC.presence_of_all_elements_located(locator))
+        return Wait(self.driver, timeout).until(ec.presence_of_all_elements_located(locator))
 
     @allure.step('Finds a is not visible element')
     def element_is_not_visible(self, locator, timeout=5):
-        return wait(self.driver, timeout).until(EC.invisibility_of_element_located(locator))
+        return Wait(self.driver, timeout).until(ec.invisibility_of_element_located(locator))
 
     @allure.step('Finds a clickable element')
     def element_is_clickable(self, locator, timeout=5):
-        return wait(self.driver, timeout).until(EC.element_to_be_clickable(locator))
+        return Wait(self.driver, timeout).until(ec.element_to_be_clickable(locator))
 
     @allure.step('Goes to specified element')
     def go_to_element(self, element):
@@ -50,6 +51,7 @@ class BasePage:
 
     @allure.step('Switches attention to browser notification')
     def switch_to_alert(self):
+        time.sleep(1)
         alert = self.driver.switch_to.alert
         return alert
 
@@ -78,6 +80,11 @@ class BasePage:
         actions = ActionChains(self.driver)
         for _ in range(random.randint(1, 3)):
             actions.send_keys(Keys.DOWN).perform()
+
+    @allure.step('Moves screen attention to an element')
+    def scroll_to_element(self, locator):
+        action = ActionChains(self.driver)
+        action.scroll_to_element(locator).perform()
 
     @allure.step('Presses enter')
     def press_enter(self):

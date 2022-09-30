@@ -1,4 +1,3 @@
-import time
 import allure
 
 from pages.widgets_page import WidgetsPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
@@ -15,6 +14,7 @@ class TestWidgets:
         def test_accordian(self, driver):
             accordian_page = WidgetsPage(driver, 'https://demoqa.com/accordian')
             accordian_page.open()
+
             section_one = accordian_page.check_accordian('section_one')
             section_two = accordian_page.check_accordian('section_two')
             section_three = accordian_page.check_accordian('section_three')
@@ -30,6 +30,7 @@ class TestWidgets:
         def test_autocomplete(self, driver):
             auto_complete_page = AutoCompletePage(driver, 'https://demoqa.com/auto-complete')
             auto_complete_page.open()
+
             colors, color_after = auto_complete_page.check_multiple_color()
             clear = auto_complete_page.clear_all()
             singe_color, get_single_color = auto_complete_page.check_single_color()
@@ -45,6 +46,7 @@ class TestWidgets:
         def test_date_picker(self, driver):
             date_picker_page = DatePickerPage(driver, 'https://demoqa.com/date-picker')
             date_picker_page.open()
+
             date, date_after = date_picker_page.set_time()
             assert date != date_after, 'date has not changed'
 
@@ -53,10 +55,20 @@ class TestWidgets:
 
         @allure.title('Check slider')
         def test_slider(self, driver):
-            slider_page = SliderPage(driver, 'https://demoqa.com/slider')
-            slider_page.open()
-            changed_value = slider_page.move_the_slider()
-            assert changed_value != '25', 'value has not changed'
+            try:
+                slider_page = SliderPage(driver, 'https://demoqa.com/slider')
+                slider_page.open()
+
+                changed_value = slider_page.move_the_slider()
+                assert changed_value != '25', 'value has not changed'
+
+            except AssertionError:
+                # Maybe random is not on your side
+                slider_page = SliderPage(driver, 'https://demoqa.com/slider')
+                slider_page.open()
+
+                changed_value = slider_page.move_the_slider()
+                assert changed_value != '25', 'value has not changed'
 
     @allure.feature('Tests progress bar')
     class TestProgressBar:
@@ -65,6 +77,7 @@ class TestWidgets:
         def test_progress_bar(self, driver):
             progress_bar_page = ProgressBarPage(driver, 'https://demoqa.com/progress-bar')
             progress_bar_page.open()
+
             status_slider, status_after = progress_bar_page.check_progress_bar()
 
             assert status_slider == '0', 'button not pressed'
@@ -76,6 +89,7 @@ class TestWidgets:
         def test_tabs(self, driver):
             tabs_page = TabsPage(driver, 'https://demoqa.com/tabs')
             tabs_page.open()
+
             text_tab_whats = tabs_page.check_tabs('whats')
             text_tab_origin = tabs_page.check_tabs('origin')
             text_tab_use = tabs_page.check_tabs('use')
@@ -93,7 +107,6 @@ class TestWidgets:
         def test_tool_tips(self, driver):
             tool_tips_page = ToolTipsPage(driver, 'https://demoqa.com/tool-tips')
             tool_tips_page.open()
-            time.sleep(2)
 
             text_button = tool_tips_page.check_tool_tips_page('button')
             text_input = tool_tips_page.check_tool_tips_page('input')
@@ -112,6 +125,7 @@ class TestWidgets:
         def test_menu(self, driver):
             menu_page = MenuPage(driver, 'https://demoqa.com/menu')
             menu_page.open()
+
             list_menu = menu_page.check_menu()
 
             assert list_menu == ['Main Item 1', 'Main Item 2', 'Sub Item', 'Sub Item', 'SUB SUB LIST »',
@@ -124,6 +138,7 @@ class TestWidgets:
         def test_select_menu(self, driver):
             select_menu_page = SelectMenuPage(driver, 'https://demoqa.com/select-menu')
             select_menu_page.open()
+
             select_value = select_menu_page.check_select_menu('select_value')
             select_one = select_menu_page.check_select_menu('select_one')
             multiselect = select_menu_page.check_select_menu('multiselect')

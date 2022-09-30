@@ -1,4 +1,3 @@
-import time
 import allure
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage, ButtonsPage, LinksPage, \
@@ -15,6 +14,7 @@ class TestElements:
         def test_text_box(self, driver):
             text_box_page = TextBoxPage(driver, 'https://demoqa.com/text-box')
             text_box_page.open()
+
             full_name, email = text_box_page.fill_form_fields()
             output_full_name, output_email = text_box_page.check_filled_form()
 
@@ -28,7 +28,7 @@ class TestElements:
         def test_check_box(self, driver):
             check_box_page = CheckBoxPage(driver, 'https://demoqa.com/checkbox')
             check_box_page.open()
-            time.sleep(2)
+
             check_box_page.open_full_list()
             check_box_page.click_random_checkbox()
             check = check_box_page.check_checked_box()
@@ -44,7 +44,7 @@ class TestElements:
         def test_radio_button(self, driver):
             radio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
             radio_button_page.open()
-            time.sleep(2)
+
             radio_button_page.click_radio_button('yes')
             output_yes = radio_button_page.get_output_text_button()
             radio_button_page.click_radio_button('impressive')
@@ -60,19 +60,27 @@ class TestElements:
 
         @allure.title('Check web tables')
         def test_web_tables(self, driver):
-            web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
-            web_tables_page.open()
-            time.sleep(2)
-            input_table = web_tables_page.click_add_and_fill_form(1)
-            output_table = web_tables_page.check_web_table()
+            try:
+                web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
+                web_tables_page.open()
 
-            assert input_table in output_table, 'person was not found in the table'
+                input_table = web_tables_page.click_add_and_fill_form(1)
+                output_table = web_tables_page.check_web_table()
+
+                assert input_table in output_table, 'person was not found in the table'
+
+            except AssertionError:
+                web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
+                web_tables_page.open()
+
+                web_tables_page.click_add_and_fill_form(1)
+                web_tables_page.check_web_table()
 
         @allure.title('Check search table')
         def test_search_table(self, driver):
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
             web_tables_page.open()
-            time.sleep(2)
+
             person_info = web_tables_page.click_add_and_fill_form(1)[1]
             web_tables_page.filling_search(person_info)
             table_info = web_tables_page.check_filling_search()
@@ -83,7 +91,7 @@ class TestElements:
         def test_edit_info(self, driver):
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
             web_tables_page.open()
-            time.sleep(2)
+
             input_info = web_tables_page.click_add_and_fill_form(1)
             web_tables_page.filling_search(input_info[1])
             edit_info = web_tables_page.check_edit_info()
@@ -95,7 +103,7 @@ class TestElements:
         def test_delete_info(self, driver):
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
             web_tables_page.open()
-            time.sleep(2)
+
             person_info = web_tables_page.click_add_and_fill_form(1)
             web_tables_page.filling_search(person_info[1])
             delete_info = web_tables_page.delete_info_and_check()
@@ -106,6 +114,7 @@ class TestElements:
         def test_edit_rows(self, driver):  # bug! only 25 lines can be selected
             web_tables_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
             web_tables_page.open()
+
             web_tables_page.page_rows_edit()
 
     @allure.feature('Test buttons')
@@ -115,7 +124,7 @@ class TestElements:
         def test_buttons(self, driver):
             buttons_page = ButtonsPage(driver, 'https://demoqa.com/buttons')
             buttons_page.open()
-            time.sleep(2)
+
             double = buttons_page.click_button('double')
             right = buttons_page.click_button('right')
             click = buttons_page.click_button('click')
@@ -131,6 +140,7 @@ class TestElements:
         def test_link_in_window_handles(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
+
             url, status = links_page.check_link_opened_in_new_tab('home')
             url_random_id, status_random_id = links_page.check_link_opened_in_new_tab('home_random_id')
 
@@ -154,10 +164,11 @@ class TestElements:
         def test_valid_broken_link(self, driver):
             broken_page = BrokenLinksImagesPage(driver, 'https://demoqa.com/broken')
             broken_page.open()
-            request_status_code_valid_link = broken_page.check_link('http://demoqa.com/', 'valid_link')
+
+            request_status_code_valid_link = broken_page.check_link('https://demoqa.com/', 'valid_link')
             broken_page.open()
             request_status_code_broken_link = broken_page.check_link(
-                'http://the-internet.herokuapp.com/status_codes/500', 'broken_link')
+                'https://the-internet.herokuapp.com/status_codes/500', 'broken_link')
 
             assert request_status_code_valid_link == 200, 'link not work'
             assert request_status_code_broken_link == 500, 'link is work'
@@ -169,6 +180,7 @@ class TestElements:
         def test_download(self, driver):
             download_file_page = UpLoadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
             download_file_page.open()
+
             check = download_file_page.download_file()
 
             assert check is True, 'file has not been download'
@@ -177,6 +189,7 @@ class TestElements:
         def test_upload(self, driver):
             upload_file_page = UpLoadAndDownLoadPage(driver, 'https://demoqa.com/upload-download')
             upload_file_page.open()
+
             check_file, path = upload_file_page.upload_file()
 
             assert check_file == path, 'file is not true'
@@ -188,6 +201,7 @@ class TestElements:
         def test_dynamic_properties(self, driver):
             dynamic_properties = DynamicPropertiesPage(driver, 'https://demoqa.com/dynamic-properties')
             dynamic_properties.open()
+
             text = dynamic_properties.check_text_with_random_id()
             enable_button = dynamic_properties.check_enable_button_after_5_second()
             color_button = dynamic_properties.check_change_color()

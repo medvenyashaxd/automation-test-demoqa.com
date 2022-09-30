@@ -41,11 +41,11 @@ class WebTablesLocators:
     DEPARTMENT = (By.CSS_SELECTOR, 'input[id="department"]')
     BUTTON_SUBMIT = (By.CSS_SELECTOR, 'button[id="submit"]')
     SCROLL_TO_ELEMENTS = (By.CSS_SELECTOR, 'div[class="mt-2 row"]')
-
     TABLE_PERSON = (By.CSS_SELECTOR, 'div[class="rt-tr-group"]')
+
     # xpath
     ROW = ".//ancestor::div[@class='rt-tr-group']"
-    SEARCH_FIELD = (By.CSS_SELECTOR, ' input[id="searchBox"]')
+    SEARCH_FIELD = (By.CSS_SELECTOR, 'input[id="searchBox"]')
 
     BUTTON_DELETE = (By.CSS_SELECTOR, 'span[title="Delete"]')
     EDIT_BUTTON = (By.CSS_SELECTOR, 'span[title="Edit"]')

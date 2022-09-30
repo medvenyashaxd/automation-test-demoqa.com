@@ -1,6 +1,6 @@
 import random
 
-from data.data_for_info import PropertiesForInformation, Subject, Color, Book
+from data.data_class import PropertiesForInformation, Subject, Color, Book
 from faker import Faker
 
 faker = Faker('en.US')

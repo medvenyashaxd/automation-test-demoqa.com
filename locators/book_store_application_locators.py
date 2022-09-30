@@ -5,7 +5,7 @@ class BookStoreApplicationLocators:
     # login
     USER_NAME = (By.CSS_SELECTOR, 'div #userName')
     PASSWORD = (By.CSS_SELECTOR, 'div #password')
-    LOGIN = (By.CSS_SELECTOR, 'div #login')
+    BUTTON_LOGIN = (By.CSS_SELECTOR, 'div #login')
 
     # profile
     SEARCH_BOOK = (By.CSS_SELECTOR, 'input[id="searchBox"]')

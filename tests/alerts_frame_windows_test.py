@@ -13,6 +13,7 @@ class TestAlertsFrameWindows:
         def test_browser_windows(self, driver):
             browser_windows_page = BrowserWindowPage(driver, 'https://demoqa.com/browser-windows')
             browser_windows_page.open()
+
             new_tab = browser_windows_page.check_browser_window('new_tab')
             new_window = browser_windows_page.check_browser_window('new_window')
             new_window_message = browser_windows_page.check_browser_window('new_window_message')
@@ -27,6 +28,7 @@ class TestAlertsFrameWindows:
         def test_alerts(self, driver):
             alerts_page = AlertPage(driver, 'https://demoqa.com/alerts')
             alerts_page.open()
+
             simple_alert = alerts_page.check_alerts('simple_alert')
             time_alert = alerts_page.check_alerts('time_alert')
             box_alert = alerts_page.check_alerts('box_alert')
@@ -44,6 +46,7 @@ class TestAlertsFrameWindows:
         def test_frames(self, driver):
             frames_page = FramesPage(driver, 'https://demoqa.com/frames')
             frames_page.open()
+
             frame1wrapper = frames_page.check_frames('frame1wrapper', 'text')
             frame2wrapper = frames_page.check_frames('frame2wrapper', 'text')
 
@@ -56,6 +59,7 @@ class TestAlertsFrameWindows:
         def test_nested_frames(self, driver):
             nested_frames_page = NestedFrames(driver, 'https://demoqa.com/nestedframes')
             nested_frames_page.open()
+
             frames_info = nested_frames_page.check_nested_frames()
 
             assert frames_info == ['500px', '350px', 'Parent frame', 'Child Iframe'], 'info does not match'
@@ -67,6 +71,7 @@ class TestAlertsFrameWindows:
         def test_modal_dialogs(self, driver):
             modal_dialogs_page = ModalDialogs(driver, 'https://demoqa.com/modal-dialogs')
             modal_dialogs_page.open()
+
             small_modal = modal_dialogs_page.check_modal_dialogs('small')
             large_modal = modal_dialogs_page.check_modal_dialogs('large')
 

@@ -45,7 +45,7 @@ class DroppableLocators:
     NOT_GREEDY_BOX = (By.CSS_SELECTOR, 'div #notGreedyInnerDropBox')
     TEXT_NOT_GREEDY_BOX = (By.XPATH, '//div[2]/div/div[3]/div/div[2]/div[1]/p')
     TEXT_NOT_GREEDY = (By.CSS_SELECTOR, 'div #notGreedyDropBox  [class="drop-box ui-droppable ui-state-highlight"] p')
-    #greedy
+    # greedy
     GREEDY_BOX = (By.CSS_SELECTOR, 'div #greedyDropBoxInner')
     GREEDY_BOX_TEXT = (By.XPATH, '//div[2]/div[2]/p')
     GREEDY_TEXT = (By.CSS_SELECTOR, 'div[id="greedyDropBox"] [class="drop-box ui-droppable ui-state-highlight"] P')
@@ -68,4 +68,4 @@ class DraggableLocators:
 
     CONTAINER_RESTRICTED_TAB = (By.CSS_SELECTOR, 'nav #draggableExample-tab-containerRestriction')
     BOX_WITHIN_CONTAINER = (By.CSS_SELECTOR, 'div[class="draggable ui-widget-content ui-draggable ui-draggable-handle"]')
-    BOX_PARENT_CONTAINER = (By.CSS_SELECTOR , 'span[class="ui-widget-header ui-draggable ui-draggable-handle"]')
+    BOX_PARENT_CONTAINER = (By.CSS_SELECTOR, 'span[class="ui-widget-header ui-draggable ui-draggable-handle"]')
