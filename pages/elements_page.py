@@ -254,7 +254,7 @@ class LinksPage(BasePage):
         if request.status_code == 200:
             link.click()
             self.switch_to_window(1)
-            url = self.driver.current_url
+            url = self.__driver.current_url
             self.switch_to_window(0)
 
             return [url, request.status_code]
