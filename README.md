@@ -1,5 +1,7 @@
 # Quality assurance tests website demoqa.com
 
+Tests are based on selenium and reports on allure
+ 
 In this test, there are such elements as: 
 Text box Check box Radio button Web tables
 
