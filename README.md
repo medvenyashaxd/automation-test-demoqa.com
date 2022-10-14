@@ -1,5 +1,8 @@
 # Quality assurance tests website demoqa.com
 
+![demoqa_test_](https://user-images.githubusercontent.com/110237352/195880036-7bda9612-43d9-42c8-b01c-53982e7a3171.gif)
+
+
 Tests are based on selenium and reports on allure
  
 In this test, there are such elements as: 
@@ -24,3 +27,7 @@ Widgets: accordian, autocomplete, datepicker, slider, progress bar, tabs, tool t
 Interactions: sortable, selectable, resizable, droppable, draggable
 
 Book store application
+
+
+allure report:
+![demoqa_allure_1](https://user-images.githubusercontent.com/110237352/195879127-2de019c0-d16e-4d27-9505-f86450a92619.gif)
