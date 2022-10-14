@@ -254,7 +254,7 @@ class LinksPage(BasePage):
         if request.status_code == 200:
             link.click()
             self.switch_to_window(1)
-            url = self.__driver.current_url
+            url = self.driver.current_url
             self.switch_to_window(0)
 
             return [url, request.status_code]
@@ -321,7 +321,7 @@ class UpLoadAndDownLoadPage(BasePage):
             link = self.element_is_present(locator.DOWNLOAD_BUTTON).get_attribute('href').split(',')
             link_b = base64.b64decode(link[1])
 
-        path = fr'C:\Users\xmedv\PycharmProjects\Quality-assurance-tests\tests\SomeImgFile{random.randint(1, 10)}.txt'
+        path = fr'C:\Users\xmedv\PycharmProjects\automation-test-demoqa.com\tests\SomeImgFile{random.randint(1, 10)}.txt'
         with open(path, 'wb+') as f:
             f.write(link_b)
             check_file = os.path.exists(path)
@@ -332,7 +332,7 @@ class UpLoadAndDownLoadPage(BasePage):
 
     @allure.step('Check upload file')
     def upload_file(self, locator=locators):
-        path = fr'C:\Users\xmedv\PycharmProjects\Quality-assurance-tests\tests\SomeImgFile{random.randint(1, 10)}.txt'
+        path = fr'C:\Users\xmedv\PycharmProjects\automation-test-demoqa.com\tests\SomeImgFile{random.randint(1, 10)}.txt'
         file = open(path, 'w')
         file.write(f'qwert{random.randint(1, 100)}')
         file.close()

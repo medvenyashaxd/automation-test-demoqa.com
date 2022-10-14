@@ -44,7 +44,7 @@ class PracticeFormPage(BasePage):
             self.element_is_visible(locator.HOBBIES).click()
 
         with allure.step('Create a file and upload to the site'):
-            path = fr'C:\Users\xmedv\PycharmProjects\Quality-assurance-tests\pages{random.randint(1, 10)}.txt'
+            path = fr'C:\Users\xmedv\PycharmProjects\automation-test-demoqa.com\pages{random.randint(1, 10)}.txt'
             file = open(path, 'w')
             file.write(f'qwert{random.randint(1, 100)}')
             file.close()
