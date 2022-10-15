@@ -1,4 +1,4 @@
-# Automation tests website demoqa.com
+# Automation test website demoqa.com
 
 ![demoqa_test_](https://user-images.githubusercontent.com/110237352/195880036-7bda9612-43d9-42c8-b01c-53982e7a3171.gif)
 
